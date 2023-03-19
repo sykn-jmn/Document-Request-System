@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div>
+    <div class=title>
         <h1 class="text-2xl">eDokumento</h1>
     </div>
     <nav>
@@ -10,6 +10,9 @@
             <li><NuxtLink to="https://nuxtjs.org">Services</NuxtLink></li>
         </ul>
     </nav>
+    <p class="signup">
+        Signup
+    </p>
   </div>
 </template>
 
