@@ -6,6 +6,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    letter-spacing: 2px;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(2,2,69,1) 35%, rgba(0,212,255,1) 100%);
     @apply text-white
@@ -30,7 +31,7 @@ body {
 
 .signup {
     position:absolute;
-    right:13%;
+    right:0%;
     font-size:20px;
 
 }
@@ -49,16 +50,15 @@ nav > ul > li {
     margin-left:30%;
 }
 
-.home{
-    display:flex;
+.home{    
     margin:auto;
-    padding:5%;
+    padding:7%;
+    @apply flex justify-between
 }
 
 .home > div > h1{
     font-size:50px;
     font-weight:700;
-    
 }
 
 .description-title > h1{
@@ -67,12 +67,12 @@ nav > ul > li {
     
 }
 .form-wrapper{
-    margin-left: 10%;
     @apply px-20
 }
 
 form{
-    @apply text-black rounded-3xl p-16
+    
+    @apply text-black rounded-3xl p-16 shadow-xl bg-white w-fit m-auto
 }
 
 form > h1{
@@ -82,11 +82,20 @@ form > h1{
     text-align: center;
 }
 
-form > input{
+form > input[type="text"]{
     font-size:20px;
     padding:10px;
     width:400px;
     @apply border border-blue-700 rounded-md focus:outline-none
+}
+form > div > select{
+    font-size:20px;
+    padding:10px;
+    width: 100%;
+    @apply border border-blue-700 rounded-md focus:outline-none
+}
+.select-container{
+    @apply flex
 }
 
 .button-wrapper{
@@ -94,7 +103,13 @@ form > input{
     font-size:20px;
 }
 
+.index-container{
+    @apply w-11/12 m-auto
+}
 
+.registration-container{
+    padding-top:100px;
+}
 
 
 
