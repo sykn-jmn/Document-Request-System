@@ -9,16 +9,19 @@
                 <input type="text" id="lastname" name="lastname" placeholder="Last Name"><br><br>
                 <div class="select-container">
                     <select id="gender" name="gender" placeholder="Gender">
+                        <option value="" disabled selected hidden>Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="non-binary">Non-binary</option>
                         <option value="others">Not to mention</option>
-                    </select><br><br>
+                    </select>
                     <select id="civil_status" name="civil_Status" placeholder="Civil Status">
+                        <option value="" disabled selected hidden>Civil Status</option>
                         <option value="single">Single</option>
                         <option value="non-binary">Married</option>
                     </select>
-                </div>
+                </div><br>
+                <input type="date" class="w-full">
             </form>
     </div>
 </div>
