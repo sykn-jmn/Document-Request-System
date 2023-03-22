@@ -1,7 +1,7 @@
 <template>
     <div class="registration-container">
+        <h1 class="text-center text-2xl">eDokumento</h1><br>
         <div class="form-wrapper m-auto" v-if="!data.nextForm">
-            <h1 class="text-center text-2xl">eDokumento</h1><br>
             <form>
                 <div class="form-container">
                     <p class="text-center">Step 1 of 2</p><br><br><br>
@@ -36,19 +36,59 @@
                 </div>
             </form><br>
         </div>
+        <div class="form-wrapper m-auto" v-else>
+            <form>
+                <div class="form-container">
+                    <p class="text-center">Step 2 of 2</p><br><br><br>
+                    <input type="number" id="phone_number" name="phone_number" placeholder="Mobile Number (09XXXXXXXXX)" min="11" required><br><br>
+                    <input type="email" id="email" name="email" placeholder="Email Address" required><br><br>
+                    <div class="input-container">
+                        <div class="password-container">
+                            <input class="border-none" :type="data.passwordFieldType " id="password" name="password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', data.eyeIconType]" class="eyeIcon" @click="data.showPassword= !data.showPassword"/>
+                        </div><br><br>
+                        <div class="password-container" >
+                            <input class="border-none" :type="data.confirmPasswordFieldType" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', data.confirmEyeIconType]" class="eyeIcon" @click="showConfirmPassword"/>
+                        </div>
+                    </div>    
+                </div><br>
+                <div class="button-wrapper text-center">
+                    <button class="py-4 bg-sky-900 rounded-full w-96 m-auto font-bold text-white text-2xl shadow-xl">Next</button>
+                </div>
+            </form><br>
+        </div>
     </div>
   
 </template>
 
 <script lang="ts">
-import { reactive } from 'vue'
+import { reactive, watch} from 'vue'
 export default {
     setup(){
         const data = reactive({
             nextForm:false,
+            passwordFieldType:"password",
+            confirmPasswordFieldType:"password",
+            eyeIconType:"eye-slash",
+            confirmEyeIconType:"eye-slash",
+            showPassword:false,
+            confirmShowPassword:false,
         })
 
-        return data
+        const showPassword=  () =>{
+
+        }
+
+        watch(this.data.showPassword, (newvalue) => {
+            if(this.data.showPassword){
+                this.data.passwordFieldType = "text"
+                this.data.eyeIconType = "eye"
+            }
+ 
+        });
+
+        
+
+        return {data}
     }
 }
 </script>
