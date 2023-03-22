@@ -1,6 +1,6 @@
 <template>
     <div class="registration-container">
-        <div class="form-wrapper m-auto">
+        <div class="form-wrapper m-auto" v-if="!data.nextForm">
             <h1 class="text-center text-2xl">eDokumento</h1><br>
             <form>
                 <div class="form-container">
@@ -8,8 +8,8 @@
                     <input type="text" id="firstname" name="firstname" placeholder="First Name" required><br><br>
                     <input type="text" id="middlename" name="middlename" placeholder="Middle Name" required><br><br>
                     <input type="text" id="lastname" name="lastname" placeholder="Last Name" required><br><br>
-                    <div class="select-container" required>
-                        <select id="gender" name="gender" placeholder="Gender">
+                    <div class="select-container">
+                        <select id="gender" name="gender" placeholder="Gender" required>
                             <option value="" disabled selected hidden>Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -23,27 +23,33 @@
                         </select>
                     </div><br>
                     <label>Birthdate</label>
-                    <input type="date" class="w-full"><br><br>
+                    <input type="date" class="w-full" required><br><br>
                     <label>Mother's Maiden Name</label>
                     <div class="input-container">
                         <input type="text" id="firstname" name="firstname" placeholder="First Name" required>
-                        <input type="text" id="firstname" name="firstname" placeholder="Middle Name" required>
-                        <input type="text" id="firstname" name="firstname" placeholder="Laste Name" required>
+                        <input type="text" id="middlename" name="middlename" placeholder="Middle Name" required>
+                        <input type="text" id="lastname" name="lasttname" placeholder="Last Name" required>
                     </div>    
                 </div><br>
                 <div class="button-wrapper text-center">
-                    <button class="py-4 bg-sky-900 rounded-full w-96 m-auto font-bold text-white text-2xl shadow-xl">Next</button>
+                    <button class="py-4 bg-sky-900 rounded-full w-96 m-auto font-bold text-white text-2xl shadow-xl" @click="data.nextForm = !data.nextForm">Next</button>
                 </div>
             </form><br>
-            
+        </div>
     </div>
-</div>
   
 </template>
 
 <script lang="ts">
+import { reactive } from 'vue'
 export default {
+    setup(){
+        const data = reactive({
+            nextForm:false,
+        })
 
+        return data
+    }
 }
 </script>
 

@@ -74,6 +74,7 @@ nav > ul > li {
 }
 .login-form{
     width:480px;
+    @apply text-black rounded-3xl p-12 shadow-xl bg-white m-auto 
 }
 form > h1{
     font-size:25px;
