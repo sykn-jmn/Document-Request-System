@@ -47,7 +47,7 @@
                             <input class="border-none" :type="data.passwordFieldType " id="password" name="password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', data.eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
                         </div><br><br>
                         <div class="password-container" >
-                            <input class="border-none" :type="data.confirmPasswordFieldType" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', data.confirmEyeIconType]" class="eyeIcon" @click="sowConfirmPassword"/>
+                            <input class="border-none" :type="data.confirmPasswordFieldType" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', data.confirmEyeIconType]" class="eyeIcon" @click="showConfirmPassword = !showConfirmPassword"/>
                         </div>
                     </div>    
                 </div><br>
@@ -70,19 +70,37 @@ export default {
             confirmPasswordFieldType:"password",
             eyeIconType:"eye-slash",
             confirmEyeIconType:"eye-slash",
-            confirmShowPassword:false,
         })
 
         const showPassword = ref(false);
+        const showConfirmPassword = ref(false);
 
         watch(showPassword , (prev, newvalue) => {
-            console.log(showPassword.value)
+            if(showPassword.value){
+                data.passwordFieldType = "text"
+                data.eyeIconType = "eye"
+            }else{
+                data.passwordFieldType = "password"
+                data.eyeIconType = "eye-slash"
+            }
+            
+ 
+        });
+
+        watch(showConfirmPassword , (prev, newvalue) => {
+            if(showConfirmPassword.value){
+                data.confirmPasswordFieldType = "text"
+                data.confirmEyeIconType = "eye"
+            }else{
+                data.confirmPasswordFieldType = "password"
+                data.confirmEyeIconType = "eye-slash"
+            }
  
         });
 
         
 
-        return {data, showPassword}
+        return {data, showPassword, showConfirmPassword}
     }
 }
 </script>
