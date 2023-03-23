@@ -3,7 +3,7 @@
         <div class="index-container">
             <div class="header">
                 <div class=title>
-                    <h1 class="text-2xl">eDokumento</h1>
+                    <h1 class="text-2xl">{{$config.appName}}</h1>
                 </div>
                 <nav>
                     <ul>
@@ -32,9 +32,11 @@
 </template>
 
 <script lang="ts">
+import dotenv from 'dotenv'
 export default {
     setup(){
 
+        return{dotenv}
     }
 }
 </script>
