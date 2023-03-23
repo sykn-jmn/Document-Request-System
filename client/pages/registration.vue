@@ -44,10 +44,10 @@
                     <input type="email" id="email" name="email" placeholder="Email Address" required><br><br>
                     <div class="input-container">
                         <div class="password-container">
-                            <input class="border-none" :type="data.passwordFieldType " id="password" name="password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', data.eyeIconType]" class="eyeIcon" @click="data.showPassword= !data.showPassword"/>
+                            <input class="border-none" :type="data.passwordFieldType " id="password" name="password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', data.eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
                         </div><br><br>
                         <div class="password-container" >
-                            <input class="border-none" :type="data.confirmPasswordFieldType" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', data.confirmEyeIconType]" class="eyeIcon" @click="showConfirmPassword"/>
+                            <input class="border-none" :type="data.confirmPasswordFieldType" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', data.confirmEyeIconType]" class="eyeIcon" @click="sowConfirmPassword"/>
                         </div>
                     </div>    
                 </div><br>
@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, watch} from 'vue'
+import { reactive, watch, ref} from 'vue'
 export default {
     setup(){
         const data = reactive({
@@ -70,25 +70,19 @@ export default {
             confirmPasswordFieldType:"password",
             eyeIconType:"eye-slash",
             confirmEyeIconType:"eye-slash",
-            showPassword:false,
             confirmShowPassword:false,
         })
 
-        const showPassword=  () =>{
+        const showPassword = ref(false);
 
-        }
-
-        watch(this.data.showPassword, (newvalue) => {
-            if(this.data.showPassword){
-                this.data.passwordFieldType = "text"
-                this.data.eyeIconType = "eye"
-            }
+        watch(showPassword , (prev, newvalue) => {
+            console.log(showPassword.value)
  
         });
 
         
 
-        return {data}
+        return {data, showPassword}
     }
 }
 </script>
