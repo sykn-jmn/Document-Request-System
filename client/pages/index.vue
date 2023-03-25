@@ -3,7 +3,7 @@
         <div class="index-container">
             <div class="header">
                 <div class=title>
-                    <h1 class="text-2xl">{{$config.appName}}</h1>
+                    <h1 class="text-2xl">{{data.appName}}</h1>
                 </div>
                 <nav>
                     <ul>
@@ -32,11 +32,14 @@
 </template>
 
 <script lang="ts">
-import dotenv from 'dotenv'
+import {reactive} from 'vue'
 export default {
     setup(){
-
-        return{dotenv}
+        const runtimeConfig = useRuntimeConfig()
+        const data = reactive({
+            appName: runtimeConfig.appName
+        })
+        return {data}
     }
 }
 </script>

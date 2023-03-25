@@ -64,12 +64,14 @@
 import { reactive, watch, ref} from 'vue'
 export default {
     setup(){
+        const runtimeConfig = useRuntimeConfig()
         const data = reactive({
             nextForm:false,
             passwordFieldType:"password",
             confirmPasswordFieldType:"password",
             eyeIconType:"eye-slash",
             confirmEyeIconType:"eye-slash",
+            appName: runtimeConfig.appName,
         })
 
         const showPassword = ref(false);
