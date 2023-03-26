@@ -5,7 +5,7 @@
                 <div class=title>
                     <h1 class="text-2xl">{{$config.appName}}</h1>
                 </div>
-                <nav>
+                <nav class="navHome">
                     <ul>
                         <li><NuxtLink to="https://nuxtjs.org">Home</NuxtLink></li>
                         <li><NuxtLink to="https://nuxtjs.org">About </NuxtLink></li>

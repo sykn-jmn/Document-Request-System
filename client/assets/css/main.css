@@ -34,18 +34,44 @@ body {
     font-size:20px;
 
 }
-
-nav{
-    margin-left:15%;
+.nav_profile{
+    @apply py-4 px-8
 }
-nav > ul {
-    display:flex;
+.navUser{
+    width:480px;
+    @apply bg-stone-800
+}
+.navUser > ul > li{
+    @apply flex items-center
+}
+
+.navUser > ul > li > .nav_link > span{
+    @apply mr-4
+}
+.navLink{
+    @apply w-full
+}
+
+.navUser > ul > li > .nav_link{
+    @apply pl-12 py-4 hover:bg-stone-900
+}
+
+.navUser > ul > li{
+    @apply hover:bg-stone-900
+}
+
+nav > ul{
     font-size:20px;
     font-weight: 500;
-
+}
+.navHome{
+    margin-left:15%;
+}
+.navHome > ul {
+    display:flex;
 }
 
-nav > ul > li {
+.navHome > ul > li {
     margin-left:30%;
 }
 

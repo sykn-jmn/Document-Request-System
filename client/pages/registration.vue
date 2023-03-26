@@ -1,6 +1,6 @@
 <template>
     <div class="registration-container">
-        <h1 class="text-center text-2xl">{{this.$config.appName}}</h1><br>
+        <h1 class="text-center text-2xl">{{$config.appName}}</h1><br>
         <div class="form-wrapper m-auto" v-if="!data.nextForm">
             <form>
                 <div class="form-container">

@@ -1,11 +1,10 @@
 <template>
-  <div class="layout">
-    <Header />
+  <div class="user_layout w-screen bg-black h-screen">
+    <HeaderUser />
     <div class="flex">
-      <Nav />
+      <NavUser />
       <slot />
     </div>
-    <Footer />
   </div>
 </template>
 
