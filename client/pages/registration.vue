@@ -1,6 +1,6 @@
 <template>
     <div class="registration-container">
-        <h1 class="text-center text-2xl">eDokumento</h1><br>
+        <h1 class="text-center text-2xl">{{this.$config.appName}}</h1><br>
         <div class="form-wrapper m-auto" v-if="!data.nextForm">
             <form>
                 <div class="form-container">
@@ -64,19 +64,15 @@
 import { reactive, watch, ref} from 'vue'
 export default {
     setup(){
-        const runtimeConfig = useRuntimeConfig()
         const data = reactive({
             nextForm:false,
             passwordFieldType:"password",
             confirmPasswordFieldType:"password",
             eyeIconType:"eye-slash",
             confirmEyeIconType:"eye-slash",
-            appName: runtimeConfig.appName,
         })
-
         const showPassword = ref(false);
         const showConfirmPassword = ref(false);
-
         watch(showPassword , (prev, newvalue) => {
             if(showPassword.value){
                 data.passwordFieldType = "text"
@@ -88,7 +84,6 @@ export default {
             
  
         });
-
         watch(showConfirmPassword , (prev, newvalue) => {
             if(showConfirmPassword.value){
                 data.confirmPasswordFieldType = "text"
@@ -99,9 +94,7 @@ export default {
             }
  
         });
-
         
-
         return {data, showPassword, showConfirmPassword}
     }
 }

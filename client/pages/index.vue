@@ -3,7 +3,7 @@
         <div class="index-container">
             <div class="header">
                 <div class=title>
-                    <h1 class="text-2xl">{{data.appName}}</h1>
+                    <h1 class="text-2xl">{{$config.appName}}</h1>
                 </div>
                 <nav>
                     <ul>
@@ -35,11 +35,7 @@
 import {reactive} from 'vue'
 export default {
     setup(){
-        const runtimeConfig = useRuntimeConfig()
-        const data = reactive({
-            appName: runtimeConfig.appName
-        })
-        return {data}
+
     }
 }
 </script>

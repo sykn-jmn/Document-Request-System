@@ -1,7 +1,10 @@
 <template>
   <div class="layout">
     <Header />
-    <slot />
+    <div class="flex">
+      <Nav />
+      <slot />
+    </div>
     <Footer />
   </div>
 </template>
