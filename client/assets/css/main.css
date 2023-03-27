@@ -37,8 +37,12 @@ body {
 .nav_profile{
     @apply py-4 px-8
 }
+.nav_header{
+    background-color: #0A436C;
+    @apply py-4
+}
 .navUser{
-    width:480px;
+    width:380px;
     @apply bg-stone-800
 }
 .navUser > ul > li{
