@@ -39,7 +39,7 @@ body {
 }
 .nav_header{
     background-color: #0A436C;
-    @apply py-4
+    @apply h-16 py-4
 }
 .navUser{
     width:380px;
