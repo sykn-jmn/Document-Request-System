@@ -1,7 +1,7 @@
 <template>
-  <div class="user_layout flex min-h-screen">
+  <div class="user_layout flex w-full min-h-screen bg-green-100">
       <NavUser />
-      <div>
+      <div class="w-full h-full">
         <HeaderUser />
         <slot />
       </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="sticky top-0 bg-sky-700 pl-4 pr-8 flex justify-between items-center h-16 py-4">
+    <div class="sticky top-0 bg-sky-700 pl-4 pr-8 flex justify-between items-center h-16 py-4 w-full">
         <div class="text-2xl">
             <font-awesome-icon :icon="['fass', 'bars']" size="xl" />
         </div>

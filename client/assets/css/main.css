@@ -43,7 +43,7 @@ body {
 }
 .navUser{
     width:380px;
-    @apply bg-stone-800
+    @apply bg-stone-800 h-full
 }
 .navUser > ul > li{
     @apply flex items-center
@@ -168,5 +168,8 @@ form > input[type="date"]{
 }
 .password-container{
     @apply flex items-center px-2 border border-blue-700 rounded-md
+}
+th, td {
+    @apply py-2 pr-16   
 }
 
