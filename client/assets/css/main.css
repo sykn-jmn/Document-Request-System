@@ -174,11 +174,15 @@ th, td {
 }
 
 .request_container{
-    @apply rounded-xl border-2 border-black p-4 text-xl mb-8
+    @apply rounded-2xl border-2 border-black p-8 text-xl mb-8
 }
 .request_container > h2{
     @apply font-bold
 }
+.request_container > input{
+    @apply mt-4
+}
+
 .request_container > button{
     @apply py-2 px-8 rounded-2xl mt-4
 }
