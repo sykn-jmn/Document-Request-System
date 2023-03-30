@@ -180,15 +180,26 @@ th, td {
     @apply font-bold
 }
 .request_container > input{
-    @apply mt-4
+    @apply mt-4 border-none  p-0
+}
+input::file-selector-button {
+    @apply rounded-2xl py-2 w-48 bg-red-700 border-none uppercase text-white
 }
 
 .request_container > button{
-    @apply py-2 px-8 rounded-2xl mt-4
+    @apply py-2 rounded-2xl mt-4 w-48
+}
+.request_container > .status{
+    @apply ml-2 text-slate-400
 }
 .request_container > button:nth-of-type(1){
     @apply bg-green-600 text-white
 }
-.request_container > button:nth-of-type(2){
-    @apply bg-orange-600 text-white
+
+.isButtonDisabled{
+    @apply bg-stone-500 text-white
+}
+
+.isButtonEnabled{
+    @apply bg-orange-500 text-white
 }
