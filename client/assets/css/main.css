@@ -173,3 +173,18 @@ th, td {
     @apply py-2 pr-16   
 }
 
+.request_container{
+    @apply rounded-xl border-2 border-black p-4 text-xl mb-8
+}
+.request_container > h2{
+    @apply font-bold
+}
+.request_container > button{
+    @apply py-2 px-8 rounded-2xl mt-4
+}
+.request_container > button:nth-of-type(1){
+    @apply bg-green-600 text-white
+}
+.request_container > button:nth-of-type(2){
+    @apply bg-orange-600 text-white
+}
