@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('birthdate');
             $table->enum('gender',['male','female','non-binary','not to mention']);
             $table->enum('civil_status',['single','married']);
+            $table->string('position');
             $table->string('mobile_number');
             $table->string('mothers_firstname');
             $table->string('mothers_middlename');

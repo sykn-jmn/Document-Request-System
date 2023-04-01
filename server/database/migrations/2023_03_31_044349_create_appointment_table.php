@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->bigInteger('request_id')->index();
-            $table->timestamps('schedule');
+            $table->timestamp('schedule');
             $table->string('status');
             $table->bigInteger('admin')->index();
             $table->timestamps();
