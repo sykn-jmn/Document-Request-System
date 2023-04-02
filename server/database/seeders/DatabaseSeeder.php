@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'mothers_firstname' => 'Jeniza',
             'mothers_middlename' => 'O.',
             'mothers_lastname' => 'Apus',
-            'password' => bcrypt('123456789'),
+            'password' => bycrypt('123456789'),
         ]);
     }
 }
