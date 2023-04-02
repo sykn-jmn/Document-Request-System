@@ -12,19 +12,25 @@ class UserAuth
 {
     public function login($payload)
     {
+        $data = [
+            'email'=> $payload->email,
+            'password'=>$payload->password
+        ];
 
+        //  return response()->json($payload);
          $user = User::where('id', 1)->first();
 
 
-        if (!Auth::guard('admin')->attempt($payload)) {
+        if (!Auth::guard('users')->attempt($data)) {
             return response()->json([
                 'message' => 'Invalid login details'
             ], 401);
         }
-        
+        Log::info('hello');
+        Log::info(Auth::guard('users')->user());
         // $payload->session()->regenerate();
         return response()->json([
-            'message' => Auth::user()
+            'message' => 'success'
         ], 200);
     }
     public function logout($payload)
