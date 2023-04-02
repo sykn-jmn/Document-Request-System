@@ -23,5 +23,27 @@ export default defineNuxtConfig({
           global: true,
           
         }
-      ]
-  })
+      ],
+    modules: [
+      'nuxt-sanctum-auth',
+    ],
+    axios: {
+      credentials: true,
+    },
+    ssr: false,
+    nuxtSanctumAuth: {
+      token: false, // set true to use jwt-token auth instead of cookie. default is false
+      baseUrl: 'http://localhost:8000/api',
+      endpoints: {
+        csrf: '/sanctum/csrf-cookie',
+        login: '/user/login',
+        logout: '/user/logout',
+        user: '/user'
+      },
+      redirects: {
+        home: '/user/dashboard',
+        login: '/user/login',
+        logout: '/user/logout'
+      }
+    }
+})

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('mobile_number');
             $table->string('mothers_firstname');
             $table->string('mothers_middlename');
-            $table->string('mothers_lasttname');
+            $table->string('mothers_lastname');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

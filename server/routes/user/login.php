@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,11 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/user/login', [UserController::class, 'login']);
+Route::post('/user/login', [UserController::class, 'login']);
+
+// Route::post('/user/login', function(){
+//     Log::info('hi');
+// });
+
+Route::post('/user/logout', [UserController::class, 'logout']);
 
