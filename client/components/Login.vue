@@ -1,6 +1,6 @@
 <template>
   <div class="form-wrapper">
-    <form class="login-form">
+    <form class="login-form" onsubmit="return false;">
       <h1>Log In To Your Account</h1><br><br>
       <input type="text" id="email" name="email" placeholder="Email" v-model="email"><br><br>
       <input type="text" id="username" name="username" placeholder="Password" v-model="password"><br><br>
@@ -14,25 +14,38 @@
 </template>
 
 <script>
+
+import {ref} from 'vue'
 export default {
 
   setup(){
     const { $sanctumAuth } = useNuxtApp()
     const router = useRouter()
-    const email = ref();
-    const password = ref();
+    const errors = ref([])
+    const email = ref()
+    const password = ref()
 
-    const login = async() => {
-      await $sanctumAuth.login({
-          email: 'test@example.com',
-          password: '123456789',
-        },(data)=>{
-          console.log(data);
-          router.push('/user/dashboard')
-        })
+    async function login() {
+      try {
+        await $sanctumAuth.login(
+          {
+            email: email.value,
+            password: password.value,
+            admin:false,
+          },
+          // optional callback function
+          (data) => {
+            console.log(data)
+            router.push('/user/dashboard')
+          }
+        )
+      } catch (e) {
+        // your error handling
+        errors.value = e.errors
       }
-      return{login, email, password}
     }
+    return {login, email, password}
+  }
 }
 
     

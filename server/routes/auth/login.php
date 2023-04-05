@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Log;
 
 /*
@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Log;
 |
 */
 
-Route::post('/user/login', [UserController::class, 'login']);
-
-// Route::post('/user/login', function(){
-//     Log::info('hi');
+Route::post('/auth/login', [AuthController::class, 'login']);
+// Route::post('/auth/login', function(){
+//     return response()->json(['hi'=>'hi']);
 // });
 
-Route::post('/user/logout', [UserController::class, 'logout']);
+
+Route::post('/auth/logout', [AuthController::class, 'logout']);
 

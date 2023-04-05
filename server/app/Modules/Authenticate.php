@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\User;
+namespace App\Modules;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -8,31 +8,42 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-class UserAuth
+class Authenticate
 {
-    public function login($payload)
+    public function userLogin($payload)
     {
         $data = [
             'email'=> $payload->email,
             'password'=>$payload->password
         ];
-
-        //  return response()->json($payload);
-         $user = User::where('id', 1)->first();
-
-
+        
         if (!Auth::guard('users')->attempt($data)) {
             return response()->json([
                 'message' => 'Invalid login details'
             ], 401);
         }
-        Log::info('hello');
-        Log::info(Auth::guard('users')->user());
-        // $payload->session()->regenerate();
+        
+        $user = Auth::guard('users')->user();
+        $token = $user->createToken('access_token')->plainTextToken;
         return response()->json([
-            'message' => 'success'
-        ], 200);
+            'token' =>  $token,
+        ]); 
     }
+
+    public function adminLogin($payload)
+    {
+        $data = [
+            'email'=> $payload->email,
+            'password'=>$payload->password
+        ];
+        
+        if (!Auth::guard('admins')->attempt($data)) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function logout($payload)
         {
             Auth::logout();

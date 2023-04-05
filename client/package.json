@@ -18,6 +18,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@nuxtjs/auth-next": "5.0.0-1667386184.dfbbb54",
     "moment": "^2.29.4",
     "nuxt-sanctum-auth": "^0.4.0",
     "vue-pusher": "^1.1.0"
