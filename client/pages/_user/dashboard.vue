@@ -27,14 +27,10 @@
 
 <script lang="ts">
 import moment from 'moment'
-import {reactive} from 'vue'
 export default {
-    setup(){
-        definePageMeta({
-            layout: 'user'
-        });
-         
-        const state = reactive({
+    layout: 'user',
+    data(){
+        return{
             data:[
                 {
                     id:1,
@@ -51,12 +47,12 @@ export default {
                     remarks: "Incomplete requiremens"
                 },
             ]
-        });
-
-        const dateNow = () => moment().format('dddd, MMMM Do'); 
-
-        
-        return {dateNow, state}
+        }
+    },
+    methods:{
+        dateNow: function(){
+            moment().format('dddd, MMMM Do'); 
+        }
     }
 }
 </script>

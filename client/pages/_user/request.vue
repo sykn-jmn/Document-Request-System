@@ -27,20 +27,14 @@
     </div>
 </template>
 
-<script lang="ts">
-import {reactive} from 'vue'
+<script>
 export default {
-    setup(){
-         definePageMeta({
-            layout: 'user'
-        });
-
-        const state = reactive({
+    layout: 'user',
+    data(){
+        return{
             buttonStatus: "isButtonDisabled"
-        })
-        return{state}
+        }
     }
-
 }
 </script>
 

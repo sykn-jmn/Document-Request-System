@@ -2,14 +2,14 @@
   
 </template>
 
-<script lang="ts">
-import {reactive} from 'vue'
+<script>
 export default {
-    setup(){
-        const data = reactive({
+    data(){
+        return{
             
-        })
+        }
     }
+
 }
 </script>
 

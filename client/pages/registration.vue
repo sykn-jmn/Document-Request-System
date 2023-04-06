@@ -1,7 +1,7 @@
 <template>
     <div class="registration-container">
-        <h1 class="text-center text-2xl">{{$config.appName}}</h1><br>
-        <div class="form-wrapper m-auto" v-if="!data.nextForm">
+        <h1 class="text-center text-2xl">{{appName}}</h1><br>
+        <div class="form-wrapper m-auto" v-if="!nextForm">
             <form>
                 <div class="form-container">
                     <p class="text-center">Step 1 of 2</p><br><br><br>
@@ -32,7 +32,7 @@
                     </div>    
                 </div><br>
                 <div class="button-wrapper text-center">
-                    <button class="py-4 bg-sky-900 rounded-full w-96 m-auto font-bold text-white text-2xl shadow-xl" @click="data.nextForm = !data.nextForm">Next</button>
+                    <button class="py-4 bg-sky-900 rounded-full w-96 m-auto font-bold text-white text-2xl shadow-xl" @click="nextForm = !nextForm">Next</button>
                 </div>
             </form><br>
         </div>
@@ -44,10 +44,10 @@
                     <input type="email" id="email" name="email" placeholder="Email Address" required><br><br>
                     <div class="input-container">
                         <div class="password-container">
-                            <input class="border-none" :type="data.passwordFieldType " id="password" name="password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', data.eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
+                            <input class="border-none" :type="passwordFieldType " id="password" name="password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
                         </div><br><br>
                         <div class="password-container" >
-                            <input class="border-none" :type="data.confirmPasswordFieldType" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', data.confirmEyeIconType]" class="eyeIcon" @click="showConfirmPassword = !showConfirmPassword"/>
+                            <input class="border-none" :type="confirmPasswordFieldType" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', confirmEyeIconType]" class="eyeIcon" @click="showConfirmPassword = !showConfirmPassword"/>
                         </div>
                     </div>    
                 </div><br>
@@ -60,42 +60,45 @@
   
 </template>
 
-<script lang="ts">
-import { reactive, watch, ref} from 'vue'
+<script>
 export default {
-    setup(){
-        const data = reactive({
+    data(){
+        return{
             nextForm:false,
             passwordFieldType:"password",
             confirmPasswordFieldType:"password",
             eyeIconType:"eye-slash",
             confirmEyeIconType:"eye-slash",
-        })
-        const showPassword = ref(false);
-        const showConfirmPassword = ref(false);
-        watch(showPassword , (prev, newvalue) => {
-            if(showPassword.value){
-                data.passwordFieldType = "text"
-                data.eyeIconType = "eye"
+            showPassword:false,
+            showConfirmPassword:false,
+
+        }
+    },
+    computed: {
+        appName() {
+            return process.env.NUXT_ENV_APP_NAME;
+        },
+    },
+    watch:{
+        showPassword(){
+            if(this.showPassword){
+                this.passwordFieldType = "text"
+                this.eyeIconType = "eye"
             }else{
-                data.passwordFieldType = "password"
-                data.eyeIconType = "eye-slash"
+                this.passwordFieldType = "password"
+                this.eyeIconType = "eye-slash"
             }
-            
- 
-        });
-        watch(showConfirmPassword , (prev, newvalue) => {
-            if(showConfirmPassword.value){
-                data.confirmPasswordFieldType = "text"
-                data.confirmEyeIconType = "eye"
+        },
+        showConfirmPassword(){
+            if(this.showConfirmPassword){
+                this.confirmPasswordFieldType = "text"
+                this.confirmEyeIconType = "eye"
             }else{
-                data.confirmPasswordFieldType = "password"
-                data.confirmEyeIconType = "eye-slash"
+                this.confirmPasswordFieldType = "password"
+                this.confirmEyeIconType = "eye-slash"
             }
- 
-        });
-        
-        return {data, showPassword, showConfirmPassword}
+        }
+
     }
 }
 </script>

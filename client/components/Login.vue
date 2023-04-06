@@ -14,38 +14,12 @@
 </template>
 
 <script>
-
-import {ref} from 'vue'
 export default {
-
-  setup(){
-    const { token } = useAuth()
-    const { $sanctumAuth } = useNuxtApp()
-    const router = useRouter()
-    const errors = ref([])
-    const email = ref()
-    const password = ref()
-
-    async function login() {
-      try {
-        await $sanctumAuth.login(
-          {
-            email: email.value,
-            password: password.value,
-            admin:false,
-          },
-          // optional callback function
-          (data) => {
-            console.log(data)
-            router.push('/user/dashboard')
-          }
-        )
-      } catch (e) {
-        // your error handling
-        errors.value = e.errors
-      }
+  data(){
+    return{
+      email:"",
+      password:"",
     }
-    return {login, email, password}
   }
 }
 

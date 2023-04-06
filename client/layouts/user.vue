@@ -3,7 +3,7 @@
       <NavUser />
       <div class="w-full h-full">
         <HeaderUser />
-        <slot />
+        <Nuxt />
       </div>
       
   </div>
