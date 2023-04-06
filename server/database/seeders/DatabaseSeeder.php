@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'mothers_firstname' => 'Jeniza',
             'mothers_middlename' => 'O.',
             'mothers_lastname' => 'Apus',
-            'password' => bycrypt('123456789'),
+            'password' => bcrypt('123456789'),
         ]);
     }
 }

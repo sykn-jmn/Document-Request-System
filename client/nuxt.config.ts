@@ -33,38 +33,18 @@ export default defineNuxtConfig({
     ssr: false,
     nuxtSanctumAuth: {
       token: true, // set true to use jwt-token auth instead of cookie. default is false
-      baseUrl: 'http://localhost:8000',
+      baseUrl: 'http://localhost:8000/api',
       endpoints: {
         csrf: '/sanctum/csrf-cookie',
         login: '/auth/login',
         logout: '/auth/logout',
-        user: '/api/user/fetch-user'
+        user: '/user/fetch-user'
       },
       redirects: {
         home: '/user/dashboard',
         login: '/',
         logout: '/'
       }
-    },
-    auth:{
-      strategies: {
-        laravelSanctum: {
-          provider: 'laravel/sanctum',
-          url: 'http://your-api-domain.com',
-          endpoints: {
-            login: { url: '/login', method: 'post', propertyName: 'token' },
-            logout: { url: '/logout', method: 'post' },
-            user: { url: '/user', method: 'get', propertyName: false },
-          },
-          tokenRequired: true,
-          tokenType: 'Bearer',
-        },
-      },
-      redirect: {
-        login: '/login',
-        logout: '/logout',
-        home: '/',
-      },
     },
     
     

@@ -46,6 +46,8 @@ return [
     |
     */
 
+    'prefix' => 'api/sanctum',
+
     'expiration' => null,
 
     /*

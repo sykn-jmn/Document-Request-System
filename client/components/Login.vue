@@ -19,6 +19,7 @@ import {ref} from 'vue'
 export default {
 
   setup(){
+    const { token } = useAuth()
     const { $sanctumAuth } = useNuxtApp()
     const router = useRouter()
     const errors = ref([])
