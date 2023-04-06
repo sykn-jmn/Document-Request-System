@@ -20,6 +20,11 @@ export default {
       email:"",
       password:"",
     }
+  },
+    methods:{
+    login:function(){
+        console.log("login");
+    }
   }
 }
 
