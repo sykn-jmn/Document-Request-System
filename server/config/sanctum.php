@@ -49,6 +49,8 @@ return [
 
     'expiration' => null,
 
+    'prefix' => 'api/sanctum',
+
     /*
     |--------------------------------------------------------------------------
     | Sanctum Middleware
