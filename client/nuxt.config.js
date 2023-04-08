@@ -44,14 +44,21 @@ export default {
         provider: "laravel/sanctum",
         token: {
           property: "token",
+          required: true,
           maxAge: 1800,
           type: "Bearer",
         },
         url: "http://localhost:8000/api",
         endpoints: {
-          login: { url: "/auth/login", method: "post" },
+          login: { url: "/auth/login", method: "post", propertyName: "token" },
           logout: { url: "/auth/logout", method: "post" },
-          user: { url: "/auth/user", method: "get" },
+          user: {
+            url: "/auth/user",
+            method: "get",
+            propertyName: false,
+            tokenRequired: true,
+            tokenType: "Bearer",
+          },
         },
       },
     },
