@@ -29,20 +29,11 @@ export default {
             email: this.email,
             password: this.password,
           },
-        }).then(response=>{
-          var token = response.data.token
-          this.$axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
-          console.log(token)
-
-          this.$axios.get('auth/user').then(response=>{
-              this.$auth.setUser(response.data);
-          }
-            )
-
+        }).then(response=>
+          {
             this.$router.push('/user/dashboard')
-        })
-
-      
+          }
+        )
       },
   }
 }

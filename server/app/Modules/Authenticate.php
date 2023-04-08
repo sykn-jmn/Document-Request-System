@@ -31,24 +31,24 @@ class Authenticate
         return response()->json($response);
     }
 
-    public function adminLogin($payload)
-    {
-        $data = [
-            'email'=> $payload->email,
-            'password'=>$payload->password
-        ];
+    // public function adminLogin($payload)
+    // {
+    //     $data = [
+    //         'email'=> $payload->email,
+    //         'password'=>$payload->password
+    //     ];
         
-        if (!Auth::guard('admins')->attempt($data)) {
-            return false;
-        }
+    //     if (!Auth::guard('admins')->attempt($data)) {
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
-    public function logout($payload)
-        {
-            Auth::logout();
-            $payload->session()->invalidate();
-            $payload->session()->regenerateToken();
-        }
+    // public function logout($payload)
+    //     {
+    //         Auth::logout();
+    //         $payload->session()->invalidate();
+    //         $payload->session()->regenerateToken();
+    //     }
 }

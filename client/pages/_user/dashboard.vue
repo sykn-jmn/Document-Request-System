@@ -1,6 +1,5 @@
 <template>
     <div class="p-8 bg-white min-h-screen text-black">
-        {{$auth.$state.user}}
         <div class="bg-slate-200 py-12 px-12 rounded-3xl mb-12">
             <span class="text-4xl "><b>{{dateNow()}}</b></span><br>
             <span class="text-2xl">Good morning, Jhumer!</span>

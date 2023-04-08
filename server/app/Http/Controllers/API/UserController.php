@@ -15,7 +15,7 @@ class UserController extends Controller
 
         return response()->json($request->user());
     }
-    function getCurrentUser(){
+    // function getCurrentUser(){
         
-    }
+    // }
 }

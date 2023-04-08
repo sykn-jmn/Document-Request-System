@@ -14,14 +14,14 @@ class AuthController extends Controller
         
     }
 
-    public function logout(Authenticate $auth, Request $request){
-        return $auth->logout($request);
-    }
+    // public function logout(Authenticate $auth, Request $request){
+    //     return $auth->logout($request);
+    // }
 
-    public function me(Request $request)
-    {
-        return response()->json([
-            'data' => Auth::guard('users')->user(),
-    ]);
-    }
+    // public function me(Request $request)
+    // {
+    //     return response()->json([
+    //         'data' => Auth::guard('users')->user(),
+    // ]);
+    // }
 }
