@@ -25,9 +25,10 @@ class Authenticate
         
         $user = Auth::guard('users')->user();
         $token = $user->createToken('access_token')->plainTextToken;
-        return response()->json([
+        $response = [
             'token' =>  $token,
-        ]); 
+        ];
+        return response()->json($response);
     }
 
     public function adminLogin($payload)

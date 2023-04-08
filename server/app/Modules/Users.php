@@ -12,7 +12,7 @@ class Users
 {
     public function fetchUser()
     {
-        return response()->json(Auth::guard('users')->user()); 
+        return response()->json($request->user()); 
     }
 
 }

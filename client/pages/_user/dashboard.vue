@@ -1,5 +1,6 @@
 <template>
     <div class="p-8 bg-white min-h-screen text-black">
+        {{$auth.$state.user}}
         <div class="bg-slate-200 py-12 px-12 rounded-3xl mb-12">
             <span class="text-4xl "><b>{{dateNow()}}</b></span><br>
             <span class="text-2xl">Good morning, Jhumer!</span>
@@ -13,7 +14,7 @@
                     <th>Status</th>
                     <th>Remarks</th>
                 </thead>
-                <tr v-for="request in state.data" :key="request.id">
+                <tr v-for="request in data" :key="request.id">
                     <td>{{request.request}}</td>
                     <td>{{request.request_date}}</td>
                     <td>{{request.status}}</td>
@@ -25,10 +26,11 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
 import moment from 'moment'
 export default {
     layout: 'user',
+    middleware:['auth'],
     data(){
         return{
             data:[
@@ -49,9 +51,12 @@ export default {
             ]
         }
     },
+    mounted(){
+        console.log(this.$auth.$state.user)
+    },
     methods:{
-        dateNow: function(){
-            moment().format('dddd, MMMM Do'); 
+        dateNow(){
+            return moment().format('dddd, MMMM Do'); 
         }
     }
 }

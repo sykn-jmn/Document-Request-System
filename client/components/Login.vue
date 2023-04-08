@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data(){
     return{
@@ -22,9 +23,27 @@ export default {
     }
   },
     methods:{
-    login:function(){
-        console.log("login");
-    }
+      async login(){
+          await this.$auth.loginWith('laravelSanctum', {
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+        }).then(response=>{
+          var token = response.data.token
+          this.$axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
+          console.log(token)
+
+          this.$axios.get('auth/user').then(response=>{
+              this.$auth.setUser(response.data);
+          }
+            )
+
+            this.$router.push('/user/dashboard')
+        })
+
+      
+      },
   }
 }
 

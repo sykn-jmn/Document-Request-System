@@ -29,23 +29,37 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
-    "@nuxt/postcss8",
-    "@nuxtjs/fontawesome",
   ],
-  fontawesome: {
-    component: "Fa",
-    suffix: false,
-    icons: {
-      solid: true,
-      brands: true,
-    },
+
+  axios: {
+    credentials: true,
+    baseURL: "http://localhost:8000/api",
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/dotenv"],
+  modules: ["@nuxtjs/dotenv", "@nuxtjs/auth-next", "@nuxtjs/axios"],
+  auth: {
+    strategies: {
+      laravelSanctum: {
+        provider: "laravel/sanctum",
+        token: {
+          property: "token",
+          maxAge: 1800,
+          type: "Bearer",
+        },
+        url: "http://localhost:8000/api",
+        endpoints: {
+          login: { url: "/auth/login", method: "post" },
+          logout: { url: "/auth/logout", method: "post" },
+          user: { url: "/auth/user", method: "get" },
+        },
+      },
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: ["defu"],
     postcss: {
       postcssOptions: {
         plugins: {

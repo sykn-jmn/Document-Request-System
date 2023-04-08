@@ -9,12 +9,16 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@nuxtjs/auth-next": "5.0.0-1667386184.dfbbb54",
+    "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/fontawesome": "^1.1.2",
     "autoprefixer": "^10.4.14",
     "core-js": "^3.25.3",
+    "defu": "^6.1.2",
     "moment": "^2.29.4",
     "nuxt": "^2.15.8",
     "tailwindcss": "^3.3.1",
@@ -25,8 +29,5 @@
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^5.3.3",
     "postcss": "^8.4.21"
-  },
-  "resolutions": {
-    "@nuxt/kit": "3.0.0-rc.13"
   }
 }
