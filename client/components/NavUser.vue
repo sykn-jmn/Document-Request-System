@@ -6,7 +6,7 @@
         <nav class="navUser">
             <div class="nav_profile text-center text-xl">
                 <img class="rounded-full w-48 h-48 m-auto" src="~/assets/images/id_nako.jpg"><br>
-                <span>Jhumer Apus</span>
+                <span>{{name}}</span>
             </div><br>
             <ul>
                 <li><NuxtLink to="/user/dashboard" class="nav_link"><span><font-awesome-icon :icon="['fas', 'table-list']" /></span>Dashboard</NuxtLink></li>
@@ -21,12 +21,17 @@
 
 <script>
 export default {
-    methods: {
-    async logout() {
-      await this.$auth.logout()
-
-      this.$router.push('/')
+    data(){
+        return{
+            name: this.$auth.state.user.first_name + " " + this.$auth.state.user.last_name
+        }
     },
+    methods: {
+        async logout() {
+        await this.$auth.logout()
+
+        this.$router.push('/')
+        },
   },
 
 }

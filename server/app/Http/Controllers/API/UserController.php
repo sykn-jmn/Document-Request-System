@@ -11,11 +11,7 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
     function index(Users $users, Request $request){
-        Log::info($request->user());
 
         return response()->json($request->user());
-    }
-    function getCurrentUser(){
-        
     }
 }

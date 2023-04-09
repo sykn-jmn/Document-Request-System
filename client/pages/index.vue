@@ -13,7 +13,7 @@
                     </ul>
                 </nav>
                 <p class="signup font-bold">
-                    <NuxtLink to="/registration">Signup</NuxtLink>
+                    <NuxtLink to="/register">Signup</NuxtLink>
                 </p>
             </div>
             <div class="home">

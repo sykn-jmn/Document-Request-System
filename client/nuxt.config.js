@@ -46,6 +46,7 @@ export default {
           property: "token",
           maxAge: 1800,
           type: "Bearer",
+          required: true,
         },
         url: "http://localhost:8000/api",
         endpoints: {

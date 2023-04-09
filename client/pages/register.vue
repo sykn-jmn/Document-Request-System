@@ -44,7 +44,7 @@
                     <input type="email" id="email" name="email" placeholder="Email Address" required><br><br>
                     <div class="input-container">
                         <div class="password-container">
-                            <input class="border-none" :type="passwordFieldType " id="password" name="password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
+                            <input class="border-none" :type="passwordFieldType" id="password" name="password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
                         </div><br><br>
                         <div class="password-container" >
                             <input class="border-none" :type="confirmPasswordFieldType" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', confirmEyeIconType]" class="eyeIcon" @click="showConfirmPassword = !showConfirmPassword"/>

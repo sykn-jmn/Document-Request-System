@@ -1,9 +1,8 @@
 <template>
     <div class="p-8 bg-white min-h-screen text-black">
-        {{$auth.$state.user}}
         <div class="bg-slate-200 py-12 px-12 rounded-3xl mb-12">
             <span class="text-4xl "><b>{{dateNow()}}</b></span><br>
-            <span class="text-2xl">Good morning, Jhumer!</span>
+            <span class="text-2xl">Good morning, {{$auth.state.user.first_name}}!</span>
         </div>
         <div class="p-4 text-xl">
             <span class="font-bold text-3xl">Request Feed</span><br><br>
@@ -50,9 +49,6 @@ export default {
                 },
             ]
         }
-    },
-    mounted(){
-        console.log(this.$auth.$state.user)
     },
     methods:{
         dateNow(){

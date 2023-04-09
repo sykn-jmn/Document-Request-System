@@ -22,14 +22,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/user', [UserController::class, 'index']);
     });
 });
-// Route::prefix('/auth')->group(function(){
-//     Route::get('/user', [UserController::class, 'index']);
-// });
-
-Route::get('/user',[UserController::class, 'getCurrentUser']);
-// Route::prefix('/user')->group(function(){
-//    Route::get('/')
-// });
 
 Route::get('/test', function(){
     return response()->json(["message"=>"success"]);
