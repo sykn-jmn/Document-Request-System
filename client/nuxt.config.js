@@ -55,9 +55,6 @@ export default {
           user: {
             url: "/auth/user",
             method: "get",
-            propertyName: false,
-            tokenRequired: true,
-            tokenType: "Bearer",
           },
         },
       },
