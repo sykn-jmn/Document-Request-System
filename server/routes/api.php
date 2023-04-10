@@ -23,6 +23,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
+Route::prefix('user')->group(function(){
+    Route::post('store', [UserController::class, 'store']);
+});
 Route::get('/test', function(){
     return response()->json(["message"=>"success"]);
 });

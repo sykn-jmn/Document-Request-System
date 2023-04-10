@@ -1,55 +1,59 @@
 <template>
     <div class="registration-container">
         <h1 class="text-center text-2xl">{{appName}}</h1><br>
-        <div class="form-wrapper m-auto" v-if="!nextForm">
+        <div class="form-wrapper m-auto"  @submit.prevent="submitFirstForm" v-if="!isNextForm">
             <form>
                 <div class="form-container">
                     <p class="text-center">Step 1 of 2</p><br><br><br>
-                    <input type="text" id="firstname" name="firstname" placeholder="First Name" required><br><br>
-                    <input type="text" id="middlename" name="middlename" placeholder="Middle Name" required><br><br>
-                    <input type="text" id="lastname" name="lastname" placeholder="Last Name" required><br><br>
+                    <input type="text" id="firstname" name="firstname" v-model="data.first_name" placeholder="First Name" required><br><br>
+                    <input type="text" id="middlename" name="middlename" v-model="data.middle_name" placeholder="Middle Name" required><br><br>
+                    <input type="text" id="lastname" name="lastname" v-model="data.last_name" placeholder="Last Name" required><br><br>
                     <div class="select-container">
-                        <select id="gender" name="gender" placeholder="Gender" required>
+                        <select id="gender" name="gender" v-model="data.gender" placeholder="Gender" required>
                             <option value="" disabled selected hidden>Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                             <option value="non-binary">Non-binary</option>
                             <option value="others">Not to mention</option>
                         </select>
-                        <select id="civil_status" name="civil_Status" placeholder="Civil Status" required>
+                        <select id="civil_status" name="civil_Status" placeholder="Civil Status" v-model="data.civil_status" required>
                             <option value="" disabled selected hidden>Civil Status</option>
                             <option value="single">Single</option>
                             <option value="non-binary">Married</option>
                         </select>
                     </div><br>
                     <label>Birthdate</label>
-                    <input type="date" class="w-full" required><br><br>
+                    <input type="date" v-model="data.birthdate" class="w-full" required><br><br>
                     <label>Mother's Maiden Name</label>
                     <div class="input-container">
-                        <input type="text" id="firstname" name="firstname" placeholder="First Name" required>
-                        <input type="text" id="middlename" name="middlename" placeholder="Middle Name" required>
-                        <input type="text" id="lastname" name="lasttname" placeholder="Last Name" required>
+                        <input type="text" id="firstname" name="firstname" v-model="data.mothers_firstname" placeholder="First Name" required>
+                        <input type="text" id="middlename" name="middlename" v-model="data.mothers_middlename" placeholder="Middle Name" required>
+                        <input type="text" id="lastname" name="lasttname" v-model="data.mothers_lastname" placeholder="Last Name" required>
                     </div>    
                 </div><br>
                 <div class="button-wrapper text-center">
-                    <button class="py-4 bg-sky-900 rounded-full w-96 m-auto font-bold text-white text-2xl shadow-xl" @click="nextForm = !nextForm">Next</button>
+                    <button class="py-4 bg-sky-900 rounded-full w-96 m-auto font-bold text-white text-2xl shadow-xl">Next</button>
                 </div>
             </form><br>
         </div>
         <div class="form-wrapper m-auto" v-else>
-            <form>
+            <form @submit.prevent="submitSecondForm">
                 <div class="form-container">
                     <p class="text-center">Step 2 of 2</p><br><br><br>
-                    <input type="number" id="phone_number" name="phone_number" placeholder="Mobile Number (09XXXXXXXXX)" min="11" required><br><br>
-                    <input type="email" id="email" name="email" placeholder="Email Address" required><br><br>
+                    <input type="tel" id="phone_number" name="phone_number" v-model="data.mobile_number" placeholder="Mobile Number (09XXXXXXXXX)" min="11" pattern="[0-9]{11}" required><br><br>
+                    <input type="email" id="email" name="email" v-model="data.email" placeholder="Email Address" required><br><br>
                     <div class="input-container">
                         <div class="password-container">
-                            <input class="border-none" :type="passwordFieldType" id="password" name="password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
+                            <input class="border-none" :type="passwordFieldType" id="password" name="password" v-model="data.password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
                         </div><br><br>
                         <div class="password-container" >
-                            <input class="border-none" :type="confirmPasswordFieldType" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', confirmEyeIconType]" class="eyeIcon" @click="showConfirmPassword = !showConfirmPassword"/>
+                            <input class="border-none" :type="confirmPasswordFieldType" id="confirm_password" v-model="confirmPassword" name="confirm_password" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', confirmEyeIconType]" class="eyeIcon" @click="showConfirmPassword = !showConfirmPassword"/>
                         </div>
-                    </div>    
+                    </div>
+                    <br>
+                    <span class="h-16">
+                        <p class="text-red-500 text-center">{{error}}</p>
+                    </span>    
                 </div><br>
                 <div class="button-wrapper text-center">
                     <button class="py-4 bg-sky-900 rounded-full w-96 m-auto font-bold text-white text-2xl shadow-xl">Next</button>
@@ -64,13 +68,28 @@
 export default {
     data(){
         return{
-            nextForm:false,
+            isNextForm:false,
             passwordFieldType:"password",
             confirmPasswordFieldType:"password",
             eyeIconType:"eye-slash",
             confirmEyeIconType:"eye-slash",
             showPassword:false,
             showConfirmPassword:false,
+            confirmPassword:'',
+            error:'',
+            data:{
+                first_name:'',
+                middle_name:'',
+                last_name:'',
+                email:'',
+                gender:'',
+                civil_status:'',
+                birthdate:'',
+                mothers_firstname:'',
+                mothers_middlename:'',
+                mothers_lastname:'',
+                password:'',
+            }
 
         }
     },
@@ -97,8 +116,38 @@ export default {
                 this.confirmPasswordFieldType = "password"
                 this.confirmEyeIconType = "eye-slash"
             }
+        },
+        confirmPassword(){
+            if(this.data.password != this.confirmPassword){
+                this.error = "Inconsistent password!"
+            }else{
+                this.error = ""
+            }
+        },
+        'data.birthdate'(){
+            console.log(this.data.birthdate)
         }
 
+    },
+    methods:{
+        submitFirstForm(){
+            this.isNextForm = true
+
+        },
+        submitSecondForm(){
+            if(this.data.password != this.confirmPassword){
+                this.error = "Inconsistent password!"
+            }
+            else{
+                this.error = ""
+                let params = this.data
+                this.$axios.post('/user/store', params).then(response =>
+                    console.log(response)
+                )
+            }
+
+        }
+        
     }
 }
 </script>

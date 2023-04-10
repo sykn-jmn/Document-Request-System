@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
     function index(Users $users, Request $request){
-
         return response()->json($request->user());
+    }
+    function store(Users $users, Request $request){
+        return $users->store($request);
     }
 }
