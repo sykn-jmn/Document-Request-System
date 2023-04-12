@@ -40,7 +40,7 @@ export default {
   modules: ["@nuxtjs/dotenv", "@nuxtjs/auth-next", "@nuxtjs/axios"],
   auth: {
     strategies: {
-      laravelSanctum: {
+      userAuth: {
         provider: "laravel/sanctum",
         token: {
           property: "token",

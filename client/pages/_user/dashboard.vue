@@ -29,7 +29,7 @@
 import moment from 'moment'
 export default {
     layout: 'user',
-    middleware:['auth'],
+    middleware:['auth','user'],
     data(){
         return{
             data:[

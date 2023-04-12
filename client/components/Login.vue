@@ -4,7 +4,7 @@
       <h1>Log In To Your Account</h1><br><br>
       <input type="text" id="email" name="email" placeholder="Email" v-model="email"><br><br>
       <div class="password-container">
-          <input class="border-none" :type="passwordFieldType" id="password" name="password" placeholder="Enter Password" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
+          <input class="border-none" :type="passwordFieldType" id="password" name="password" placeholder="Enter Password" v-model="password" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
       </div><br><br>
       <p class="text-center text-sky-600"><NuxtLink to="https://nuxtjs.org">Forgot your password?</NuxtLink></p><br><br>
       <div class="button-wrapper text-center">
@@ -40,17 +40,19 @@ export default {
   },
   methods:{
     async login(){
-        await this.$auth.loginWith('laravelSanctum', {
-        data: {
-          email: this.email,
-          password: this.password,
-        },
-      }).then(response => {
-
-        console.log(response.data)
-        this.$router.push('/user/dashboard')
+      try{
+        await this.$auth.loginWith('userAuth', {
+          data: {
+            email: this.email,
+            password: this.password,
+          },
       })
-    
+        this.$router.push("/user/dashboard")
+      }catch(err){
+        console.log(err)
+        this.$router.push("/")
+      }
+
     },
 }
 }
