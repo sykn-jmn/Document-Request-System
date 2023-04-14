@@ -8,13 +8,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ForgotPassword;
 use Carbon\Carbon;
 
 class Users
 {
     public function store($payload)
     {
-        Log::info($payload);
         $rules = array(
             'email' => 'required|max:255|email',
             'first_name' => 'required|string',
@@ -62,6 +63,15 @@ class Users
         }
         DB::commit();
         return response()->json(["message"=>"user created successfully"]);
+    }
+    public function checkEmail($payload){
+        $email = $payload->email;
+        $isEmailExist = User::where('email', $email)->first();
+        if(!$isEmailExist){
+            return response()->json(['message'=>'Email does not exist in the record']);
+        }
+        $name = "jumboy";
+        Mail::to('jumboy@yopmail.com')->send(new ForgotPassword($name));
     }
 
 }

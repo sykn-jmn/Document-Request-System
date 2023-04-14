@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ForgotPassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +21,9 @@ Route::get('/', function () {
 
 Route::post('/message', function () {
     return response()->json(["message"=>"hi"]);
+});
+
+Route::get('/email', function(){
+    Mail::to('jumboy@yopmail.com')->send(new ForgotPassword());
+    return new ForgotPassword();
 });

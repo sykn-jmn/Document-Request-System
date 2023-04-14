@@ -16,4 +16,7 @@ class UserController extends Controller
     function store(Users $users, Request $request){
         return $users->store($request);
     }
+    function checkEmail(Users $users, Request $request){
+        return $users->checkEmail($request);
+    }
 }
