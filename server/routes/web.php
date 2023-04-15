@@ -24,6 +24,6 @@ Route::post('/message', function () {
 });
 
 Route::get('/email', function(){
-    Mail::to('jumboy@yopmail.com')->send(new ForgotPassword());
-    return new ForgotPassword();
+    Mail::to('jumboy@yopmail.com')->send(new ForgotPassword("DSFW"));
+    return new ForgotPassword("DSFW");
 });

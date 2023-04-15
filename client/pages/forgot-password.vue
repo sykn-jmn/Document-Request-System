@@ -5,6 +5,7 @@
       <h2 class="text-sky-900 font-black text-2xl">Find your eDokumento Account</h2><br>
       <p>Enter the email associated with your account to change the password.</p><br>
       <input type="email" v-model="email" placeholder="Email" class="mt-8">
+      <p class="error" v-if="error">{{error}}</p>
       <div class="button-wrapper text-center">
         <button class="py-4 bg-yellow-500 rounded-full w-80 m-auto font-bold text-white text-2xl shadow-xl">Next</button>
      </div>
@@ -17,6 +18,7 @@ export default {
   data(){
     return{
       email:"",
+      error:"",
     }
   },
   computed: {
@@ -29,7 +31,12 @@ export default {
       var params = {
         email: this.email
       }
-      this.$axios.get("/user/check-email/", {params})
+      this.$axios.get("/user/check-email/", {params}).then(response=>{
+          if(!response.data.isEmailExist){
+            this.error = "Email address does not exist in the record"
+          }
+        }
+      )
     }
   }
 }

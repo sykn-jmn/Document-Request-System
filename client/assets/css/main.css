@@ -134,8 +134,7 @@ form > input[type="text"] {
   @apply border border-blue-700 rounded-md focus:outline-none;
 }
 
-.form-container > .select-container > select,
-input {
+.form-container > .select-container > select, input {
   font-size: 20px;
   padding: 10px;
   width: 100%;
@@ -170,7 +169,7 @@ form > input[type="date"] {
 
 .button-wrapper {
   margin: auto;
-  margin-top: 100px;
+  margin-top: 40px;
   font-size: 20px;
 }
 
@@ -230,5 +229,9 @@ input::file-selector-button {
 
 .isButtonEnabled {
   @apply bg-orange-500 text-white;
+}
+
+.error{
+  @apply text-red-500
 }
 

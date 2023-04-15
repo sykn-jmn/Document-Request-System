@@ -1,21 +1,7 @@
 <template>
     <div>
         <div class="index-container">
-            <div class="header">
-                <div class=title>
-                    <h1 class="text-2xl">{{appName}}</h1>
-                </div>
-                <nav class="navHome">
-                    <ul>
-                        <li><NuxtLink to="https://nuxtjs.org">Home</NuxtLink></li>
-                        <li><NuxtLink to="https://nuxtjs.org">About </NuxtLink></li>
-                        <li><NuxtLink to="https://nuxtjs.org">Services</NuxtLink></li>
-                    </ul>
-                </nav>
-                <p class="signup font-bold">
-                    <NuxtLink to="/register">Signup</NuxtLink>
-                </p>
-            </div>
+            <AppHeader />
             <div class="home">
                 <div class="description-title text-right">
                     <h1><span class="text-yellow-400">Make</span> your document <span class="text-yellow-400">request faster</span></h1><br>
@@ -33,11 +19,7 @@
 
 <script>
 export default {
-    computed: {
-        appName() {
-            return process.env.NUXT_ENV_APP_NAME;
-        },
-  },
+
 }
 </script>
 

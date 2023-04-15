@@ -1,12 +1,25 @@
 <x-mail::message>
-# Introduction
+# Forgot Password
 
-The body of your message.
+Verify your email with this code below.
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+<div>
+    {{$code}}
+</div>
 
 Thanks,<br>
 {{ config('app.name') }}
 </x-mail::message>
+
+<style>
+    div{
+        background-color:rgba(98, 113, 251, 1);
+        width:fit-content;
+        margin:auto;
+        color:white;
+        font-size:30px;
+        font-weight:600;
+        padding:4px 12px 4px 12px;
+
+    }
+</style>
