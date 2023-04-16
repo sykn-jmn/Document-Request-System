@@ -25,7 +25,7 @@ Schema::create('users', function (Blueprint $table) {
     $table->string('mothers_middlename');
     $table->string('mothers_lastname');
     $table->timestamp('email_verified_at')->nullable();
-    $table->string('email_code');
+    $table->string('email_code')->nullable();
     $table->string('password');
     $table->rememberToken();
     $table->timestamps();

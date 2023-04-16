@@ -47,10 +47,10 @@ export default {
             password: this.password,
           },
       })
-        this.$router.push("/user/dashboard")
+        // this.$router.push("/user/dashboard")
       }catch(err){
         console.log(err)
-        this.$router.push("/")
+        // this.$router.push("/")
       }
 
     },

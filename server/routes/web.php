@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPassword;
+use App\Mail\SignUp;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,6 @@ Route::post('/message', function () {
 });
 
 Route::get('/email', function(){
-    Mail::to('jumboy@yopmail.com')->send(new ForgotPassword("DSFW"));
-    return new ForgotPassword("DSFW");
+    // Mail::to('jumboy@yopmail.com')->send(new ForgotPassword("DSFW"));
+    return new SignUp("DSFW");
 });

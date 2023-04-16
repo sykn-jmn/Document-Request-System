@@ -24,6 +24,9 @@ class Authenticate
         }
         
         $user = Auth::guard('users')->user();
+        if($user->email_verified_at == null){
+            return response()->json(['message'=>'Please verify your email address first']);
+        }
         $token = $user->createToken('access_token')->plainTextToken;
         $response = [
             'token' =>  $token,

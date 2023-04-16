@@ -1,7 +1,7 @@
 <template>
     <div class="registration-container">
         <h1 class="text-center text-2xl">{{appName}}</h1><br>
-        <div class="form-wrapper m-auto"  @submit.prevent="submitFirstForm" v-if="!isNextForm">
+        <div class="form-wrapper m-auto"  @submit.prevent="submitFirstForm" v-if="firstForm">
             <form>
                 <div class="form-container">
                     <p class="text-center">Step 1 of 2</p><br><br><br>
@@ -36,7 +36,7 @@
                 </div>
             </form><br>
         </div>
-        <div class="form-wrapper m-auto" v-else>
+        <div class="form-wrapper m-auto" v-if="secondForm">
             <form @submit.prevent="submitSecondForm">
                 <div class="form-container">
                     <p class="text-center">Step 2 of 2</p><br><br><br>
@@ -60,6 +60,12 @@
                 </div>
             </form><br>
         </div>
+        <div v-if="isAccountCreated" class="w-fit m-auto">
+            <div class="messageContainer">
+                <h2>Account created successfully!</h2>
+            </div><br>
+            <p class="text-center text-base">Please check your email for verification</p>
+        </div>
     </div>
   
 </template>
@@ -77,6 +83,10 @@ export default {
             showConfirmPassword:false,
             confirmPassword:'',
             error:'',
+            errorEmail:'',
+            isAccountCreated:false,
+            firstForm:true,
+            secondForm:false,
             data:{
                 first_name:'',
                 middle_name:'',
@@ -131,18 +141,35 @@ export default {
     },
     methods:{
         submitFirstForm(){
-            this.isNextForm = true
-
+            this.firstForm= false
+            this.secondForm= true
         },
         submitSecondForm(){
+            //check email if its already existing
+            var params = {
+                email: this.data.email
+            }
+            this.$axios.get('/user/check-email',params).then(response=>{
+                if(response.data.isEmailExist){
+                    this.errorEmail = "This email is already taken."
+                    this.isAccountCreated = false
+                }
+            })
+
+            //verify password
             if(this.data.password != this.confirmPassword){
                 this.error = "Inconsistent password!"
+                this.isAccountCreated = false
             }
             else{
                 this.error = ""
                 let params = this.data
-                this.$axios.post('/user/store', params).then(response =>
-                    console.log(response)
+                this.$axios.post('/user/store', params).then(response =>{
+                        if(response.data.isAccountCreated){
+                            this.secondForm = false
+                            this.isAccountCreated = true
+                        }
+                    }
                 )
             }
 
@@ -153,5 +180,13 @@ export default {
 </script>
 
 <style>
+.messageContainer{
+    @apply m-auto bg-green-500 w-fit p-8 rounded-xl
+}
+.messageContainer > h2{
+    @apply text-2xl text-center
+}
+
+
 
 </style>

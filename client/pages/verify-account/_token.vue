@@ -1,12 +1,15 @@
 <template>
     <div>
         <AppHeader />
-        <div class="text-container" v-if="isVerified">
+        <div class="text-container bg-green-500" v-if="isVerified">
             Verified Successfully!
         </div>
-        <div class="text-container" v-else>
+        <div class="text-container bg-red-500" v-else>
             Sorry your token does not exist
-        </div>
+        </div><br>
+        <h1 class="text-center text-xl">
+            <NuxtLink to="/">Go to login page</NuxtLink>
+        </h1>
     </div>
 </template>
 
@@ -18,7 +21,10 @@ export default {
         }
     },
     mounted(){
-        this.$axios.put('/verify-account/' + this.$route.params.token).then(response=>{
+        var params = {
+            token: this.$route.params.token
+        }
+        this.$axios.put('/user/verify-account',params).then(response=>{
             this.isVerified = response.data.isVerified
         })
     }
@@ -27,7 +33,10 @@ export default {
 
 <style scoped>
 .text-container{
-    @apply text-3xl text-center top-1/2 bg-sky-900 w-fit m-auto p-8 rounded-2xl mt-48 shadow-xl
+    @apply text-3xl text-center top-1/2 w-fit m-auto p-8 rounded-2xl mt-48 shadow-xl
+}
+h1{
+    @apply hover:text-blue-500
 }
 
 </style>

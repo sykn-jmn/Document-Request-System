@@ -18,7 +18,7 @@ class SignUp extends Mailable
      */
     public function __construct($url)
     {
-        $this->$url = $url;
+        $this->url = $url;
     }
 
     /**

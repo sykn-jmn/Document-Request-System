@@ -41,9 +41,6 @@ class Users
             return response()->json(["message" => $validator->errors()]);
         }
 
-        //generate code for verification
-        $emailCode = $this->generateCode(). $userTransaction->id;
-
         $data = array(
             'email' => $payload->email,
             'first_name' => $payload->first_name,
@@ -56,7 +53,6 @@ class Users
             'mothers_firstname' => $payload->mothers_firstname,
             'mothers_middlename' => $payload->mothers_middlename,
             'mothers_lastname' => $payload->mothers_lastname,
-            'email_code' => $emailCode,
             'password' => bcrypt($payload->password),
         );
 
@@ -64,7 +60,12 @@ class Users
 
         $userTransaction = User::create($data);
 
-        if(!$userTransaction){
+        //generate code for verification
+        $emailCode = $this->generateCode(). $userTransaction->id;
+        $storeCodeTransaction = User::where('id', $userTransaction->id)->update(['email_code'=> $emailCode]);
+
+
+        if(!$userTransaction || !$storeCodeTransaction){
            DB::rollback();
         }
         DB::commit();
@@ -73,8 +74,20 @@ class Users
         $url = 'http://localhost:3000/verify-account/'.$emailCode;
         Mail::to($payload->email)->send(new SignUp($url));
 
-        return response()->json(["message"=>"user created successfully"]);
+        return response()->json(["message"=>"user created successfully", 'isAccountCreated' => true]);
     }
+
+    public function verify($payload){
+        $token = $payload->token;
+        $userTransaction = User::where('email_code', $token)
+                                ->where('email_verified_at', null)
+                                ->update(['email_verified_at'=>now()]);
+        if(!$userTransaction){
+            return response()->json(['isVerified'=>false]);
+        }
+        return response()->json(['isVerified'=>true]);
+    }
+
     public function checkEmail($payload){
         $email = $payload->email;
         $isEmailExist = User::where('email', $email)->first();

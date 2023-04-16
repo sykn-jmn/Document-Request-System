@@ -19,4 +19,7 @@ class UserController extends Controller
     function checkEmail(Users $users, Request $request){
         return $users->checkEmail($request);
     }
+    function verify(Users $users, Request $request){
+        return $users->verify($request);
+    }
 }
