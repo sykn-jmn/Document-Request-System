@@ -88,13 +88,22 @@ class Users
         return response()->json(['isVerified'=>true]);
     }
 
-    public function checkEmail($payload){
-        $email = $payload->email;
+    public function checkEmail($email){
+ 
         $isEmailExist = User::where('email', $email)->first();
+        if(!$isEmailExist){
+            return false;
+        }
+        return $isEmailExist;
+    }
+
+    public function sendCode($payload){
+        $email = $payload->email;
+        $isEmailExist = $this->checkEmail($email);
+
         if(!$isEmailExist){
             return response()->json(['isEmailExist'=>false]);
         }
-        
         $code = $this->generateCode();
 
         $storeCode = array(
@@ -103,7 +112,35 @@ class Users
         );
         ForgotPasswordModel::create($storeCode);
         Mail::to($email)->send(new ForgotPasswordMail($code));
-        return response()->json(['isEmailExist'=>true]);
+        return response()->json(['isEmailExist'=>true,'user_id'=>$isEmailExist->id]);
+    }
+
+    public function verifyCodePassword($payload){
+        $code = $payload->code;
+        $userId = $payload->userId;
+
+        $checkCode = ForgotPasswordModel::where('user_id', $userId)
+                            ->where('code', $code)
+                            ->first();
+        if(!$checkCode){
+            return response()->json(["message"=>"Wrong Code", 'isVerified'=>false]);
+        }
+        return response()->json(["message"=>"Verified Successfully", 'isVerified'=>true]);
+    }
+    public function updatePassword($payload){
+        $userId = $payload->userId;
+        $newPassword = $payload->newPassword;
+
+        $data = array(
+            'password'=>bcrypt($newPassword)
+        );
+        $updateTransaction= User::where('id',$userId)->update($data);
+        if(!$updateTransaction){
+            return response()->json(['message'=>'Failed to update password',  'isUpdated'=> false]);
+        }
+
+        ForgotPasswordModel::where('user_id',$userId)->delete();
+        return response()->json(['message'=>'Succesfully updated a password', 'isUpdated'=> true]);
     }
 
 }

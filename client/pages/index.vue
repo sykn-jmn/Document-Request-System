@@ -10,9 +10,7 @@
                 <Login />
             </div>
         </div>
-        <div class="bg-slate-200 absolute bottom-0 w-full text-center text-slate-600 py-4">
-            <p>Copyright c 2023 Edokumento</p>
-        </div>
+        <AppFooter />
     </div>
     
 </template>

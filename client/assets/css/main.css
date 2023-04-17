@@ -232,6 +232,6 @@ input::file-selector-button {
 }
 
 .error{
-  @apply text-red-500
+  @apply text-red-500 text-center
 }
 

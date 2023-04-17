@@ -6,7 +6,7 @@ namespace App\Http\Traits;
 trait GenerateCodeTrait {
     public function generateCode() {
         // Fetch all the students from the 'student' table.
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = '0123456789';
         $randomString = '';
  
         for ($i = 0; $i < 4; $i++) {

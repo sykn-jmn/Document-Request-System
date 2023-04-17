@@ -10,9 +10,11 @@ class ForgotPassword extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'email',
+        'user_id',
         'code',
     ];
+
+    protected $table = 'forgot_password';
 
     public function users(): HasOne
     {

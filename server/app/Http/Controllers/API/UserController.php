@@ -16,10 +16,16 @@ class UserController extends Controller
     function store(Users $users, Request $request){
         return $users->store($request);
     }
-    function checkEmail(Users $users, Request $request){
-        return $users->checkEmail($request);
+    function sendCode(Users $users, Request $request){
+        return $users->sendCode($request);
     }
     function verify(Users $users, Request $request){
         return $users->verify($request);
+    }
+    function verifyCodePassword(Users $users, Request $request){
+        return $users->verifyCodePassword($request);
+    }
+    function updatePassword(Users $users, Request $request){
+        return $users->updatePassword($request);
     }
 }
