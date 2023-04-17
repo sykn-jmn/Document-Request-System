@@ -16,6 +16,15 @@ class Authenticate
             'email'=> $payload->email,
             'password'=>$payload->password
         ];
+
+        $checkEmail = User::where('email',$payload->email)->first();
+        if($checkEmail){
+            if(!$checkEmail->email_verified_at){
+                return response(['message'=>'email is not verified'], 500);
+            }
+        }else{
+            return response(['message'=>'no email exist'], 500);
+        }
         
         if (!Auth::guard('users')->attempt($data)) {
             return response()->json([

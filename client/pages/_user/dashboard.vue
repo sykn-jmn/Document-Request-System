@@ -29,7 +29,6 @@
 import moment from 'moment'
 export default {
     layout: 'user',
-    middleware:['auth','user'],
     data(){
         return{
             data:[

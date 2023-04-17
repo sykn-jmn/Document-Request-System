@@ -6,7 +6,7 @@
       <div class="password-container">
           <input class="border-none" :type="passwordFieldType" id="password" name="password" placeholder="Enter Password" v-model="password" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
       </div><br><br>
-      <p class="text-center text-sky-600"><NuxtLink to="https://nuxtjs.org">Forgot your password?</NuxtLink></p><br><br>
+      <p class="text-center text-sky-600"><NuxtLink to="/forgot-password">Forgot your password?</NuxtLink></p><br><br>
       <div class="button-wrapper text-center">
           <button class="py-4 bg-yellow-400 rounded-full w-2/3 m-auto font-bold text-white" @click="login">LOGIN</button>
       </div><br><br>
@@ -47,10 +47,10 @@ export default {
             password: this.password,
           },
       })
-        // this.$router.push("/user/dashboard")
+        this.$router.push("/user/dashboard")
       }catch(err){
         console.log(err)
-        // this.$router.push("/")
+        this.$router.push("/")
       }
 
     },

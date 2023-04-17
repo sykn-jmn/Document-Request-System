@@ -14,7 +14,7 @@
                     <h2>CEDULA</h2>
                     <h3>Cedula will be generated based on your profile in web-app</h3>
                     <button>GENERATE</button><span class="status">Succesfully generated</span><br>
-                    <button :class="state.buttonStatus" disable>VIEW</button>
+                    <button :class="buttonStatus" disable>VIEW</button>
                 </div>
                 <div class="request_container">
                     <h2>PUROK CLEARANCE</h2>

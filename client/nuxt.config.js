@@ -54,10 +54,6 @@ export default {
           logout: { url: "/auth/logout", method: "post" },
           user: { url: "/auth/user", method: "get" },
         },
-        redirect: {
-          callback: "/",
-          home: "/user/dashboard",
-        },
       },
     },
   },
