@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\API\UserController;
-
+use App\Models\ForgotPassword;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,6 +31,9 @@ Route::prefix('user')->group(function(){
     Route::put('/update-password', [UserController::class, 'updatePassword']);
 });
 Route::get('/test', function(){
-    return response()->json(["message"=>"success"]);
+    $data = ForgotPassword::paginate(3);
+    return response()->json($data);
+
 });
 include_once 'auth/login.php';
+

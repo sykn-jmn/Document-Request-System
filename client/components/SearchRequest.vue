@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div class="search-container">
     <select class="dropdown">
         <option value="all" selected>All</option>
     </select>
@@ -22,8 +22,8 @@ export default {
 
 <style scoped>
 
-.main-container{
-    @apply py-2 px-4 rounded-xl bg-white shadow-xl text-lg flex
+.search-container{
+    @apply py-2 px-4 rounded-xl bg-white shadow-xl text-lg flex text-black
 }
 .dropdown{
     @apply flex justify-between pr-10 w-48 focus:outline-none
