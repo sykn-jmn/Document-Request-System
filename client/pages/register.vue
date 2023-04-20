@@ -19,7 +19,7 @@
                         <select id="civil_status" name="civil_Status" placeholder="Civil Status" v-model="data.civil_status" required>
                             <option value="" disabled selected hidden>Civil Status</option>
                             <option value="single">Single</option>
-                            <option value="non-binary">Married</option>
+                            <option value="married">Married</option>
                         </select>
                     </div><br>
                     <label>Birthdate</label>

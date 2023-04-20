@@ -35,6 +35,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.nav_link{
+    @apply w-full h-full
+}
 
 </style>
