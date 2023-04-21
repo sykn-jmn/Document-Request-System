@@ -29,6 +29,8 @@ Route::prefix('user')->group(function(){
     Route::put('verify-account', [UserController::class, 'verify']);
     Route::get('/verify-code-password', [UserController::class, 'verifyCodePassword']);
     Route::put('/update-password', [UserController::class, 'updatePassword']);
+    Route::put('/update-user', [UserController::class, 'updateInfo']);
+    Route::get('/get-details',[UserController::class, 'index']);
 });
 Route::get('/test', function(){
     $data = ForgotPassword::paginate(3);

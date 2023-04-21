@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
     function index(Users $users, Request $request){
-        return response()->json($request->user());
+        return $users->getDetails();
     }
     function store(Users $users, Request $request){
         return $users->store($request);
@@ -27,5 +27,8 @@ class UserController extends Controller
     }
     function updatePassword(Users $users, Request $request){
         return $users->updatePassword($request);
+    }
+    function updateInfo(Users $users, Request $request){
+        return $users->updateInfo($request);
     }
 }

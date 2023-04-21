@@ -20,7 +20,7 @@
           <font-awesome-icon :icon="['fas', 'location-dot']" />
           <p>aasdasdsadsd</p>         
         </div><br><br>
-        <p>Registration Date: <span class="font-medium">{{user.created_at}}</span></p>
+        <p>Registration Date: <span class="font-medium">{{registrationDate()}}</span></p>
       </div>
     </div>
 </template>
@@ -35,7 +35,9 @@ export default {
       }
     },
     methods:{
-
+      registrationDate(){
+          return moment(this.$auth.$state.user.created_at).format('MMMM d, YYYY');
+      }
     }
 }
 </script>

@@ -17,17 +17,18 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         User::create([
-            'email' => 'test@example.com',
-            'first_name' => 'Test',
-            'middle_name' => 'o',
-            'last_name' => 'Example',
+            'email' => 'jumboy@yopmail.com',
+            'first_name' => 'Jhumer',
+            'middle_name' => 'Ojales',
+            'last_name' => 'APus',
             'birthdate' => now(),
             'gender' => 'male',
             'civil_status' => 'single',
             'mobile_number' => '09751304307',
             'mothers_firstname' => 'Jeniza',
-            'mothers_middlename' => 'O.',
-            'mothers_lastname' => 'Apus',
+            'mothers_middlename' => 'Ihan',
+            'mothers_lastname' => 'Ojales',
+            'email_verified_at' => now(),
             'password' => bcrypt('123456789'),
         ]);
     }

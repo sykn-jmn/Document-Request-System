@@ -18,6 +18,14 @@ use Carbon\Carbon;
 class Users
 {
     use GenerateCodeTrait;
+
+    public function getDetails(){
+        $id = Auth::guard('users')->user()->id;
+        $userDetails = USer::where('id', $id)->first();
+
+        return response()->json($userDetails);
+    }
+
     public function store($payload)
     {
         $rules = array(
@@ -141,6 +149,68 @@ class Users
 
         ForgotPasswordModel::where('user_id',$userId)->delete();
         return response()->json(['message'=>'Succesfully updated a password', 'isUpdated'=> true]);
+    }
+    public function updateInfo($payload){
+        $rules = array(
+            'email' => 'required|max:255|email',
+            'first_name' => 'required|string',
+            'middle_name' => 'required|string',
+            'last_name' => 'required|string',
+            'birthdate' => 'required|date',
+            'birthplace' => 'nullable|string',
+            'gender' => 'nullable|string',
+            'sex' => 'nullable|string',
+            'civil_status' => 'required|string',
+            'religion' => 'nullable|string',
+            'purok' => 'nullable|string',
+            'baranggay' => 'nullable|string',
+            'zip_code' => 'nullable|string',
+            'municipality' => 'nullable|string',
+            'province' => 'nullable|string',
+            'mobile_number' => 'nullable|string|min:11',
+            'mothers_firstname' => 'required|string',
+            'mothers_middlename' => 'required|string',
+            'mothers_lastname' => 'required|string',
+            'password' => 'nullable|string|min:8',
+        );
+
+        $validator = Validator::make($payload->all(), $rules);
+
+        if($validator->fails()){
+            return response()->json(["message" => $validator->errors(),401]);
+        }
+
+        $data = array(
+            'email' => $payload->email,
+            'first_name' => $payload->first_name,
+            'middle_name' => $payload->middle_name,
+            'last_name' => $payload->last_name,
+            'birthdate' => $payload->birthdate,
+            'birthplace' => $payload->birthplace,
+            'gender' => $payload->gender,
+            'sex' => $payload->sex,
+            'civil_status' => $payload->civil_status,
+            'religion' => $payload->religion,
+            'purok' => $payload->purok,
+            'baranggay' => $payload->baranggay,
+            'zip_code' => $payload->zip_code,
+            'municipality' => $payload->municipality,
+            'province' => $payload->province,
+            'mobile_number' => $payload->mobile_number,
+            'mothers_firstname' => $payload->mothers_firstname,
+            'mothers_middlename' => $payload->mothers_middlename,
+            'mothers_lastname' => $payload->mothers_lastname,
+        );
+
+        if($payload->password){
+            $data['password'] = bcrypt($payload->password);
+        }
+        $id = Auth::guard('users')->user()->id;
+        $updateTransaction = User::where('id', $id)->update($data);
+        if(!$updateTransaction){
+            return response()->json(['message'=>'cannot update data',401]);
+        }
+        return response()->json(['message'=>'User update successfully']);
     }
 
 }
