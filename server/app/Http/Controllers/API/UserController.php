@@ -31,4 +31,12 @@ class UserController extends Controller
     function updateInfo(Users $users, Request $request){
         return $users->updateInfo($request);
     }
+
+    function checkEmail(Users $users, Request $request){
+        if(!$users->checkEmail($request)){
+            return response()->json(["isEmailExist" => false]);
+        }else{
+            return response()->json(["isEmailExist" => true]);
+        }
+    }
 }

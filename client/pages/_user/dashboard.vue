@@ -25,6 +25,13 @@
                     <p class="text-white text-center">Account</p>
                 </button>
             </div>
+            <div class="rounded-2xl bg-white">
+                <div class="flex">
+                    <font-awesome-icon :icon="['fas', 'circle-exclamation']" />
+                    <span>Notice</span>
+                </div>
+
+            </div>
         </div>
         <div class="p-4 text-xl">
             <span class="font-bold text-3xl">Request Feed</span><br><br>
