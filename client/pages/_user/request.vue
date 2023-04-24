@@ -1,6 +1,16 @@
 <template>
-    <div class="bg-white min-h-screen text-black">
-        <div class="p-8">
+    <div class="bg-slate-100 min-h-screen text-black">
+        <div>
+            <h1 class="text-3xl font-bold">Select type of document you would like to request</h1>
+            <p>You can choose more than one document request at a time</p>
+            <div class="rounded-2xl bg white py-8 px-16">
+                <div v-for="doc in documents" :key="doc.id">
+                    <input type="checkbox" :id="doc.id" :name="doc.name" :value="doc.id" class="w-fit">
+                    <label :for="doc.name">{{doc.name}}</label><br>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="p-8">
             <h1 class="text-3xl font-bold">Baranggay Clearance</h1><br>
             <div class="border-t-2 border-black">
                 <p>Request Baranggay Clearance</p><br><br>
@@ -22,8 +32,7 @@
                     <input type="file">
                 </div>
             </div>
-        </div>
-        
+        </div> -->
     </div>
 </template>
 
@@ -32,7 +41,29 @@ export default {
     layout: 'user',
     data(){
         return{
-            buttonStatus: "isButtonDisabled"
+            buttonStatus: "isButtonDisabled",
+            documents:[
+                {
+                    id:1,
+                    name: "Baranggay Clearance"
+                },
+                {
+                    id:2,
+                    name: "Certificate of Residency"
+                },
+                {
+                    id:3,
+                    name: "Business Clearance"
+                },
+                {
+                    id:4,
+                    name: "Certificate of Indigency"
+                },
+                {
+                    id:5,
+                    name: "Baranggay Health Certificate"
+                }
+            ]
         }
     }
 }
