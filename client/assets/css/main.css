@@ -234,4 +234,8 @@ input::file-selector-button {
 .error{
   @apply text-red-500 text-center
 }
+textarea{
+  padding:10px;
+  @apply w-full focus:outline-none border border-black h-56 rounded-md
+}
 
