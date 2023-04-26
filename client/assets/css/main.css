@@ -174,7 +174,7 @@ form > input[type="date"] {
 }
 
 .index-container {
-  @apply w-11/12 m-auto;
+  @apply w-11/12 m-auto flex flex-col; 
 }
 
 .registration-container {

@@ -1,7 +1,7 @@
 <template>
   <div class="account-information">
       <div class="photo">
-        <img class="rounded-full w-40 h-40 m-auto" src="~/assets/images/id_nako.jpg">
+        <img class="rounded-full w-40 h-40 m-auto" src="~/assets/images/no_profile_pic.jpg">
         <div class="button-wrapper">
           <button>Upload New Photo</button>
         </div>

@@ -5,7 +5,7 @@
         </div>
         <nav class="navUser">
             <div class="nav_profile text-center text-xl">
-                <img class="rounded-full w-48 h-48 m-auto" src="~/assets/images/id_nako.jpg"><br>
+                <img class="rounded-full w-48 h-48 m-auto" src="~/assets/images/no_profile_pic.jpg"><br>
                 <span>{{name}}</span>
             </div><br>
             <ul>

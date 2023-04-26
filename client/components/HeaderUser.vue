@@ -4,7 +4,7 @@
             <font-awesome-icon :icon="['fas', 'bars']" size="lg" />
         </div>
         <div class="flex items-center">
-            <img src="~assets/images/id_nako.jpg" class="rounded-full" width="50" height="50">
+            <img src="~assets/images/no_profile_pic.jpg" class="rounded-full" width="50" height="50">
             <span class="text-xl ml-4">{{name}}</span>
         </div>
     </div>

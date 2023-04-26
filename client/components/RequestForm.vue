@@ -47,6 +47,10 @@
                 <p class="label">Supporting Documents</p>
                 <span class="guide">Upload photo/scanned copy of your supporting documents.</span>
             </div>
+            <label class="col-span-2">
+                Valid ID <span class="guide">(Valid types are <b>jpg</b> and <b>png</b>)</span>
+                <input type="file">
+            </label>
         </form>
     </div>
 </template>
@@ -91,7 +95,7 @@ export default {
     @apply font-semibold text-xl mb-4
 }
 .guide{
-    @apply text-slate-400 font-normal
+    @apply text-slate-400 font-normal text-xl
 }
 .box{
     @apply py-2 px-4 border border-black rounded-lg mt-4 text-xl
