@@ -9,3 +9,6 @@ $theme-colors: (
     'dark': #001738,
 );
 @import '~/node_modules/bootstrap/scss/bootstrap.scss';
+ul {
+    font-size: 50px;
+}

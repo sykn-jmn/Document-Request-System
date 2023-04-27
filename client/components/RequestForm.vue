@@ -49,7 +49,11 @@
             </div>
             <label class="col-span-2">
                 Valid ID <span class="guide">(Valid types are <b>jpg</b> and <b>png</b>)</span>
-                <input type="file">
+                <input type="file" v-on:change="onChangeID" accept="image/jpeg, image/png">
+            </label>
+            <label class="col-span-2">
+                Other Supporting Documents <span class="guide">(Valid types are <b>jpg</b>, <b>png</b>, and <b>pdf</b>)</span>
+                <input type="file" v-on:change="onChangeID" accept="image/jpeg, image/png, application/pdf" required>
             </label>
         </form>
     </div>
@@ -83,6 +87,10 @@ export default {
                     age--;
                 }
                 return age;
+
+        },
+        onChangeID(e){
+            console.log(e.target.files[0])
 
         }
     }

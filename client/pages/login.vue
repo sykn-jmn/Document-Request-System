@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="h-screen relative">
+        <AppHeader />
         <div class="index-container">
-            <AppHeader />
             <div class="home">
                 <div class="description-title text-right">
                     <h1><span class="text-yellow-400">Make</span> your document <span class="text-yellow-400">request faster</span></h1><br>
