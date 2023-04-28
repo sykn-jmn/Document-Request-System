@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-fit m-auto">
     <div class="header-calendar">
       <button @click="prev"><font-awesome-icon :icon="['fas', 'chevron-left']" /></button>
       <h1>{{monthName}}</h1>
@@ -17,9 +17,13 @@
       <li class="date" v-for="(n,i) in 42" :key="i" >
         <div v-if="0<i-startDay && i-startDay<=endDate" class="w-full">
           <p class="date-number">{{i-startDay}}</p>
-          <div v-if="i+1%7!=0">
-              <button>AM 100 slots</button>
-              <button>PM 100 slots</button>
+          <div v-if="(i+1) % 7 != 0 && (i+1) % 7 != 1 && !holidays[month].includes(i-startDay)">
+              <button @click="selectedDate(i-startDay,'am')">AM 100 slots</button>
+              <button @click="selectedDate(i-startDay,'pm')">PM 100 slots</button>
+          </div>
+          <div v-else>
+              <font-awesome-icon :icon="['fas', 'ban']" class="na-icon"/>
+              <p class="na-message">Not Applicable</p>
           </div>
         </div>
       </li>
@@ -38,6 +42,7 @@ export default {
       year: new Date().getFullYear(),
       month: new Date().getMonth(),
       countDate:0,
+      holidays:[[1],[],[],[6,7,10,21],[1],[12],[],[28],[],[],[27],[25,30]]
     }
   },
   mounted(){
@@ -66,6 +71,9 @@ export default {
         this.month--
       }
       this.renderCalendar(this.year, this.month)
+    },
+    selectedDate(){
+      
     }
   }
 
@@ -74,7 +82,7 @@ export default {
 
 <style scoped>
 .header-calendar{
-  @apply flex
+  @apply flex w-fit
 }
 .header-calendar > button{
   @apply px-4
@@ -89,16 +97,22 @@ h1{
   @apply text-3xl font-bold
 }
 .date-number{
-  @apply text-right w-full text-cyan-700 text-lg font-medium
+  @apply text-right w-full text-cyan-700 text-lg font-medium mr-2 pr-2
 }
 .weekdays{
   @apply h-fit bg-sky-700 text-white p-2
 }
 .date{
-  @apply w-32 relative
+  @apply w-32 h-32 relative
 }
 
-.date > div> div>button{
-  @apply text-center bg-blue-400 text-white rounded-md p-2 mb-2
+.date > div> div> button{
+  @apply text-center bg-blue-400 text-white rounded-md p-2 mb-2 focus:bg-sky-900
+}
+.na-icon{
+  @apply md:text-3xl text-red-600
+}
+.na-message{
+  @apply text-red-600
 }
 </style>
