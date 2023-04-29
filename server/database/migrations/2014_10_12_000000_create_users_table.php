@@ -19,8 +19,7 @@ Schema::create('users', function (Blueprint $table) {
     $table->string('last_name');
     $table->date('birthdate');
     $table->string('birthplace')->nullable();
-    $table->enum('gender',['male','female','non-binary','not to mention']);
-    $table->enum('sex',['male','female'])->nullable();
+    $table->enum('sex',['male','female']);
     $table->enum('civil_status',['single','married']);
     $table->string('mobile_number');
     $table->string('religion')->nullable();

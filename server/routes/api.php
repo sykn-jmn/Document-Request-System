@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\RequestController;
 use App\Models\ForgotPassword;
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::prefix('user')->group(function(){
     Route::put('/update-user', [UserController::class, 'updateInfo']);
     Route::get('/get-details',[UserController::class, 'index']);
     Route::get('/check-email',[UserController::class, 'checkEmail']);
+    Route::get('/request/get-slots',[RequestController::class, 'getSlots']);
 });
 Route::get('/test', function(){
     $data = ForgotPassword::paginate(3);

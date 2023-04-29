@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('middle_name');
             $table->string('last_name');
             $table->date('birthdate');
-            $table->enum('gender',['male','female','non-binary','not to mention']);
+            $table->enum('sex',['male','female']);
             $table->enum('civil_status',['single','married']);
             $table->string('position');
             $table->string('mobile_number');

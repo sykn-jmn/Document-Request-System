@@ -18,8 +18,8 @@
         <div v-if="0<i-startDay && i-startDay<=endDate" class="w-full">
           <p class="date-number">{{i-startDay}}</p>
           <div v-if="(i+1) % 7 != 0 && (i+1) % 7 != 1 && !holidays[month].includes(i-startDay)">
-              <button @click="selectedDate(i-startDay,'am')">AM 100 slots</button>
-              <button @click="selectedDate(i-startDay,'pm')">PM 100 slots</button>
+              <button @click="selectedDate(i-startDay,'am')">AM {{getSlots(year, month+1, i-startDay, 'am')}} slots</button>
+              <button @click="selectedDate(i-startDay,'pm')">PM {{getSlots(year, month+1, i-startDay, 'pm')}} slots</button>
           </div>
           <div v-else>
               <font-awesome-icon :icon="['fas', 'ban']" class="na-icon"/>
@@ -71,6 +71,17 @@ export default {
         this.month--
       }
       this.renderCalendar(this.year, this.month)
+    },
+    getSlots(year, month, date, meridiem){
+      var params = {
+        year:year,
+        month:month,
+        date:date,
+        meridiem:meridiem
+      }
+      this.$axios.get('/user/request/get-slots', {params}).then(response=>{
+        return response.data.count
+      })
     },
     selectedDate(){
       

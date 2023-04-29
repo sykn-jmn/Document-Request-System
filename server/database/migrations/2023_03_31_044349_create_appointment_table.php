@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->bigInteger('request_id')->index();
-            $table->timestamp('schedule');
+            $table->date('schedule');
+            $table->enum('meridiem',['am','pm']);
             $table->string('status');
             $table->bigInteger('admin')->index();
             $table->timestamps();

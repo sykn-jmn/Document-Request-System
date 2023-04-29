@@ -9,12 +9,10 @@
                     <input type="text" id="middlename" name="middlename" v-model="data.middle_name" placeholder="Middle Name" required><br><br>
                     <input type="text" id="lastname" name="lastname" v-model="data.last_name" placeholder="Last Name" required><br><br>
                     <div class="select-container">
-                        <select id="gender" name="gender" v-model="data.gender" placeholder="Gender" required>
-                            <option value="" disabled selected hidden>Gender</option>
+                        <select id="sex" name="sex" v-model="data.sex" placeholder="Sex" required>
+                            <option value="" disabled selected hidden>Sex</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
-                            <option value="non-binary">Non-binary</option>
-                            <option value="others">Not to mention</option>
                         </select>
                         <select id="civil_status" name="civil_Status" placeholder="Civil Status" v-model="data.civil_status" required>
                             <option value="" disabled selected hidden>Civil Status</option>
@@ -92,7 +90,7 @@ export default {
                 middle_name:'',
                 last_name:'',
                 email:'',
-                gender:'',
+                sex:'',
                 civil_status:'',
                 birthdate:'',
                 mothers_firstname:'',
