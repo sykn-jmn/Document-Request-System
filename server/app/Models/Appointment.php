@@ -18,5 +18,10 @@ class Appointment extends Model
         'admin_id',
     ];
 
-    protected $table = 'appointmentss';
+    protected $table = 'appointments';
+
+    public function request(): HasOne
+    {
+        return $this->hasOne(Request::class, 'id', 'request_id');
+    }
 }
