@@ -11,14 +11,10 @@ class Document extends Model
 
     
     protected $fillable = [
-        'code',
-        'request_id',
-        'schedule',
-        'meridiem',
-        'status',
-        'admin_id',
+        'name',
+        'description',
     ];
 
-    protected $table = 'appointments';
+    protected $table = 'documents';
 
 }

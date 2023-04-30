@@ -16,33 +16,22 @@ export default {
     data(){
         return{
             selectedRequest:[],
-            documents:[
-                {
-                    id:1,
-                    name: "Baranggay Clearance"
-                },
-                {
-                    id:2,
-                    name: "Certificate of Residency"
-                },
-                {
-                    id:3,
-                    name: "Business Clearance"
-                },
-                {
-                    id:4,
-                    name: "Certificate of Indigency"
-                },
-                {
-                    id:5,
-                    name: "Baranggay Health Certificate"
-                }
-            ]
+            documents:[]
         }
+    },
+    mounted(){
+        this.getDocuments()
     },
     watch:{
         selectedRequest(){
             console.log(this.selectedRequest)
+        }
+    },
+    methods:{
+        async getDocuments(){
+            await this.$axios.get('/user/documents').then(response=>{
+                this.documents = response.data
+            })
         }
     }
 

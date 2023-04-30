@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
             $table->bigInteger('user_id')->index();
             $table->date('date_requested');
             $table->string('purpose');

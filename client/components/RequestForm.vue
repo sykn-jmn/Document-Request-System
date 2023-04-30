@@ -53,7 +53,7 @@
             </label>
             <label class="col-span-2">
                 Other Supporting Documents <span class="guide">(Valid types are <b>jpg</b>, <b>png</b>, and <b>pdf</b>)</span>
-                <input type="file" v-on:change="onChangeID" accept="image/jpeg, image/png, application/pdf" required>
+                <input type="file" v-on:change="onChangeDocuments" accept="image/jpeg, image/png, application/pdf" multiple required>
             </label>
         </form>
     </div>
@@ -65,6 +65,8 @@ export default {
         return{
             data:'',
             purposeOfRequest:'',
+            validID:'',
+            supportingDocument:'',
         }
     },
     mounted(){
@@ -90,7 +92,9 @@ export default {
 
         },
         onChangeID(e){
-            console.log(e.target.files[0])
+
+        },
+        onChangeDocuments(e){
 
         }
     }

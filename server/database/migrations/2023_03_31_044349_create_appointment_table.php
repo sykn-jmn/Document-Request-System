@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
             $table->bigInteger('request_id')->index();
             $table->date('schedule');
             $table->enum('meridiem',['am','pm']);
             $table->string('status');
-            $table->bigInteger('admin')->index();
+            $table->bigInteger('admin_id')->index();
             $table->timestamps();
         });
     }

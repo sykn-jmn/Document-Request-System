@@ -3,6 +3,7 @@
 namespace App\Modules;
 
 use App\Models\Appointment;
+use App\Models\Document;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,11 @@ class RequestDocument{
                     ->get();
 
         return response()->json($getAppointments);
+    }
+
+    public function getDocuments(){
+        $documents = Document::get();
+        return response()->json($documents);
     }
 }
 

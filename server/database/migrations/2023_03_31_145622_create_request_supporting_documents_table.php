@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('request_supporting_documents', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
             $table->bigInteger('supporting_document_id')->index();
             $table->bigInteger('transaction_id')->index();
             $table->timestamps();

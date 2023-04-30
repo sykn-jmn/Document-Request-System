@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
             $table->decimal('fee');
             $table->bigInteger('appointment_id')->index();
             $table->bigInteger('request_supporting_document_id')->index();

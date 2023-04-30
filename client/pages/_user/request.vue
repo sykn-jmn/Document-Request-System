@@ -16,7 +16,7 @@ export default {
     layout: 'user',
     data(){
         return{
-            page:3,
+            page:1,
             buttonStatus: "isButtonDisabled",
             selectedDate:{},
             selectedDocuments:[]

@@ -34,7 +34,10 @@ Route::prefix('user')->group(function(){
     Route::get('/get-details',[UserController::class, 'index']);
     Route::get('/check-email',[UserController::class, 'checkEmail']);
     Route::get('/request/get-slots',[RequestController::class, 'getSlots']);
+    Route::get('/documents', [RequestController::class, 'getDocuments']);
 });
+
+
 Route::get('/test', function(){
     $data = ForgotPassword::paginate(3);
     return response()->json($data);

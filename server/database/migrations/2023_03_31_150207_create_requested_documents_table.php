@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('requested_documents', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
             $table->bigInteger('request_id')->index();
             $table->bigInteger('document_id')->index();
             $table->decimal('fee');
