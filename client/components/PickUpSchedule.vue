@@ -18,8 +18,8 @@
         <div v-if="0<i-dayToMinus && i-dayToMinus<=endDate" class="w-full">
           <p class="date-number">{{i-dayToMinus}}</p>
           <div v-if="(i+1) % 7 != 0 && (i+1) % 7 != 1 && !holidays[month].includes(i-dayToMinus)">
-              <button @click="selectedDate(i-dayToMinus,'am')">AM {{getSlots(i-dayToMinus)}} slots</button>
-              <button @click="selectedDate(i-dayToMinus,'pm')">PM {{getSlots(i-dayToMinus)}} slots</button>
+              <button @click="selectedDate(i-dayToMinus,'am')">AM {{getSlots(i-dayToMinus, 'am')}} slots</button>
+              <button @click="selectedDate(i-dayToMinus,'pm')">PM {{getSlots(i-dayToMinus, 'pm')}} slots</button>
           </div>
           <div v-else>
               <font-awesome-icon :icon="['fas', 'ban']" class="na-icon"/>
@@ -34,6 +34,7 @@
 <script>
 import moment from 'moment'
 export default {
+  emits:['selectedDate'],
   data(){
     return{
       monthName:'',
@@ -44,7 +45,7 @@ export default {
       month: new Date().getMonth(),
       countDate:0,
       holidays:[[1],[],[],[6,7,10,21],[1],[12],[],[28],[],[],[27],[25,30]],
-      slots:[],
+      appointments:[],
     }
   },
   mounted(){
@@ -84,14 +85,24 @@ export default {
         endDate: moment(new Date(this.year, this.month, this.endDate)).format('yyyy-MM-DD'),
       }
       await this.$axios.get('/user/request/get-slots', {params}).then(response=>{
-        this.slots = response.data
+        this.appointments = response.data
       })
     },
-    getSlots(day){
+    getSlots(day, meridiem){
+      let date = moment(new Date(this.year, this.month, day)).format('yyyy-MM-DD')
+      let filterAppointment = this.appointments.filter(appointment=>appointment.schedule == date && appointment.meridiem == meridiem)
 
+      let slots = 100 - filterAppointment.length
+      return slots
     },
-    selectedDate(){
-      
+    selectedDate(day,meridiem){
+      let dateClicked={
+        selectedDate:moment(new Date(this.year,this.month, day)).format('yyyy-MM-DD'),
+        meridiem:meridiem
+      } 
+      this.$emit('selectedDate',dateClicked)
+
+
     }
   }
 

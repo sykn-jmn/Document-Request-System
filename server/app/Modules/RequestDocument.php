@@ -15,12 +15,18 @@ class RequestDocument{
         $endDate = $payload->endDate;
 
         
-        $getAppointments = Appointment::join('requests', 'requests.id', '=', 'appointments.request_id')
+        $getAppointments = Appointment::select(
+                    'user_id',
+                    'appointments.schedule',
+                    'appointments.meridiem',
+                    )
+                    ->join('requests', 'requests.id', '=', 'appointments.request_id')
                     ->where('schedule','>=', $startDate)
                     ->where('schedule','<=', $endDate)
+                    ->distinct()
                     ->get();
 
-        return response()->json([$getAppointments]);
+        return response()->json($getAppointments);
     }
 }
 
