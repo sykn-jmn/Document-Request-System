@@ -11,18 +11,16 @@ use Carbon\Carbon;
 
 class RequestDocument{
     public function getSlots($payload){
-        $schedule = new Carbon($payload->schedule);
-        $meridiem = $payload->meridiem;
+        $startDate = $payload->startDate;
+        $endDate = $payload->endDate;
 
         
-        $count = Appointment::join('requests', 'requests.id', '=', 'appointments.request_id')
-                    ->where('schedule', $schedule)
-                    ->where('meridiem',$meridiem)
-                    ->distinct()
-                    ->count('requests.user_id');
-        Log::info($schedule." ".$count);
+        $getAppointments = Appointment::join('requests', 'requests.id', '=', 'appointments.request_id')
+                    ->where('schedule','>=', $startDate)
+                    ->where('schedule','<=', $endDate)
+                    ->get();
 
-        return response()->json(['slots'=>100-$count]);
+        return response()->json([$getAppointments]);
     }
 }
 

@@ -15,11 +15,11 @@
       <li class="weekdays">Friday</li>
       <li class="weekdays">Saturday</li>
       <li class="date" v-for="(n,i) in 42" :key="i" >
-        <div v-if="0<i-startDay && i-startDay<=endDate" class="w-full">
-          <p class="date-number">{{i-startDay}}</p>
-          <div v-if="(i+1) % 7 != 0 && (i+1) % 7 != 1 && !holidays[month].includes(i-startDay)">
-              <button @click="selectedDate(i-startDay,'am')">AM {{getSlots(year, month, i-startDay, 'am')}} slots</button>
-              <button @click="selectedDate(i-startDay,'pm')">PM {{getSlots(year, month, i-startDay, 'pm')}} slots</button>
+        <div v-if="0<i-dayToMinus && i-dayToMinus<=endDate" class="w-full">
+          <p class="date-number">{{i-dayToMinus}}</p>
+          <div v-if="(i+1) % 7 != 0 && (i+1) % 7 != 1 && !holidays[month].includes(i-dayToMinus)">
+              <button @click="selectedDate(i-dayToMinus,'am')">AM {{getSlots(i-dayToMinus)}} slots</button>
+              <button @click="selectedDate(i-dayToMinus,'pm')">PM {{getSlots(i-dayToMinus)}} slots</button>
           </div>
           <div v-else>
               <font-awesome-icon :icon="['fas', 'ban']" class="na-icon"/>
@@ -38,21 +38,25 @@ export default {
     return{
       monthName:'',
       startDay:0,
+      dayToMinus:0,
       endDate:0,
       year: new Date().getFullYear(),
       month: new Date().getMonth(),
       countDate:0,
-      holidays:[[1],[],[],[6,7,10,21],[1],[12],[],[28],[],[],[27],[25,30]]
+      holidays:[[1],[],[],[6,7,10,21],[1],[12],[],[28],[],[],[27],[25,30]],
+      slots:[],
     }
   },
   mounted(){
     this.renderCalendar(this.year, this.month)
+    this.getAppointments(this.month)
   },
   methods:{
     renderCalendar(year, month){
       this.monthName = moment(month+1, 'MM').format('MMMM')
       this.endDate = new Date(year, month+1, 0).getDate()
-      this.startDay = new Date(year, month, 1).getDay()-1
+      this.startDay = new Date(year, month, 1).getDay()
+      this.dayToMinus = this.startDay-1
     },
     next(){
       if(this.month==11){
@@ -62,6 +66,7 @@ export default {
         this.month++
       }
       this.renderCalendar(this.year, this.month)
+      this.getAppointments()
     },
     prev(){
       if(this.month==0){
@@ -71,15 +76,19 @@ export default {
         this.month--
       }
       this.renderCalendar(this.year, this.month)
+      this.getAppointments()
     },
-    async getSlots(year, month, date, meridiem){
+    async getAppointments(){
       var params = {
-        schedule: moment(new Date(year, month, date)).format('yyyy-MM-DD'),
-        meridiem:meridiem
+        startDate: moment(new Date(this.year, this.month, this.startDay)).format('yyyy-MM-DD'),
+        endDate: moment(new Date(this.year, this.month, this.endDate)).format('yyyy-MM-DD'),
       }
       await this.$axios.get('/user/request/get-slots', {params}).then(response=>{
-        return response.data.slots
+        this.slots = response.data
       })
+    },
+    getSlots(day){
+
     },
     selectedDate(){
       
