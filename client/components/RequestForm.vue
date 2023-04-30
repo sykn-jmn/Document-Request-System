@@ -1,5 +1,5 @@
 <template>
-    <div class="md:p-20">
+    <div class="md:pt-20 md:px-20 md:pb-4">
         <h1 class="text-3xl font-bold">Complete the Request Form</h1>
         <p class="font-medium">Make sure to not leave any field blank</p><br>
         <form>
@@ -77,6 +77,9 @@ export default {
             await this.$axios.get('/user/get-details').then(response=>{
                 this.data = response.data
                 this.data.middle_initial = response.data.middle_name[0]
+                this.$store.commit('request/updateRequestForm', {
+                    requestForm: this.data,
+                });
             })
         },
         getAge(birthdate){
@@ -92,10 +95,14 @@ export default {
 
         },
         onChangeID(e){
-
+            this.$store.commit('request/updateValidID', {
+                validID: e.target.files[0],
+            });
         },
         onChangeDocuments(e){
-
+            this.$store.commit('request/updateSupportingDocuments', {
+                supportingDocuments: e.target.files,
+            });
         }
     }
 

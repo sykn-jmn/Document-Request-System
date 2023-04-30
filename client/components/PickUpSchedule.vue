@@ -100,7 +100,9 @@ export default {
         selectedDate:moment(new Date(this.year,this.month, day)).format('yyyy-MM-DD'),
         meridiem:meridiem
       } 
-      this.$emit('selectedDate',dateClicked)
+      this.$store.commit('request/updatePickUpDate', {
+          pickUpDate: dateClicked,
+      });
 
 
     }

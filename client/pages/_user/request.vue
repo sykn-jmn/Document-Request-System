@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-slate-100 min-h-screen text-black">
-        <SelectDocuments  v-if="page==1" @selectedDocuments="getSelectedDocuments"/>
+    <div class="bg-slate-100 min-h-screen pb-20 text-black">
+        <SelectDocuments  v-if="page==1"/>
         <RequestForm v-if="page==2"/>
-        <PickUpSchedule v-if="page==3" @selectedDate="getSelectedDate"/>
+        <PickUpSchedule v-if="page==3"/>
         <div class="m-auto mt-4 space-x-4 w-fit">
             <button class="bg-stone-500 text-white px-20 py-2 rounded-lg" v-if="page==1">Cancel</button>
             <button class="bg-stone-500 text-white px-20 py-2 rounded-lg" v-if="page>1" @click="page--">Back</button>
@@ -23,12 +23,6 @@ export default {
         }
     },
     methods:{
-        getSelectedDate(value){
-            this.selectedDate =  value
-        },
-        getSelectedDocuments(value){
-            this.selectedDocuments = value
-        }
     }
 }
 </script>
