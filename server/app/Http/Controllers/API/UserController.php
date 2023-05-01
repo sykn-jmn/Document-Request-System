@@ -31,6 +31,13 @@ class UserController extends Controller
     function updateInfo(Users $users, Request $request){
         return $users->updateInfo($request);
     }
+    function uploadPhoto(Users $users, Request $request){
+        return $users->uploadPhoto($request);
+    }
+
+    function getProfilePic(Users $users, Request $request){
+        return $users->getProfilePic();
+    }
 
     function checkEmail(Users $users, Request $request){
         if(!$users->checkEmail($request)){
@@ -39,4 +46,5 @@ class UserController extends Controller
             return response()->json(["isEmailExist" => true]);
         }
     }
+
 }

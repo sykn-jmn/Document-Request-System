@@ -3,6 +3,7 @@
 namespace App\Modules;
 
 use App\Models\User;
+use App\Models\UserProfilePicture;
 use App\Models\ForgotPassword as ForgotPasswordModel;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -209,6 +210,36 @@ class Users
             return response()->json(['message'=>'cannot update data',401]);
         }
         return response()->json(['message'=>'User update successfully']);
+    }
+    public function uploadPhoto($payload){
+        $getUserProfilePic = UserProfilePicture::where('user_id',Auth::guard('users')->user()->id)->first();
+
+        $userProfilePicture = new UserProfilePicture;  
+        $file_name = time().'_'.$payload->file->getClientOriginalName();
+        $file_path = $payload->file('file')->storeAs('profile_pic', $file_name, 'public');
+
+        if($getUserProfilePic){
+            UserProfilePicture::where('user_id',Auth::guard('users')->user()->id)
+                                ->update([
+                                    'filename'=>$file_name,
+                                    'path'=>$file_path
+                                ]);
+        }else{
+            $userProfilePicture->user_id = Auth::guard('users')->user()->id;
+            $userProfilePicture->filename = $file_name;
+            $userProfilePicture->path = $file_path;
+            $userProfilePicture->save();
+        }
+
+
+        return response()->json([
+            "message"=>"Updated Profile Pic Successfully",
+            "path"=>$file_path,
+        ]);
+    }
+    public function getProfilePic(){
+        $getUserProfile = UserProfilePicture::where('user_id', Auth::guard('users')->user()->id)->first();
+        return response()->json($getUserProfile);
     }
 
 }

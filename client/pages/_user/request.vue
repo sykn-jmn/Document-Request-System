@@ -8,7 +8,7 @@
             <button class="bg-stone-500 text-white px-20 py-2 rounded-lg" v-if="page==1">Cancel</button>
             <button class="bg-stone-500 text-white px-20 py-2 rounded-lg" v-if="page>1" @click="page--">Back</button>
             <button class="bg-yellow-400 text-white px-20 py-2 rounded-lg" v-if="page<4" @click="nextPage" >Next</button>
-            <button class="bg-yellow-400 text-white px-20 py-2 rounded-lg" v-if="page==4" @click="page++">Save</button>
+            <button class="bg-yellow-400 text-white px-20 py-2 rounded-lg" v-if="page==4" @click="submitRequest">Save</button>
         </div>
     </div>
 </template>
@@ -57,6 +57,14 @@ export default {
                     this.page++
                 }
             }
+        },
+        async submitRequest(){
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }
+            await this.$axios.post('/user/submit-request', this.$store.state.request.request)
         }
     }
 }

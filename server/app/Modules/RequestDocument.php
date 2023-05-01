@@ -34,5 +34,8 @@ class RequestDocument{
         $documents = Document::get();
         return response()->json($documents);
     }
+    public function submitRequest($payload){
+
+    }
 }
 

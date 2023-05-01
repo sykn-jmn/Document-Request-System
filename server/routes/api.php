@@ -35,6 +35,10 @@ Route::prefix('user')->group(function(){
     Route::get('/check-email',[UserController::class, 'checkEmail']);
     Route::get('/request/get-slots',[RequestController::class, 'getSlots']);
     Route::get('/documents', [RequestController::class, 'getDocuments']);
+    Route::post('/submit-request', [RequestController::class, 'submitRequest']);
+    Route::post('/upload-photo', [UserController::class, 'uploadPhoto']);
+    Route::get('/profile-pic', [UserController::class, 'getProfilePic']);
+    
 });
 
 

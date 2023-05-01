@@ -14,4 +14,7 @@ class RequestController extends Controller
     public function getDocuments(Request $request, RequestDocument $requestDocument){
         return $requestDocument->getDocuments();
     }
+    public function submitRequest(Request $request, RequestDocument $requestDocument){
+        return $requestDocument->submitRequest($request);
+    }
 }

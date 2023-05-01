@@ -1,9 +1,11 @@
 <template>
   <div class="account-information">
       <div class="photo">
-        <img class="rounded-full w-40 h-40 m-auto" src="~/assets/images/no_profile_pic.jpg">
+        <img class="rounded-full w-40 h-40 m-auto" :src="getImgUrl(profilePicPath)">
         <div class="button-wrapper">
-          <button>Upload New Photo</button>
+          <label for="uploadPhoto">Upload New Photo</label>
+          <input class="upload-photo" type="file" accept="image/png, image/jpg, image/jpeg" v-on:change="uploadPhoto" id="uploadPhoto">
+          <!-- <button>Upload New Photo</button> -->
         </div>
       </div>
       <div class="details-wrapper">
@@ -31,12 +33,41 @@ export default {
     data(){
       return{
         fullName:this.$auth.state.user.first_name + " " + this.$auth.state.user.middle_name + " " + this.$auth.state.user.last_name,
-        user:this.$auth.state.user
+        user:this.$auth.state.user,
+        file:"",
+        profilePicPath:""
       }
+    },
+    mounted(){
+      this.getProfilePicture()
     },
     methods:{
       registrationDate(){
           return moment(this.$auth.$state.user.created_at).format('MMMM d, YYYY');
+      },
+      async uploadPhoto(e){
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+          }
+        this.file = e.target.files[0]
+        let formData = new FormData()
+        formData.append("file", this.file)
+
+        await this.$axios.post('/user/upload-photo',formData, config).then(response=>{
+          this.getProfilePicture()
+        })
+      },
+      async getProfilePicture(){
+        await this.$axios.get('/user/profile-pic').then(response=>{
+            this.profilePicPath = response.data.path
+          }
+        )
+      },
+      getImgUrl(path){
+        const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+path): require("~/assets/images/no_profile_pic.jpg")
+        return imgUrl
       }
     }
 }
@@ -50,8 +81,8 @@ export default {
 .button-wrapper{
   @apply text-white w-full text-center text-base
 }
-.button-wrapper > button{
-  @apply py-1 px-4 bg-yellow-400 w-full rounded-lg
+.button-wrapper > label{
+  @apply py-2 px-4 bg-yellow-400 w-full rounded-lg cursor-pointer
 }
 
 .details-wrapper{
@@ -62,6 +93,9 @@ export default {
 }
 .photo{
     @apply w-fit
+}
+.upload-photo{
+  @apply hidden
 }
 
 </style>
