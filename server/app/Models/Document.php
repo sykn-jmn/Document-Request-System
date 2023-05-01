@@ -13,6 +13,7 @@ class Document extends Model
     protected $fillable = [
         'name',
         'description',
+        'fee'
     ];
 
     protected $table = 'documents';

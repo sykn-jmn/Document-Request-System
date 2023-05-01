@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('request_supporting_documents', function (Blueprint $table) {
+        Schema::create('user_profile_picture', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('supporting_document_id')->index();
-            $table->bigInteger('request_id')->index();
+            $table->bigInteger('user_id')->index();
+            $table->string('filename');
+            $table->string('path');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('request_supporting_documents');
+        Schema::dropIfExists('profile_picture');
     }
 };

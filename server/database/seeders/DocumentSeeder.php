@@ -15,27 +15,32 @@ class DocumentSeeder extends Seeder
     {
         Document::create([
             'name'=>'Cedula',
-            'description' => 'Lorem ipsum'
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
         ]);
 
         Document::create([
             'name'=>'Baranggay Health Certificate',
-            'description' => 'Lorem ipsum'
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
         ]);
 
         Document::create([
             'name'=>'Baranggay Clearance',
-            'description' => 'Lorem ipsum'
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
         ]);
 
         Document::create([
             'name'=>'Certificate of Residency',
-            'description' => 'Lorem ipsum'
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
         ]);
 
         Document::create([
             'name'=>'Certificate of Indigency',
-            'description' => 'Lorem ipsum'
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
         ]);
     }
 }

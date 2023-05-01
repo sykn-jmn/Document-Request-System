@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->index();
+            $table->bigInteger('valid_id')->index();
             $table->date('date_requested');
             $table->string('purpose');
-            $table->bigInteger('supporting_document_id')->index();
             $table->string('status');
             $table->timestamps();
         });

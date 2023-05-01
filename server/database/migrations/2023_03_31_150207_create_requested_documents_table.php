@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('request_id')->index();
             $table->bigInteger('document_id')->index();
-            $table->decimal('fee');
             $table->timestamps();
         });
     }

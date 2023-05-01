@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use App\Models\Document;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -21,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'first_name' => 'Jhumer',
             'middle_name' => 'Ojales',
             'last_name' => 'Apus',
-            'birthdate' => now(),
+            'birthdate' => '2000-02-22',
             'sex' => 'male',
             'civil_status' => 'single',
             'mobile_number' => '09751304307',
@@ -31,5 +32,36 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('123456789'),
         ]);
+
+        Document::create([
+            'name'=>'Cedula',
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
+        ]);
+
+        Document::create([
+            'name'=>'Baranggay Health Certificate',
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
+        ]);
+
+        Document::create([
+            'name'=>'Baranggay Clearance',
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
+        ]);
+
+        Document::create([
+            'name'=>'Certificate of Residency',
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
+        ]);
+
+        Document::create([
+            'name'=>'Certificate of Indigency',
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
+        ]);
+    
     }
 }

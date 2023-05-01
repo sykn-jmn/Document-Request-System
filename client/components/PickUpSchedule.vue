@@ -28,13 +28,14 @@
         </div>
       </li>
     </ul>
+    <p class="error">{{error}}</p>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
 export default {
-  emits:['selectedDate'],
+  props:["error"],
   data(){
     return{
       monthName:'',
@@ -123,9 +124,6 @@ ul{
 }
 li{
   @apply border border-black
-}
-h1{
-  @apply text-3xl font-bold
 }
 .date-number{
   @apply text-right w-full text-cyan-700 text-lg font-medium mr-2 pr-2

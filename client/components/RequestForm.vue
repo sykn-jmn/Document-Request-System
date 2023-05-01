@@ -1,6 +1,6 @@
 <template>
     <div class="md:pt-20 md:px-20 md:pb-4">
-        <h1 class="text-3xl font-bold">Complete the Request Form</h1>
+        <h1>Complete the Request Form</h1>
         <p class="font-medium">Make sure to not leave any field blank</p><br>
         <form>
             <div class="detail-container col-span-2">
@@ -24,7 +24,7 @@
             <div class="detail-container col-span-2">
                 <p class="label">Complete Address<span class="guide"> (Street/Purok, Baranggay, City/Municipality, Province)</span></p>
                 <div class="box">
-                    {{data.purok + " " + data.baranggay + " " + data.municipality + " " + data.province}}
+                    {{data.purok + ", " + data.baranggay + ", " + data.municipality + ", " + data.province}}
                 </div>
             </div>
             <div class="detail-container">
@@ -53,24 +53,33 @@
             </label>
             <label class="col-span-2">
                 Other Supporting Documents <span class="guide">(Valid types are <b>jpg</b>, <b>png</b>, and <b>pdf</b>)</span>
-                <input type="file" v-on:change="onChangeDocuments" accept="image/jpeg, image/png, application/pdf" multiple required>
+                <input type="file" v-on:change="onChangeDocuments" accept="image/jpeg, image/png, application/pdf" ref="file" multiple required>
             </label>
+            <p class="error">{{error}}</p>
         </form>
     </div>
 </template>
 
 <script>
 export default {
+    props:["error"],
     data(){
         return{
             data:'',
             purposeOfRequest:'',
             validID:'',
-            supportingDocument:'',
+            supportingDocuments:'',
         }
     },
     mounted(){
         this.getUser()
+    },
+    watch:{
+        purposeOfRequest(){
+            this.$store.commit('request/updatePurposeOfRequest', {
+                purpose:this.purposeOfRequest
+            });
+        }
     },
     methods:{
         async getUser(){
@@ -78,7 +87,16 @@ export default {
                 this.data = response.data
                 this.data.middle_initial = response.data.middle_name[0]
                 this.$store.commit('request/updateRequestForm', {
-                    requestForm: this.data,
+                    requestForm: {
+                        name: this.data.first_name + " " + this.data.middle_initial + ". " + this.data.last_name,
+                        age: this.getAge(this.data.birthdate),
+                        birthdate: this.data.birthdate,
+                        address: this.data.purok + ", " + this.data.baranggay + ", " + this.data.municipality + ", " + this.data.province,
+                        email:this.data.email,
+                        mobile_number:this.data.mobile_number,
+                        sex:this.data.sex,
+                        civil_status: this.data.civil_status
+                    },
                 });
             })
         },
@@ -95,13 +113,33 @@ export default {
 
         },
         onChangeID(e){
+            this.validID = e.target.files[0]
+            let data = new FormData()
+            data.append('file', this.validID);
             this.$store.commit('request/updateValidID', {
-                validID: e.target.files[0],
+                validID: data,
+                validIDName:this.validID.name
             });
         },
         onChangeDocuments(e){
+            let data = new FormData()
+            this.supportingDocuments = e.target.files
+            for(let i =0; i<this.$refs.file.files.length; i++ ){
+                let file = this.$refs.file.files[i];
+                data.append('files[' + i + ']', file);
+            }
+
+            let supportingDocumentsName = []
+            Object.keys(this.supportingDocuments).forEach((key, index) =>
+                {
+                    let name = this.supportingDocuments[key].name;
+                    supportingDocumentsName.push(name)
+                });
+
+            console.log(data)
             this.$store.commit('request/updateSupportingDocuments', {
-                supportingDocuments: e.target.files,
+                supportingDocuments: data,
+                supportingDocumentsName: supportingDocumentsName
             });
         }
     }
