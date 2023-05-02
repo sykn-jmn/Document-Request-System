@@ -29,6 +29,8 @@ export default {
             this.$store.commit('request/updateSelectedDocuments', {
                 selectedDocuments: this.selectedRequests,
             });
+            this.$store.state.request.formData.append('selected_documents', this.selectedRequests);
+            console.log(this.$store.state.request.formData.selected_documents)
         }
     },
     methods:{

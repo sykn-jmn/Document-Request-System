@@ -14,20 +14,7 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
-  module: {
-    rules: [
-      {
-        test: /\.s[ac]ss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"],
-      },
-    ],
-  },
-
   // use these settings to use custom css
-  bootstrapVue: {
-    bootstrapCSS: false,
-    icons: true,
-  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
@@ -36,7 +23,7 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/fontawesome.js", "~/plugins/bootstrap.js"],
+  plugins: ["~/plugins/fontawesome.js"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -52,12 +39,7 @@ export default {
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    "@nuxtjs/dotenv",
-    "@nuxtjs/auth-next",
-    "@nuxtjs/axios",
-    "bootstrap-vue/nuxt",
-  ],
+  modules: ["@nuxtjs/dotenv", "@nuxtjs/auth-next", "@nuxtjs/axios"],
   auth: {
     strategies: {
       userAuth: {

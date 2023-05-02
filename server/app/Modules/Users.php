@@ -216,6 +216,7 @@ class Users
 
         $userProfilePicture = new UserProfilePicture;  
         $file_name = time().'_'.$payload->file->getClientOriginalName();
+
         $file_path = $payload->file('file')->storeAs('profile_pic', $file_name, 'public');
 
         if($getUserProfilePic){

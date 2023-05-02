@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->index();
+            $table->bigInteger('admin_id')->index()->nullable();
             $table->bigInteger('valid_id')->index();
             $table->date('date_requested');
             $table->string('purpose');
             $table->string('status');
+            $table->decimal('fee');
             $table->timestamps();
         });
     }

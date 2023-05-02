@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_profile_picture', function (Blueprint $table) {
+        Schema::create('forgot_passwords', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('admin_id')->index();
-            $table->string('filename');
-            $table->string('path');
+            $table->bigInteger('user_id')->index();
+            $table->string('code')->index();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_profile_picture');
+        Schema::dropIfExists('forgot_passwords');
     }
 };

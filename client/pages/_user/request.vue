@@ -25,10 +25,16 @@ export default {
             errorPageThree:""
         }
     },
+    mounted(){
+            this.$store.commit('request/updateFormData', {
+                formData: new FormData(),
+            });
+            console.log(this.$store.state.request.formData)
+    },
     methods:{
         nextPage(){
             if(this.page==1){
-                let selectedDocuments = this.$store.state.request.request.selectedDocuments
+                let selectedDocuments = this.$store.state.request.selectedDocuments
                 if(!selectedDocuments || selectedDocuments.length<1){
                     this.errorPageOne="Please select alteast one document to request"
                 }
@@ -38,8 +44,8 @@ export default {
                 }
             }
             else if(this.page==2){
-                let form = this.$store.state.request.request.form
-                if(!form.purpose || !form.validID){
+                let form = this.$store.state.request
+                if(!form.purpose || !form.validIDName){
                     this.errorPageTwo="Please fill up the the missing fields"
                 }
                 else{
@@ -48,8 +54,8 @@ export default {
                 }
             }
             else if(this.page==3){
-                let pickUpDate = this.$store.state.request.request.pickUpDate
-                if(!pickUpDate){
+                let pickUpDate = this.$store.state.request
+                if(!pickUpDate.selectedDate || !pickUpDate.meridiem){
                     this.errorPageThree="Please select a date"
                 }
                 else{
@@ -59,18 +65,20 @@ export default {
             }
         },
         async submitRequest(){
-            const config = {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            }
-            await this.$axios.post('/user/submit-request', this.$store.state.request.request)
+            // await this.$axios.post('/user/upload-photo',this.$store.state.request.formData).catch(err=>console.log(err))
+
+
+            await this.$axios.post('/user/submit-request', this.$store.state.request.formData).catch(err=>{
+                console.log(err)
+            })
         }
     }
 }
 </script>
 
-<style scoped>
-
+<style>
+h1{
+  @apply text-3xl font-bold
+}
 
 </style>

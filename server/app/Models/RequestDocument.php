@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserProfilePicture extends Model
+class RequestDocument extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'filename',
-        'path',
+        'request_id',
+        'document_id',
     ];
 
-    protected $table = 'user_profile_pictures';
+    protected $table = 'request_documents';
 }

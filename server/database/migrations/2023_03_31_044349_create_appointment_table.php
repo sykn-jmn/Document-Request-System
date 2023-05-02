@@ -16,8 +16,6 @@ return new class extends Migration
             $table->bigInteger('request_id')->index();
             $table->date('schedule');
             $table->enum('meridiem',['am','pm']);
-            $table->string('status');
-            $table->bigInteger('admin_id')->index();
             $table->timestamps();
         });
     }

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('valid_id', function (Blueprint $table) {
+        Schema::create('valid_ids', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('request_id')->index();
             $table->string('filename');
             $table->string('path');
             $table->timestamps();
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('valid_id');
+        Schema::dropIfExists('valid_ids');
     }
 };

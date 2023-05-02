@@ -41,7 +41,7 @@
             </div>
             <label class="col-span-2">
                 Purpose of Request
-                <textarea class="mt-4" v-model="purposeOfRequest"></textarea>
+                <textarea class="mt-4 font-normal" v-model="purposeOfRequest"></textarea>
             </label>
             <div class="detail-container col-span-2">
                 <p class="label">Supporting Documents</p>
@@ -49,11 +49,11 @@
             </div>
             <label class="col-span-2">
                 Valid ID <span class="guide">(Valid types are <b>jpg</b> and <b>png</b>)</span>
-                <input type="file" v-on:change="onChangeID" accept="image/jpeg, image/png">
+                <input type="file" v-on:change="onChangeID" accept="image/jpeg, image/png, image/jpj">
             </label>
             <label class="col-span-2">
                 Other Supporting Documents <span class="guide">(Valid types are <b>jpg</b>, <b>png</b>, and <b>pdf</b>)</span>
-                <input type="file" v-on:change="onChangeDocuments" accept="image/jpeg, image/png, application/pdf" ref="file" multiple required>
+                <input type="file" v-on:change="onChangeDocuments" accept="image/jpeg, image/png, image/png, application/pdf" ref="file" multiple required>
             </label>
             <p class="error">{{error}}</p>
         </form>
@@ -81,20 +81,14 @@ export default {
                 purpose:this.purposeOfRequest
             });
         },
-        '$store.state.request.request.form.validIDName':function(newValue){
-            console.log(newValue)
-        },
-        '$store.state.request.request.form.purpose'(){
-            console.log("hi")
-        }
     },
     methods:{
         async getUser(){
             await this.$axios.get('/user/get-details').then(response=>{
                 this.data = response.data
                 this.data.middle_initial = response.data.middle_name[0]
-                this.$store.commit('request/updateRequestForm', {
-                    requestForm: {
+                this.$store.commit('request/updateForm', {
+                    form: {
                         name: this.data.first_name + " " + this.data.middle_initial + ". " + this.data.last_name,
                         age: this.getAge(this.data.birthdate),
                         birthdate: this.data.birthdate,
@@ -121,21 +115,22 @@ export default {
         },
         onChangeID(e){
             this.validID = e.target.files[0]
-            let data = new FormData()
-            data.append('file', this.validID);
+            
             this.$store.commit('request/updateValidID', {
-                validID: data,
+                validID: this.validID,
                 validIDName:this.validID.name
             });
             
         },
         onChangeDocuments(e){
-            let data = new FormData()
             this.supportingDocuments = e.target.files
-            for(let i =0; i<this.$refs.file.files.length; i++ ){
-                let file = this.$refs.file.files[i];
-                data.append('files[' + i + ']', file);
-            }
+
+            // let supportingDocumentsList = []
+            // for(let i =0; i<this.$refs.file.files.length; i++ ){
+            //     let file = this.$refs.file.files[i];
+            //     supportingDocumentsList.push()
+            // }
+            
 
             let supportingDocumentsName = []
             Object.keys(this.supportingDocuments).forEach((key, index) =>
@@ -144,8 +139,9 @@ export default {
                     supportingDocumentsName.push(name)
                 });
             this.$store.commit('request/updateSupportingDocuments', {
-                supportingDocuments: data,
-                supportingDocumentsName: supportingDocumentsName
+                supportingDocuments: this.supportingDocuments,
+                supportingDocumentsName: supportingDocumentsName,
+                numberOfSupportingDocuments: this.supportingDocuments.length
             });
         }
     }

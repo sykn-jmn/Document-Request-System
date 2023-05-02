@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('supporting_documents', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('request_id')->index();
             $table->string('filename');
-            $table->string('status');
+            $table->string('path');
             $table->timestamps();
         });
     }

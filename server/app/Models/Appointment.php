@@ -10,12 +10,9 @@ class Appointment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'code',
         'request_id',
         'schedule',
         'meridiem',
-        'status',
-        'admin_id',
     ];
 
     protected $table = 'appointments';
