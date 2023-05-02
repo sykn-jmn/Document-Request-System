@@ -61,6 +61,7 @@
 </template>
 
 <script>
+
 export default {
     props:["error"],
     data(){
@@ -79,6 +80,12 @@ export default {
             this.$store.commit('request/updatePurposeOfRequest', {
                 purpose:this.purposeOfRequest
             });
+        },
+        '$store.state.request.request.form.validIDName':function(newValue){
+            console.log(newValue)
+        },
+        '$store.state.request.request.form.purpose'(){
+            console.log("hi")
         }
     },
     methods:{
@@ -120,6 +127,7 @@ export default {
                 validID: data,
                 validIDName:this.validID.name
             });
+            
         },
         onChangeDocuments(e){
             let data = new FormData()
@@ -135,8 +143,6 @@ export default {
                     let name = this.supportingDocuments[key].name;
                     supportingDocumentsName.push(name)
                 });
-
-            console.log(data)
             this.$store.commit('request/updateSupportingDocuments', {
                 supportingDocuments: data,
                 supportingDocumentsName: supportingDocumentsName

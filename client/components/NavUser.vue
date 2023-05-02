@@ -5,7 +5,7 @@
         </div>
         <nav class="navUser">
             <div class="nav_profile text-center text-xl">
-                <img class="rounded-full w-48 h-48 m-auto" src="~/assets/images/no_profile_pic.jpg"><br>
+                <img class="rounded-full w-48 h-48 m-auto" :src="getImgUrl()"><br>
                 <span>{{name}}</span>
             </div><br>
             <ul>
@@ -23,15 +23,28 @@
 export default {
     data(){
         return{
-            name: this.$auth.state.user.first_name + " " + this.$auth.state.user.last_name
+            name: this.$auth.state.user.first_name + " " + this.$auth.state.user.last_name,
+            profilePicPath:""
         }
+    },
+    mounted(){
+        this.getProfilePicture()
     },
     methods: {
         async logout() {
-        await this.$auth.logout()
+            await this.$auth.logout()
         },
-  },
-
+        async getProfilePicture(){
+            await this.$axios.get('/user/profile-pic').then(response=>{
+                    this.profilePicPath = response.data.path
+                }
+            )
+        },
+        getImgUrl(){
+            const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/no_profile_pic.jpg")
+        return imgUrl
+      }
+    },
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="account-information">
       <div class="photo">
-        <img class="rounded-full w-40 h-40 m-auto" :src="getImgUrl(profilePicPath)">
+        <img class="rounded-full w-40 h-40 m-auto" :src="getImgUrl()">
         <div class="button-wrapper">
           <label for="uploadPhoto">Upload New Photo</label>
           <input class="upload-photo" type="file" accept="image/png, image/jpg, image/jpeg" v-on:change="uploadPhoto" id="uploadPhoto">
@@ -45,7 +45,7 @@ export default {
       registrationDate(){
           return moment(this.$auth.$state.user.created_at).format('MMMM d, YYYY');
       },
-      async uploadPhoto(e){
+      uploadPhoto(e){
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -55,7 +55,7 @@ export default {
         let formData = new FormData()
         formData.append("file", this.file)
 
-        await this.$axios.post('/user/upload-photo',formData, config).then(response=>{
+        this.$axios.post('/user/upload-photo',formData, config).then(response=>{
           this.getProfilePicture()
         })
       },
@@ -66,7 +66,7 @@ export default {
         )
       },
       getImgUrl(path){
-        const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+path): require("~/assets/images/no_profile_pic.jpg")
+          let imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/no_profile_pic.jpg")
         return imgUrl
       }
     }

@@ -1,7 +1,9 @@
 export const state = () => ({
   request: {
     selectedDocuments: [],
-    form: "",
+    form: {
+      validIDName: "",
+    },
     pickUpDate: "",
   },
 });
