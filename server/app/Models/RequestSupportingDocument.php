@@ -10,7 +10,7 @@ class RequestSupportingDocument extends Model
     use HasFactory;
     protected $fillable = [
         'request_id',
-        'support_document_id',
+        'supporting_document_id',
     ];
 
     protected $table = 'request_supporting_documents';

@@ -42,7 +42,7 @@ class RequestDocument{
     }
     public function submitRequest($payload){
 
-        $selectedDocuments = $payload->selected_documents;
+        $selectedDocuments = explode(",", $payload->selected_documents);
         $numberOfSupportingDocuments = $payload->supporting_documents_length;
         $selectedDate = $payload->pickup_date;
         $meridiem = $payload->meridiem;
@@ -103,7 +103,7 @@ class RequestDocument{
 
     public function storeSupportingDocument($i, $payload){
         $file_name = time().'_'.$payload->supporting_document[$i]->getClientOriginalName();
-        $file_path = $payload->file('supporting_document')->storeAs('supporting_documents', $file_name, 'public');
+        $file_path = $payload->file('supporting_document')[$i]->storeAs('supporting_documents', $file_name, 'public');
 
         return SupportingDocument::create([
             'filename'=>$file_name,
@@ -114,7 +114,7 @@ class RequestDocument{
     public function storeRequestSupportingDocument($requestID, $supportDocumentID){
         return RequestSupportingDocument::create([
             'request_id'=>$requestID,
-            'support_document_id' => $supportDocumentID
+            'supporting_document_id' => $supportDocumentID
         ]);
     }
     public function storeRequestDocument($requestID, $documentID){
