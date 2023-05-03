@@ -55,7 +55,8 @@ export default {
         let formData = new FormData()
         formData.append("file", this.file)
 
-        this.$axios.post('/user/upload-photo',formData,config).catch()
+        this.$axios.post('/user/upload-photo',formData,config).then(response=>{
+        }).catch(err=>console.log(err))
       },
       async getProfilePicture(){
         await this.$axios.get('/user/profile-pic').then(response=>{
@@ -63,7 +64,7 @@ export default {
           }
         )
       },
-      getImgUrl(path){
+      getImgUrl(){
           let imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/no_profile_pic.jpg")
         return imgUrl
       }

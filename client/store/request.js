@@ -7,14 +7,6 @@ export const state = () => ({
   selectedDate: "",
   meridem: "",
   purpose: "",
-  // formData: {
-  //   selectedDocuments: [],
-  //   fee: 0,
-  //   form: {
-  //     validIDName: "",
-  //   },
-  //   pickUpDate: "",
-  // },
 });
 
 export const mutations = {
@@ -25,7 +17,10 @@ export const mutations = {
     state.form = payload.form;
   },
   updateSelectedDocuments(state, payload) {
-    state.formData.append("selected_documents", payload.selectedDocuments);
+    state.formData.append(
+      "selected_documents",
+      JSON.stringify(payload.selectedDocuments)
+    );
     state.selectedDocuments = payload.selectedDocuments;
   },
   updatePickUpDate(state, payload) {

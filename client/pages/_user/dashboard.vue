@@ -96,30 +96,8 @@
                         <font-awesome-icon :icon="['fas', 'arrow-right']" />
                     </button>
                 </div>
-                
-   
-
             </div>
-
         </div>
-        <!-- <div class="p-4 text-xl">
-            <span class="font-bold text-3xl">Request Feed</span><br><br>
-            <table>
-                <thead class="border-y border-black text-left">
-                    <th>Document Requested</th>
-                    <th>Request Date</th>
-                    <th>Status</th>
-                    <th>Remarks</th>
-                </thead>
-                <tr v-for="request in data" :key="request.id">
-                    <td>{{request.request}}</td>
-                    <td>{{request.request_date}}</td>
-                    <td>{{request.status}}</td>
-                    <td>{{request.remarks}}</td>
-
-                </tr>
-            </table>
-        </div> -->
     </div>
 </template>
 

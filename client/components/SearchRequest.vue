@@ -1,20 +1,33 @@
 <template>
   <div class="search-container">
-    <select class="dropdown">
-        <option value="all" selected>All</option>
+    <select class="dropdown" v-model="selectRequest">
+        <option value="all">All</option>
+        <option value="completed" >Completed</option>
+        <option value="approved" >Approved</option>
+        <option value="processing" >Processing</option>
+        <option value="pending" >Pending</option>
+        <option value="rejected" >Rejected</option>
     </select>
     <div class="search-bar">
         <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
-        <input type="text" v-model="searchRequest"  placeholder="Search Requested Document">
+        <input type="text" v-model="searchRequest"  placeholder="Search Requested Document" @keyup.enter="$emit('search',searchRequest)">
     </div>
   </div>
 </template>
 
 <script>
 export default {
+    emits:['search'],
+    props:['status'],
     data(){
         return{
             searchRequest:"",
+            selectRequest:this.status
+        }
+    },
+    watch:{
+        selectRequest(value){
+            this.$router.push('/user/request-history/'+value)
         }
     }
 }

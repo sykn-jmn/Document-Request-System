@@ -2,23 +2,27 @@
   <div class="main-container">
     <h1>Request History</h1>
     <p class="newRequest" @click="newRequest">+ MAKE NEW REQUEST</p><br>
-    <SearchRequest /><br>
-    <RequestHistoryTable />
+    <SearchRequest @search="search" :status="$route.params.index"/><br>
+    <RequestHistoryTable :data="data"/>
     <Pagination 
       :currentPage="currentPage"
       :lastPage="lastPage"
       @paginate="paginate"
     />
+    <Spin v-if="spinning"/>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
     layout: 'user',
     data(){
       return{
+        data:[],
         currentPage: 1,
         lastPage:1,
+        spinning:false,
       }
     },
     mounted(){
@@ -39,16 +43,27 @@ export default {
           default:
             var pageNumber = this.currentPage
         }
-        this.fetchHistories(pageNumber)
+        this.fetchHistories(pageNumber,null)
       },
-      async fetchHistories(pageNumber){
-        await this.$axios.get('/test?page=' + pageNumber).then(response=>{
-          console.log(response)
+      async fetchHistories(pageNumber,search){
+        this.spinning = true
+        var params = {
+          search:search
+        }
+        await this.$axios.get('/user/get-request/'+this.$route.params.index+'?page=' + pageNumber, {params}).then(response=>{
+          this.data = response.data.data
           this.currentPage = response.data.current_page
           this.lastPage = response.data.last_page
+          this.spinning = false
+        }).catch(err=>{
+          this.spinning = false
         })
-      }
+      },
+    search(value){
+      this.fetchHistories(1,value)
     }
+  },
+
 }
 </script>
 

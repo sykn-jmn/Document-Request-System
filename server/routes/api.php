@@ -38,6 +38,7 @@ Route::prefix('user')->group(function(){
     Route::post('/submit-request', [RequestController::class, 'submitRequest']);
     Route::post('/upload-photo', [UserController::class, 'uploadPhoto']);
     Route::get('/profile-pic', [UserController::class, 'getProfilePic']);
+    Route::get('/get-request/{status}', [RequestController::class, 'index']);
     
 });
 

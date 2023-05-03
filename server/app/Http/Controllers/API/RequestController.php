@@ -8,6 +8,9 @@ use App\Modules\RequestDocument;
 
 class RequestController extends Controller
 {
+    public function index(RequestDocument $requestDocument, $status, Request $request){
+        return $requestDocument->getRequests($request, $status);
+    }
     public function getSlots(Request $request, RequestDocument $requestDocument){
         return $requestDocument->getSlots($request);
     }

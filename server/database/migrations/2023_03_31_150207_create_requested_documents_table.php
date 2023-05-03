@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('request_id')->index();
             $table->bigInteger('document_id')->index();
+            $table->enum('status', ['pending','proccessing','approved', 'rejected', 'completed'])->index();
             $table->timestamps();
         });
     }

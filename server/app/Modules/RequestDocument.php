@@ -17,6 +17,32 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class RequestDocument{
+
+    public function getRequests($payload, $status){
+        $search = $payload->search;
+        Log::info($search);
+        
+        $requests = RequestDocumentModel::select(
+            'request_documents.id',
+            'requests.created_at as request_date',
+            'documents.name as type',
+            'requests.status',
+            'request_documents.updated_at as updated_date'
+        )
+        ->join('requests','requests.id','=','request_documents.request_id')
+        ->join('documents','documents.id','=','request_documents.document_id')
+        ->when($status!="all", function ($query) use($status){
+            return $query->where('requests.status',$status);
+        })
+        ->when(!empty($search), function ($query) use($search){
+            return $query->where('documents.name','LIKE', $search.'%');
+        })
+        ->paginate(7);
+ 
+        return response()->json($requests);
+        
+    }
+
     public function getSlots($payload){
         $startDate = $payload->startDate;
         $endDate = $payload->endDate;
@@ -38,11 +64,11 @@ class RequestDocument{
 
     public function getDocuments(){
         $documents = Document::get();
-        return response()->json($documents);
+        return response()->json(json_decode($documents));
     }
     public function submitRequest($payload){
 
-        $selectedDocuments = explode(",", $payload->selected_documents);
+        $selectedDocuments = json_decode($payload->selected_documents);
         $numberOfSupportingDocuments = $payload->supporting_documents_length;
         $selectedDate = $payload->pickup_date;
         $meridiem = $payload->meridiem;
@@ -120,7 +146,8 @@ class RequestDocument{
     public function storeRequestDocument($requestID, $documentID){
         return RequestDocumentModel::create([
             'request_id'=>$requestID,
-            'document_id' => $documentID
+            'document_id' => $documentID,
+            'status'=>'pending'
         ]);
     }
     public function storeAppointment($requestID, $selectedDate, $meridiem){

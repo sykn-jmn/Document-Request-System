@@ -9,6 +9,7 @@
             </div><br>
             <p class="error">{{error}}</p>
         </div>
+        <Spin v-if="spinning"/>
     </div>
 </template>
 
@@ -18,7 +19,8 @@ export default {
     data(){
         return{
             selectedRequests:[],
-            documents:[]
+            documents:[],
+            spinning:false,
         }
     },
     mounted(){
@@ -33,8 +35,12 @@ export default {
     },
     methods:{
         async getDocuments(){
+            this.spinning = true
             await this.$axios.get('/user/documents').then(response=>{
                 this.documents = response.data
+                this.spinning = false
+            }).catch(err=>{
+                this.spinning = false
             })
         }
     }
