@@ -10,15 +10,17 @@ class Request extends Model
     use HasFactory;
 
     protected $fillable = [
-        'code',
         'user_id',
+        'admin_id',
+        'valid_id',
         'date_requested',
         'purpose',
-        'supporting_doocuments_id',
         'status',
+        'fee',
+
     ];
 
-    protected $table = 'users';
+    protected $table = 'requests';
 
     public function appointment(): HasOne
     {

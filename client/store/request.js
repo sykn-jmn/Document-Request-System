@@ -43,7 +43,12 @@ export const mutations = {
     state.validIDName = payload.validIDName;
   },
   updateSupportingDocuments(state, payload) {
-    state.formData.append("supporting_documents", payload.supportingDocuments);
+    for (let i = 0; i < payload.numberOfSupportingDocuments; i++) {
+      state.formData.append(
+        "supporting_document[" + i + "]",
+        payload.supportingDocuments[i]
+      );
+    }
     state.formData.append(
       "supporting_documents_length",
       payload.numberOfSupportingDocuments

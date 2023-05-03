@@ -44,8 +44,7 @@ class RequestDocument{
 
         $selectedDocuments = $payload->selected_documents;
         $numberOfSupportingDocuments = $payload->supporting_documents_length;
-        $supportingDocuments = $payload->supporting_documents;
-        $selectedDate = $payload->selected_date;
+        $selectedDate = $payload->pickup_date;
         $meridiem = $payload->meridiem;
         $validID = $payload->valid_id;
         $purpose = $payload->purpose;
@@ -53,7 +52,7 @@ class RequestDocument{
 
         DB::beginTransaction();
 
-        $validIDTransaction = $this->storeValidID($validID, $payload);
+        $validIDTransaction = $this->storeValidID($payload);
 
         $requestTransaction = Request::create([
             'user_id' => Auth::guard('users')->user()->id,
@@ -67,7 +66,8 @@ class RequestDocument{
         $appointmentTransaction = $this->storeAppointment($requestTransaction->id, $selectedDate, $meridiem);
 
         for($i = 0; $i < $numberOfSupportingDocuments; $i++){
-            $supportingDocumentTransaction = $this->storeSupportingDocument($supportingDocuments[$i]);
+
+            $supportingDocumentTransaction = $this->storeSupportingDocument($i, $payload);
             $requestSupportingDocumentTransaction = $this->storeRequestSupportingDocument($requestTransaction->id, $supportingDocumentTransaction->id);
 
             if(!$supportingDocumentTransaction || !$requestSupportingDocumentTransaction){
@@ -91,8 +91,8 @@ class RequestDocument{
         return response()->json(['message'=>'request saved succesfully']);
     }
 
-    public function storeValidID($validID, $payload){
-        $file_name = time().'_'.$validID->getClientOriginalName();
+    public function storeValidID($payload){
+        $file_name = time().'_'.$payload->valid_id->getClientOriginalName();
         $file_path = $payload->file('valid_id')->storeAs('valid_ids', $file_name, 'public');
 
         return ValidID::create([
@@ -101,9 +101,9 @@ class RequestDocument{
         ]);
     }
 
-    public function storeSupportingDocument($document){
-        $file_name = time().'_'.$document->file->getClientOriginalName();
-        $file_path = $document->file('file')->storeAs('supporting_documents', $file_name, 'public');
+    public function storeSupportingDocument($i, $payload){
+        $file_name = time().'_'.$payload->supporting_document[$i]->getClientOriginalName();
+        $file_path = $payload->file('supporting_document')->storeAs('supporting_documents', $file_name, 'public');
 
         return SupportingDocument::create([
             'filename'=>$file_name,
