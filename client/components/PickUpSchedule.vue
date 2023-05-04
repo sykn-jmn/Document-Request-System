@@ -17,7 +17,7 @@
       <li class="date" v-for="(n,i) in 42" :key="i" >
         <div v-if="0<i-dayToMinus && i-dayToMinus<=endDate" class="w-full">
           <p class="date-number">{{i-dayToMinus}}</p>
-          <div v-if="(i+1) % 7 != 0 && (i+1) % 7 != 1 && !holidays[month].includes(i-dayToMinus)">
+          <div v-if="(i+1) % 7 != 0 && (i+1) % 7 != 1 && !holidays[month].includes(i-dayToMinus) && i-dayToMinus>currentDate">
               <button @click="selectedDate(i-dayToMinus,'am')">AM {{getSlots(i-dayToMinus, 'am')}} slots</button>
               <button @click="selectedDate(i-dayToMinus,'pm')">PM {{getSlots(i-dayToMinus, 'pm')}} slots</button>
           </div>
@@ -39,6 +39,7 @@ export default {
   data(){
     return{
       monthName:'',
+      currentDate: new Date().getDate(),
       startDay:0,
       dayToMinus:0,
       endDate:0,
@@ -104,8 +105,6 @@ export default {
       this.$store.commit('request/updatePickUpDate', {
           pickUpDate: dateClicked,
       });
-
-
     }
   }
 

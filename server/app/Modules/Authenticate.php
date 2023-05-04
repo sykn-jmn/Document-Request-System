@@ -29,9 +29,7 @@ class Authenticate
         // }
         
         if (!Auth::guard('users')->attempt($data)) {
-            return response()->json([
-                'message' => 'Invalid login details'
-            ], 401);
+            return response()->json(['message' => 'Invalid login details']);
         }
         
         $user = Auth::guard('users')->user();

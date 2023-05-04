@@ -57,6 +57,7 @@
             </label>
             <p class="error">{{error}}</p>
         </form>
+        <Spin v-if="spinning"/>
     </div>
 </template>
 
@@ -70,6 +71,7 @@ export default {
             purposeOfRequest:'',
             validID:'',
             supportingDocuments:'',
+            spinning:false,
         }
     },
     mounted(){
@@ -84,6 +86,7 @@ export default {
     },
     methods:{
         async getUser(){
+            this.spinning = true
             await this.$axios.get('/user/get-details').then(response=>{
                 this.data = response.data
                 this.data.middle_initial = response.data.middle_name[0]
@@ -99,6 +102,9 @@ export default {
                         civil_status: this.data.civil_status
                     },
                 });
+                this.spinning = false
+            }).catch(err=>{
+                this.spinning = false
             })
         },
         getAge(birthdate){
