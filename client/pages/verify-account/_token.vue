@@ -10,6 +10,7 @@
         <h1 class="text-center text-xl">
             <NuxtLink to="/">Go to login page</NuxtLink>
         </h1>
+        <Spin v-if="spinning"/>
     </div>
 </template>
 
@@ -17,15 +18,20 @@
 export default {
     data(){
         return{
-            isVerified:false
+            isVerified:false,
+            spinning:false,
         }
     },
     mounted(){
+        this.spinning = true
         var params = {
             token: this.$route.params.token
         }
         this.$axios.put('/user/verify-account',params).then(response=>{
             this.isVerified = response.data.isVerified
+            this.spinning = false
+        }).catch(err=>{
+            this.spinning = false
         })
     }
 }

@@ -169,5 +169,30 @@ class RequestDocument{
             'meridiem' => $meridiem,
         ]);
     }
+
+    public function countRequest(){
+        $countPending = RequestDocument::join('requests','requests.id', '=', 'request_documents.request_id')
+                                        ->where('request_documents.status','pending')
+                                        ->count();
+
+        $countApproved = RequestDocument::join('requests','requests.id', '=', 'request_documents.request_id')
+                                        ->where('request_documents.status','approved')
+                                        ->count();
+                            
+        $countRejected= RequestDocument::join('requests','requests.id', '=', 'request_documents.request_id')
+                                        ->where('request_documents.status','rejected')
+                                        ->count();
+
+        $countCompleted = RequestDocument::join('requests','requests.id', '=', 'request_documents.request_id')
+                                        ->where('request_documents.status','completed')
+                                        ->count();
+
+        return response()->json([
+            'pending' => $countPending,
+            'approved' => $countApproved,
+            'rejected' => $countRejected,
+            'completed' => $countCompleted
+        ]);
+    }
 }
 

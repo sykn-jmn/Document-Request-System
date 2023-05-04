@@ -93,7 +93,7 @@ nav > ul {
 
 .home {
   margin: auto;
-  @apply md:flex md:justify-between md:pt-16;
+  @apply md:pt-4 grid grid-cols-2;
 }
 
 .home > div > h1 {
@@ -102,7 +102,7 @@ nav > ul {
 }
 
 .description-title > h1 {
-  width: 600px;
+  max-width: 600px;
   letter-spacing: 2px;
 }
 
@@ -232,7 +232,7 @@ input::file-selector-button {
 }
 
 .error{
-  @apply text-red-500 text-center
+  @apply text-red-500 text-center font-semibold
 }
 textarea{
   padding:10px;

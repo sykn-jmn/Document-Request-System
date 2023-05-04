@@ -13,6 +13,7 @@
       </div><br><br>
       <p class="text-center text-sky-600">Don't have an account? <span class="underline font-bold"><NuxtLink to="/register">Signup</NuxtLink></span></p>
     </form>
+    <Spin v-if="spinning"/>
   </div>
 </template>
 
@@ -27,6 +28,7 @@ export default {
       eyeIconType:"eye-slash",
       showPassword:false,
       error:"",
+      spinning:false
     }
   },
   watch:{
@@ -42,7 +44,7 @@ export default {
   },
   methods:{
     async login(){
-      try{
+      this.spinning = true
         await this.$auth.loginWith('userAuth', {
           data: {
             email: this.email,
@@ -50,12 +52,13 @@ export default {
           },
       }).then(response=>{
         this.error = response.data.message
-      })
-        this.$router.push("/user/dashboard")
-      }catch(err){
+        this.spinning = false
+      }).catch(err=>{
         console.log(err)
         this.$router.push("/")
-      }
+        this.spinning = false
+      })
+        this.$router.push("/user/dashboard")
 
     },
 }

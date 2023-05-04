@@ -15,7 +15,7 @@ export default {
 
 <style scoped>
 .spin-icon{
-    font-size: 60px;
+    font-size: 40px;
     @apply text-sky-900
 }
 .spin-container{
@@ -27,13 +27,18 @@ export default {
     bottom: 0;
     text-align: center;
     z-index: 2;
-    background: rgba(200,200,200,0.2);
+    background: rgba(200,200,200,0.7);
 }
-.spin-wrapper{
+.spin-wrapper{  
     vertical-align: middle;
-    top:50%;
+    top:40%;
     left:50%;
+    right:50%;
+    bottom:50%;
     @apply m-auto w-fit absolute
+}
+p{
+  @apply text-sky-900 text-2xl font-semibold mt-2
 }
 
 </style>

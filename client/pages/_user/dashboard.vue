@@ -6,19 +6,19 @@
         </div>
         <div class="border-b-2 border-slate-300 flex space-x-16 pb-16">
             <div class="md:flex space-x-8 md:pl-24">
-                <button class="icon-container">
+                <button class="icon-container" @click="$router.push('/user/request')">
                     <div class="icon-wrapper">
                         <font-awesome-icon :icon="['fas', 'file-invoice']" class="icon"/>
                     </div>
                     <p class="text-white text-center">Request Document</p>
                 </button>
-                <button class="icon-container">
+                <button class="icon-container" @click="$router.push('/user/request-history/all')">
                     <div class="icon-wrapper">
                         <font-awesome-icon :icon="['fas', 'clock-rotate-left']" class="icon"/>
                     </div>
                     <p class="text-white text-center">Request History</p>
                 </button>
-                <button class="icon-container">
+                <button class="icon-container" @click="$router.push('/user/account')">
                     <div class="icon-wrapper">
                         <font-awesome-icon :icon="['fas', 'user']" class="icon"/>
                     </div>
