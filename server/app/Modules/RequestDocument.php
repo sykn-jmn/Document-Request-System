@@ -91,16 +91,18 @@ class RequestDocument{
 
         $appointmentTransaction = $this->storeAppointment($requestTransaction->id, $selectedDate, $meridiem);
 
-        for($i = 0; $i < $numberOfSupportingDocuments; $i++){
-
-            $supportingDocumentTransaction = $this->storeSupportingDocument($i, $payload);
-            $requestSupportingDocumentTransaction = $this->storeRequestSupportingDocument($requestTransaction->id, $supportingDocumentTransaction->id);
-
-            if(!$supportingDocumentTransaction || !$requestSupportingDocumentTransaction){
-                DB::rollback();
-                return response()->json(['message'=>'fail']);
+        if($numberOfSupportingDocuments && $numberOfSupportingDocuments>0){
+            for($i = 0; $i < $numberOfSupportingDocuments; $i++){
+                $supportingDocumentTransaction = $this->storeSupportingDocument($i, $payload);
+                $requestSupportingDocumentTransaction = $this->storeRequestSupportingDocument($requestTransaction->id, $supportingDocumentTransaction->id);
+    
+                if(!$supportingDocumentTransaction || !$requestSupportingDocumentTransaction){
+                    DB::rollback();
+                    return response()->json(['message'=>'fail']);
+                }
             }
         }
+
         foreach($selectedDocuments as $document){
             $requestDocumentTransaction = $this->storeRequestDocument($requestTransaction->id, $document->id);
             if(!$requestDocumentTransaction){
@@ -129,11 +131,21 @@ class RequestDocument{
 
     public function storeSupportingDocument($i, $payload){
         $file_name = time().'_'.$payload->supporting_document[$i]->getClientOriginalName();
+        $extension = $payload->file('supporting_document')[$i]->getClientOriginalExtension();
         $file_path = $payload->file('supporting_document')[$i]->storeAs('supporting_documents', $file_name, 'public');
+
+        if($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension = 'gif'){
+            $file_type = 'image';
+        }else if($extension == 'pdf'){
+            $file_type = 'pdf';
+        }else{
+            $file_type = 'others';
+        }
 
         return SupportingDocument::create([
             'filename'=>$file_name,
-            'path'=>$file_path
+            'path'=>$file_path,
+            'type'=>$file_type
         ]);
     }
 

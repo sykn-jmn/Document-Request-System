@@ -9,9 +9,9 @@ class SupportingDocument extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'request_id',
         'filename',
-        'path'
+        'path',
+        'type',
     ];
 
     protected $table = 'supporting_documents';

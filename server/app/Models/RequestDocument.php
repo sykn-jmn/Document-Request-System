@@ -12,6 +12,7 @@ class RequestDocument extends Model
     protected $fillable = [
         'request_id',
         'document_id',
+        'status'
     ];
 
     protected $table = 'request_documents';

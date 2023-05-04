@@ -14,5 +14,5 @@ class ValidID extends Model
         'path'
     ];
 
-    protected $table = 'supporting_documents';
+    protected $table = 'valid_ids';
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="account-settings">
+    <form @submit.prevent="save" class="account-settings">
         <div class="input-container">
             <h2 class="col-span-3">Full Name</h2>
             <label><input type="text" v-model="firstName" required>Last Name</label>
@@ -46,10 +46,10 @@
             
         </div><br>
         <div class="formButtonContainer">
-            <button type="submit" @click="save">Save</button>
+            <button type="submit">Save</button>
         </div>
     </form>
-    
+    <Spin v-if="spinning" />
   </div>
 </template>
 
@@ -80,6 +80,7 @@ export default {
             newPassword:"",
             confirmNewPassword:"",
             errorPass:"",
+            spinning:false,
         }
     },
     mounted(){
@@ -96,6 +97,7 @@ export default {
     },
     methods:{
         async getUserData(){
+            this.spinning = true
             await this.$axios.get('/user/get-details').then(response=>{
                     this.firstName=response.data.first_name
                     this.middleName=response.data.middle_name
@@ -117,9 +119,14 @@ export default {
                     this.mothersFirstname=response.data.mothers_firstname
                     this.mothersMiddleName=response.data.mothers_middlename
                 }
-            )
+            ).then(response=>{
+                this.spinning = false
+            }).catch(err =>{
+                this.spinning = false
+            })
         },  
         async save(){
+            this.spinning = true
             if(this.newPassword != this.confirmNewPassword){
                 this.errorPass = "Inconsistent password!"
             }else{
@@ -148,6 +155,9 @@ export default {
             }
             await this.$axios.put('/user/update-user', params).then(response=>{
                     this.getUserData()
+                    this.spinning = false
+                }).catch(err=>{
+                    this.spinning = false
                 })
             }
         },

@@ -11,6 +11,7 @@ class RequestSupportingDocument extends Model
     protected $fillable = [
         'request_id',
         'supporting_document_id',
+        'type'
     ];
 
     protected $table = 'request_supporting_documents';
