@@ -1,12 +1,9 @@
 <template>
-    <div class="bg-white pt-8 px-8 h-fit rounded-3xl">
+    <div class="bg-white pt-8 px-8 h-fit rounded-3xl text-black">
         <h2>Recent Activity</h2>
         <div class="mt-4" v-for="report in recentAcitvities" :key="report.id">
             <p class="font-semibold">{{report.message}}</p>
             <p class="mt-2 text-slate-500">{{convertDateToString(report.date)}}</p>
-        </div>
-        <div class="mt-8 border-t border-slate-300 p-4 h-fit cursor-pointer" @click="$router.push('/admin/recent-activities')">
-            <p class="text-center text-blue-500 font-semibold text-xl">See All</p>
         </div>
     </div>
 </template>
@@ -14,6 +11,7 @@
 <script>
 import moment from 'moment'
 export default {
+    layout:'admin',
     data(){
         return{
             recentAcitvities:[
@@ -49,6 +47,5 @@ export default {
 h2{
     @apply font-bold text-3xl
 }
-
 
 </style>

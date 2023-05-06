@@ -7,7 +7,6 @@
         <div class="grid grid-cols-2">
             <RecentActivities />
             <RequestOverview />
-            <RegisteredResidents />
         </div>
     </div>
 </template>
