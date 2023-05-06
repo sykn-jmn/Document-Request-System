@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\RequestController;
 use App\Models\ForgotPassword;
 /*
@@ -21,26 +22,35 @@ use App\Models\ForgotPassword;
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/auth')->group(function(){
         Route::get('/user', [UserController::class, 'index']);
+        Route::get('/admin', function(){
+            return response()->json(['message'=>'ola soy dora']);
+        });
+        Route::get('/test',function(){
+            return response()->json(['message' => 'success']);
+        });
     });
-});
-
-Route::prefix('user')->group(function(){
-    Route::post('store', [UserController::class, 'store']);
-    Route::get('send-code', [UserController::class, 'sendCode']);
-    Route::put('verify-account', [UserController::class, 'verify']);
-    Route::get('/verify-code-password', [UserController::class, 'verifyCodePassword']);
-    Route::put('/update-password', [UserController::class, 'updatePassword']);
-    Route::put('/update-user', [UserController::class, 'updateInfo']);
-    Route::get('/get-details',[UserController::class, 'index']);
-    Route::get('/check-email',[UserController::class, 'checkEmail']);
-    Route::get('/request/get-slots',[RequestController::class, 'getSlots']);
-    Route::get('/documents', [RequestController::class, 'getDocuments']);
-    Route::post('/submit-request', [RequestController::class, 'submitRequest']);
-    Route::post('/upload-photo', [UserController::class, 'uploadPhoto']);
-    Route::get('/profile-pic', [UserController::class, 'getProfilePic']);
-    Route::get('/get-request/{status}', [RequestController::class, 'index']);
+    Route::prefix('user')->group(function(){
+        Route::get('/get-details', [UserController::class, 'getDetails']);
+        Route::post('/store', [UserController::class, 'store']);
+        Route::get('send-code', [UserController::class, 'sendCode']);
+        Route::put('verify-account', [UserController::class, 'verify']);
+        Route::get('/verify-code-password', [UserController::class, 'verifyCodePassword']);
+        Route::put('/update-password', [UserController::class, 'updatePassword']);
+        Route::put('/update-user', [UserController::class, 'updateInfo']);
+        Route::get('/check-email',[UserController::class, 'checkEmail']);
+        Route::get('/request/get-slots',[RequestController::class, 'getSlots']);
+        Route::get('/documents', [RequestController::class, 'getDocuments']);
+        Route::post('/submit-request', [RequestController::class, 'submitRequest']);
+        Route::post('/upload-photo', [UserController::class, 'uploadPhoto']);
+        Route::get('/profile-pic', [UserController::class, 'getProfilePic']);
+        Route::get('/get-request/{status}', [RequestController::class, 'index']);
+        Route::get('/count-request', [RequestController::class, 'countRequest']);
+    });
+    
     
 });
+
+
 
 
 Route::get('/test', function(){

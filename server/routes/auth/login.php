@@ -15,11 +15,19 @@ use Illuminate\Support\Facades\Log;
 |
 */
 
-Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/login', [AuthController::class, 'userLogin']);
 // Route::post('/auth/login', function(){
 //     return response()->json(['hi'=>'hi']);
 // });
 
 
-Route::post('/auth/logout', [AuthController::class, 'logout']);
+Route::post('/auth/logout', [AuthController::class, 'userLogout']);
+
+Route::post('/auth/admin/login', [AuthController::class, 'adminLogin']);
+// Route::post('/auth/login', function(){
+//     return response()->json(['hi'=>'hi']);
+// });
+
+
+Route::post('/auth/admin/logout', [AuthController::class, 'adminLogout']);
 

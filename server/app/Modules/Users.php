@@ -14,16 +14,24 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPassword as ForgotPasswordMail;
 use App\Mail\SignUp;
 use App\Http\Traits\GenerateCodeTrait;
+use App\Http\Resources\UserResource;
 use Carbon\Carbon;
 
 class Users
 {
     use GenerateCodeTrait;
 
-    public function getDetails(){
-        $id = Auth::guard('users')->user()->id;
-        $userDetails = USer::where('id', $id)->first();
+    public function getUser(){
+        $id = Auth::user()->id;
+        // $userDetails = new UserResource(User::where('id', $id)->first());
+        $userDetails= User::where('id', $id)->first();
+        return response()->json($userDetails);
+    }
 
+    public function getDetails(){
+        $id = Auth::user()->id;
+        // $userDetails = new UserResource(User::where('id', $id)->first());
+        $userDetails= User::where('id', $id)->first();
         return response()->json($userDetails);
     }
 

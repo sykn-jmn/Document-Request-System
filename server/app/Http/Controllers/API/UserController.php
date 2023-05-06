@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
     function index(Users $users, Request $request){
+        return $users->getUser();
+    }
+    function getDetails(Users $users, Request $request){
         return $users->getDetails();
     }
     function store(Users $users, Request $request){

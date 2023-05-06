@@ -14,7 +14,10 @@ return [
     | and production domains which access your API via a frontend SPA.
     |
     */
-    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'localhost,127.0.0.1,127.0.0.1:8000,::1')),
+    'stateful' => explode(',', env(
+        'SANCTUM_STATEFUL_DOMAINS',
+        'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1'
+      )),
 
     // 'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
     //     '%s%s',
@@ -36,8 +39,6 @@ return [
 
     'guard' => ['web'],
 
-    'prefix' => 'api/sanctum',
-
     /*
     |--------------------------------------------------------------------------
     | Expiration Minutes
@@ -50,6 +51,8 @@ return [
     */
 
     'expiration' => null,
+
+    'prefix' => 'api/sanctum',
 
     /*
     |--------------------------------------------------------------------------

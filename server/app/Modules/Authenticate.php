@@ -3,6 +3,7 @@
 namespace App\Modules;
 
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -49,12 +50,15 @@ class Authenticate
             'email'=> $payload->email,
             'password'=>$payload->password
         ];
+
+        $admin = Admin::where('email', $payload->email)->first();
         
-        if (!Auth::guard('admins')->attempt($data)) {
-            return false;
+        if($admin && Hash::check($payload->password, $admin->password)){
+            $token = $admin->createToken('access_token')->plainTextToken;
+            return response(['token'=>$token],201);
         }
 
-        return true;
+        
     }
 
     public function logout($payload)

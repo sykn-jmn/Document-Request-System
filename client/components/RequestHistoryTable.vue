@@ -13,7 +13,7 @@
     <tr v-for="request in data" :key="request.id">
         <td>{{numericDate(request.request_date)}}</td>
         <td>{{request.type}}</td>
-        <td>{{request.status}}</td>
+        <td><span :class="request.status">{{request.status}}</span></td>
         <td>{{comment(request.status)}}</td>
         <td>{{numericDate(request.update_date)}}</td>
         <td>{{action(request.status)}}</td>
@@ -75,5 +75,20 @@ tr{
 }
 td{
     @apply w-fit p-8
+}
+.pending{
+    @apply bg-yellow-400 w-fit text-white px-8 py-2 rounded-2xl
+}
+.rejected{
+    @apply bg-red-500 w-fit text-white px-8 py-2 rounded-2xl
+}
+.approved{
+    @apply bg-green-400 w-fit text-white px-8 py-2 rounded-2xl
+}
+.completed{
+    @apply bg-blue-500 w-fit text-white px-8 py-2 rounded-2xl
+}
+.processing{
+    @apply bg-stone-500 w-fit text-white px-8 py-2 rounded-2xl
 }
 </style>

@@ -20,4 +20,7 @@ class RequestController extends Controller
     public function submitRequest(Request $request, RequestDocument $requestDocument){
         return $requestDocument->submitRequest($request);
     }
+    public function countRequest(Request $request, RequestDocument $requestDocument){
+        return $requestDocument->countRequest();
+    }
 }

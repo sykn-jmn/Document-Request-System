@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use App\Models\Document;
 use Illuminate\Support\Facades\Hash;
@@ -36,6 +37,22 @@ class DatabaseSeeder extends Seeder
             'mothers_lastname' => 'Ojales',
             'email_verified_at' => now(),
             'password' => bcrypt('123456789'),
+        ]);
+        Admin::create([
+            'email' => 'admin@edokumento.com',
+            'first_name' => 'Admin',
+            'middle_name' => 'Admin',
+            'last_name' => 'Admin',
+            'birthdate' => '2000-02-22',
+            'sex' => 'male',
+            'civil_status'=> 'single',
+            'position' => 'administrator',
+            'mobile_number' => '09876543219',
+            'mothers_firstname' => 'Admin',
+            'mothers_middlename' => 'Admin',
+            'mothers_lasttname' => 'Admin',
+            'email_verified_at' => now(),
+            'password' => Hash::make('123456789')
         ]);
 
         Document::create([

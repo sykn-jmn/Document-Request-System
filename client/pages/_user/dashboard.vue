@@ -42,11 +42,11 @@
                             <font-awesome-icon :icon="['fas', 'circle-exclamation']" class="pending-icon"/>
                             <div>
                                 <p class="text-xl text-slate-500">Pending</p>
-                                <p class="font-bold text-2xl">5</p>
+                                <p class="font-bold text-2xl">{{countRequest.pending}}</p>
                             </div>
                         </div>
                     </div>
-                    <button class="second-container" @click="goToHistory('pending')">
+                    <button class="second-container" @click="$router.push('/user/request-history/pending')">
                         <span>See all pending request</span>
                         <font-awesome-icon :icon="['fas', 'arrow-right']" />
                     </button>
@@ -57,11 +57,11 @@
                             <font-awesome-icon :icon="['fas', 'thumbs-up']" class="approved-icon"/>
                             <div>
                                 <p class="text-xl text-slate-500">Approved</p>
-                                <p class="font-bold text-2xl">5</p>
+                                <p class="font-bold text-2xl">{{countRequest.approved}}</p>
                             </div>
                         </div>
                     </div>
-                    <button class="second-container">
+                    <button class="second-container" @click="$router.push('/user/request-history/approved')">
                         <span>See all approved request</span>
                         <font-awesome-icon :icon="['fas', 'arrow-right']" />
                     </button>
@@ -72,11 +72,11 @@
                             <font-awesome-icon :icon="['fas', 'thumbs-down']" flip="horizontal" class="rejected-icon" />
                             <div>
                                 <p class="text-xl text-slate-500">Rejected</p>
-                                <p class="font-bold text-2xl">5</p>
+                                <p class="font-bold text-2xl">{{countRequest.rejected}}</p>
                             </div>
                         </div>
                     </div>
-                    <button class="second-container">
+                    <button class="second-container" @click="$router.push('/user/request-history/rejected')">
                         <span>See all rejected request</span>
                         <font-awesome-icon :icon="['fas', 'arrow-right']" />
                     </button>
@@ -87,11 +87,11 @@
                             <font-awesome-icon :icon="['fas', 'circle-check']" class="complete-icon"/>
                             <div>
                                 <p class="text-xl text-slate-500">Completed</p>
-                                <p class="font-bold text-2xl">5</p>
+                                <p class="font-bold text-2xl">{{countRequest.completed}}</p>
                             </div>
                         </div>
                     </div>
-                    <button class="second-container">
+                    <button class="second-container" @click="$router.push('/user/request-history/completed')">
                         <span>See all completed request</span>
                         <font-awesome-icon :icon="['fas', 'arrow-right']" />
                     </button>
@@ -107,30 +107,23 @@ export default {
     layout: 'user',
     data(){
         return{
-            data:[
-                {
-                    id:1,
-                    request: "Baranggay Clearance",
-                    request_date: Date.now(),
-                    status: "Approved",
-                    remarks: "Ready to claim"
-                },
-                {
-                    id:2,
-                    request: "Baranggay Health Certificate",
-                    request_date: Date.now(),
-                    status: "Denied",
-                    remarks: "Incomplete requiremens"
-                },
-            ]
+            countRequest:''
         }
+    },
+    mounted(){
+        this.getCountRequest()
     },
     methods:{
         dateNow(){
             return moment().format('dddd, MMMM Do'); 
         },
-        goToHistory(status){
-            this.$router.push('/user/request-history/' + status)
+        async getCountRequest(){
+            await this.$axios.get('/user/count-request').then(response=>{
+                this.countRequest = response.data
+            }  
+            ).catch(err =>{
+                console.log(err)
+            })
         }
     }
 }
