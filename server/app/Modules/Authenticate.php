@@ -18,8 +18,6 @@ class Authenticate
             'password'=>$payload->password
         ];
 
-        Log::info($data);
-
         // $checkEmail = User::where('email',$payload->email)->first();
         // if($checkEmail){
         //     if(!$checkEmail->email_verified_at){
@@ -30,12 +28,12 @@ class Authenticate
         // }
         
         if (!Auth::guard('users')->attempt($data)) {
-            return response()->json(['message' => 'Invalid login details']);
+            return response(['message' => 'Invalid login details'], 401);
         }
         
         $user = Auth::guard('users')->user();
         if($user->email_verified_at == null){
-            return response()->json(['message'=>'Please verify your email address first']);
+            return response()->json(['message'=>'Please verify your email address first'],401);
         }
         $token = $user->createToken('access_token')->plainTextToken;
         $response = [

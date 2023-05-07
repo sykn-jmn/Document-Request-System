@@ -23,12 +23,15 @@ class AdminRequestDocument{
         
         $requests = RequestDocumentModel::select(
             'request_documents.id',
-            'requests.created_at as request_date',
-            'documents.name as type',
-            'requests.status',
-            'request_documents.updated_at as updated_date'
+            'appointments.schedule',
+            'documents.name as document',
+            'users.first_name',
+            'users.last_name',
+            'request_documents.status'
         )
         ->join('requests','requests.id','=','request_documents.request_id')
+        ->join('appointments','appointments.request_id','=','requests.id')
+        ->join('users','users.id','=','requests.user_id')
         ->join('documents','documents.id','=','request_documents.document_id')
         ->when($status!="all", function ($query) use($status){
             return $query->where('requests.status',$status);

@@ -57,6 +57,7 @@ export default {
           logout: { url: "/auth/logout", method: "post" },
           user: { url: "/auth/user", method: "get" },
         },
+        redirect: { home: "/user/request" },
       },
       adminAuth: {
         provider: "laravel/sanctum",

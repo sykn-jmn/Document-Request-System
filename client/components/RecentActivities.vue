@@ -14,6 +14,7 @@
 <script>
 import moment from 'moment'
 export default {
+    layout:'admin',
     data(){
         return{
             recentAcitvities:[

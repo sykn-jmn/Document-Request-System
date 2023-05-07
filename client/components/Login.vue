@@ -51,14 +51,14 @@ export default {
             password: this.password,
           },
       }).then(response=>{
-        this.error = response.data.message
+        this.$router.push("/user/dashboard")
         this.spinning = false
       }).catch(err=>{
-        console.log(err)
-        this.$router.push("/")
+        this.error = err.response.data.message
+        this.$router.push("/admin")
         this.spinning = false
       })
-        this.$router.push("/user/dashboard")
+        
 
     },
 }

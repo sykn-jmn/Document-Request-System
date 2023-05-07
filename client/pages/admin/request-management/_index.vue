@@ -2,7 +2,12 @@
   <div class="main-container">
     <h1>Request Management</h1>
     <p class="newRequest" @click="newRequest">+ MAKE NEW REQUEST</p><br>
-    <SearchRequest @search="search" :status="$route.params.index"/><br>
+    <Search 
+      @search="search" 
+      :selected="$route.params.index" 
+      :options="options" 
+      placeholder="Search Requested Document"
+    />
     <RequestManagementTable :data="data"/>
     <Pagination 
       :currentPage="currentPage"
@@ -16,13 +21,14 @@
 <script>
 import moment from 'moment'
 export default {
-    layout: 'user',
+    layout: 'admin',
     data(){
       return{
         data:[],
         currentPage: 1,
         lastPage:1,
         spinning:false,
+        options:['all','completed','approved','processing','pending','rejected'],
       }
     },
     mounted(){

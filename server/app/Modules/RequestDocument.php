@@ -20,7 +20,6 @@ class RequestDocument{
 
     public function getRequests($payload, $status){
         $search = $payload->search;
-        Log::info($search);
         
         $requests = RequestDocumentModel::select(
             'request_documents.id',
@@ -82,7 +81,7 @@ class RequestDocument{
         $validIDTransaction = $this->storeValidID($payload);
 
         $requestTransaction = Request::create([
-            'user_id' => Auth::guard('users')->user()->id,
+            'user_id' => Auth::user()->id,
             'valid_id' =>$validIDTransaction->id,
             'date_requested' => now(),
             'purpose' => $purpose,

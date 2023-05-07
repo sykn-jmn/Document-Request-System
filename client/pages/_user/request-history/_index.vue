@@ -2,7 +2,7 @@
   <div class="main-container">
     <h1>Request History</h1>
     <p class="newRequest" @click="newRequest">+ MAKE NEW REQUEST</p><br>
-    <SearchRequest @search="search" :status="$route.params.index"/><br>
+    <Search @search="search" :selected="$route.params.index" :options="options" placeholder="Search Request Document"/><br>
     <RequestHistoryTable :data="data"/>
     <Pagination 
       :currentPage="currentPage"
@@ -20,6 +20,7 @@ export default {
     data(){
       return{
         data:[],
+        options:['all','completed','approved','processing','pending','rejected'],
         currentPage: 1,
         lastPage:1,
         spinning:false,

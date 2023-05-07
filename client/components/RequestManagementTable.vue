@@ -10,10 +10,10 @@
         </thead>
    
     <tr v-for="request in data" :key="request.id">
-        <td>{{request.id}}</td>
+        <td>#{{renderID(request.id)}}</td>
         <td>{{numericDate(request.schedule)}}</td>
         <td>{{request.document}}</td>
-        <td>{{request.name}}</td>
+        <td>{{request.first_name}} {{request.last_name}}</td>
         <td><span :class="request.status">{{request.status}}</span></td>
     </tr>
 
@@ -53,6 +53,20 @@ export default {
             }else{
                 return "-"
             }
+        },
+        renderID(id){
+            const charID = id.toString()
+            if(charID.length<6){
+                const zerosToAdd = 6 - charID.length
+                let stringID = ""
+                for(let i = 0; i < zerosToAdd; i++){
+                    stringID += "0"
+                    
+                }
+                stringID = stringID + charID
+                return stringID 
+            }
+            return id
         }
     }
 
