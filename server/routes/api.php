@@ -50,6 +50,24 @@ Route::middleware('auth:sanctum')->group(function () {
     
 });
 
+Route::prefix('admin')->group(function(){
+    Route::get('/get-details', [AdminController::class, 'getDetails']);
+    Route::post('/store', [AdminController::class, 'store']);
+    Route::get('send-code', [AdminController::class, 'sendCode']);
+    Route::put('verify-account', [AdminController::class, 'verify']);
+    Route::get('/verify-code-password', [AdminController::class, 'verifyCodePassword']);
+    Route::put('/update-password', [AdminController::class, 'updatePassword']);
+    Route::put('/update-user', [AdminController::class, 'updateInfo']);
+    Route::get('/check-email',[AdminController::class, 'checkEmail']);
+    Route::get('/request/get-slots',[AdminRequestController::class, 'getSlots']);
+    Route::get('/documents', [AdminRequestController::class, 'getDocuments']);
+    Route::post('/submit-request', [AdminRequestController::class, 'submitRequest']);
+    Route::post('/upload-photo', [AdminController::class, 'uploadPhoto']);
+    Route::get('/profile-pic', [AdminController::class, 'getProfilePic']);
+    Route::get('/get-request/{status}', [AdminRequestController::class, 'index']);
+    Route::get('/count-request', [AdminRequestController::class, 'countRequest']);
+});
+
 
 
 

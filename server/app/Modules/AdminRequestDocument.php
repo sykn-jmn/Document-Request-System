@@ -16,11 +16,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class RequestDocument{
+class AdminRequestDocument{
 
     public function getRequests($payload, $status){
         $search = $payload->search;
-        Log::info($search);
         
         $requests = RequestDocumentModel::select(
             'request_documents.id',
@@ -37,7 +36,6 @@ class RequestDocument{
         ->when(!empty($search), function ($query) use($search){
             return $query->where('documents.name','LIKE', $search.'%');
         })
-        ->where('requests.user_id', Auth::user()->id)
         ->paginate(7);
  
         return response()->json($requests);
