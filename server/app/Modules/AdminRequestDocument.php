@@ -45,24 +45,11 @@ class AdminRequestDocument{
         
     }
 
-    public function getSlots($payload){
-        $startDate = $payload->startDate;
-        $endDate = $payload->endDate;
-
-        
-        $getAppointments = Appointment::select(
-                    'user_id',
-                    'appointments.schedule',
-                    'appointments.meridiem',
-                    )
-                    ->join('requests', 'requests.id', '=', 'appointments.request_id')
-                    ->where('schedule','>=', $startDate)
-                    ->where('schedule','<=', $endDate)
-                    ->distinct()
-                    ->get();
-
-        return response()->json($getAppointments);
+    public function getRequestDetails($id){
+        $requestDetails = RequestDocumentModel::where('id',$id)->first();
+        return response()->json($requestDetails);
     }
+
 
     public function getDocuments(){
         $documents = Document::get();

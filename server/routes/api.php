@@ -44,7 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/submit-request', [RequestController::class, 'submitRequest']);
         Route::post('/upload-photo', [UserController::class, 'uploadPhoto']);
         Route::get('/profile-pic', [UserController::class, 'getProfilePic']);
-        Route::get('/get-request/{status}', [RequestController::class, 'index']);
+        Route::get('/get-requests/{status}', [RequestController::class, 'index']);
         Route::get('/count-request', [RequestController::class, 'countRequest']);
     });
     
@@ -65,8 +65,10 @@ Route::prefix('admin')->group(function(){
     Route::post('/submit-request', [AdminRequestController::class, 'submitRequest']);
     Route::post('/upload-photo', [AdminController::class, 'uploadPhoto']);
     Route::get('/profile-pic', [AdminController::class, 'getProfilePic']);
-    Route::get('/get-request/{status}', [AdminRequestController::class, 'index']);
+    Route::get('/get-requests/{status}', [AdminRequestController::class, 'index']);
+    Route::get('/get-request/{id}', [AdminRequestController::class, 'getRequestDetails']);
     Route::get('/count-request', [AdminRequestController::class, 'countRequest']);
+    
 });
 
 

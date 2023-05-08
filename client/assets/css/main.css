@@ -16,7 +16,13 @@ body {
   );
   @apply text-white;
 }
-
+.modal{
+  backdrop-filter: blur(10px);
+  @apply fixed top-0 left-0 h-screen w-screen flex items-center
+}
+.modal > .content{
+  @apply m-auto bg-white w-fit top-0 bottom-0 left-0 right-0 md:p-16
+}
 .layout {
   margin: auto;
 }

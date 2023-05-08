@@ -24,4 +24,7 @@ class AdminRequestController extends Controller
     public function countRequest(Request $request, AdminRequestDocument $requestDocument){
         return $requestDocument->countRequest();
     }
+    public function getRequestDetails(AdminRequestDocument $requestDocument, $id){
+        return $requestDocument->getRequestDetails($id);
+    }
 }

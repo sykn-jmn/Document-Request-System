@@ -9,18 +9,18 @@
             <th>Requested Status</th>
         </thead>
    
-    <tr v-for="request in data" :key="request.id">
+    <tr v-for="request in data" :key="request.id" @click="view(request.id)" class="cursor-pointer">
         <td>#{{renderID(request.id)}}</td>
         <td>{{numericDate(request.schedule)}}</td>
         <td>{{request.document}}</td>
         <td>{{request.first_name}} {{request.last_name}}</td>
         <td><span :class="request.status">{{request.status}}</span></td>
     </tr>
-
     </table>
     <div>
         <span></span>
     </div>
+    <RequestModal :id="id" v-if="showModal"/>
   </div>
 </template>
 
@@ -30,6 +30,8 @@ export default {
     props:['data'],
     data(){
         return{
+            showModal:false,
+            id:'',
         }
     },
     methods:{
@@ -67,6 +69,11 @@ export default {
                 return stringID 
             }
             return id
+        },
+        view(id){
+            this.id = id
+            console.log(this.id)
+            this.showModal = true
         }
     }
 
