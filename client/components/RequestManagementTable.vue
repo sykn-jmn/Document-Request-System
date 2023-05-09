@@ -20,7 +20,8 @@
     <div>
         <span></span>
     </div>
-    <RequestModal :id="id" v-if="showModal"/>
+    <RequestModal :details="details" v-if="showModal"/>
+    <Spin v-if="spinning"/>
   </div>
 </template>
 
@@ -31,7 +32,8 @@ export default {
     data(){
         return{
             showModal:false,
-            id:'',
+            details:'',
+            spinning:false
         }
     },
     methods:{
@@ -70,11 +72,18 @@ export default {
             }
             return id
         },
-        view(id){
-            this.id = id
-            console.log(this.id)
-            this.showModal = true
-        }
+        async view(id){
+            this.spinning = true
+            await this.$axios.get('/admin/get-request/'+id).then(response=>{
+                this.details = response.data
+                this.showModal = true
+                this.spinning = false
+            }).catch(err=>{
+                console.log(err)
+                this.spinning = false
+            })
+            
+        },
     }
 
 }

@@ -1,21 +1,33 @@
 <template>
   <div class="modal">
     <div class="content">
-        <h1>REQUEST NO.{{renderID(data.id)}}</h1>
+        <h1 class="text-3xl font-bold">REQUEST NO.{{renderID(details.id)}}</h1>
+        <div class="grid grid-cols-3">
+            <div class="col-span-2">
+                <div class="border-y border-slate-500">
+                    asdasd
+                </div>
+
+            </div>
+            <div>
+
+            </div>
+
+        </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    props:['id'],
+    props:['details'],
     data(){
         return{
             data:[]
         }
     },
     mounted(){
-        this.getDetails()
+
     },
     methods:{
         renderID(id){
@@ -33,11 +45,6 @@ export default {
             }
             return id
         },
-        async getDetails(){
-            await this.$axios.get('/admin/get-request/'+this.id).then(response=>{
-                this.data = response.data
-            })
-        }
     }
 }
 </script>
