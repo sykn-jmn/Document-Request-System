@@ -112,6 +112,9 @@ export default {
 </script>
 
 <style scoped>
+h1{
+  @apply text-3xl font-bold
+}
 .header-calendar{
   @apply flex w-fit
 }

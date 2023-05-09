@@ -46,7 +46,28 @@ class AdminRequestDocument{
     }
 
     public function getRequestDetails($id){
-        $requestDetails = RequestDocumentModel::where('id',$id)->first();
+        $requestDetails = Request::select(
+            'request_documents.id',
+            'first_name',
+            'middle_name',
+            'birthdate',
+            'sex',
+            'civil_status',
+            'purok',
+            'baranggay',
+            'municipality',
+            'province',
+            'email',
+            'mobile_number',
+            'purpose',
+            'schedule',
+            'meridiem',
+        )
+        ->join('request_documents','request_documents.request_id','=','requests.id')
+        ->join('users','users.id', '=', 'requests.user_id')
+        ->join('appointments','appointments.request_id','=','requests.id')
+        ->with('request_supporting_dcouments')
+        ->where('request_documents.id',$id)->first();
         return response()->json($requestDetails);
     }
 

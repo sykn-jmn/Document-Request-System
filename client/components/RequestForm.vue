@@ -171,5 +171,8 @@ form{
 .detail-container{
     @apply mb-4
 }
+h1{
+  @apply text-3xl font-bold
+}
 
 </style>

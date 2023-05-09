@@ -14,7 +14,7 @@ export default {
 
 <style scoped>
 h1{
-  @apply text-sky-900
+  @apply text-sky-900 text-3xl font-bold
 }
 p{
   @apply text-slate-500

@@ -121,11 +121,21 @@ class RequestDocument{
 
     public function storeValidID($payload){
         $file_name = time().'_'.$payload->valid_id->getClientOriginalName();
+        $extension = $payload->file('valid_id')->getClientOriginalExtension();
         $file_path = $payload->file('valid_id')->storeAs('valid_ids', $file_name, 'public');
+
+        if($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif'){
+            $file_type = 'image';
+        }else if($extension == 'pdf'){
+            $file_type = 'pdf';
+        }else{
+            $file_type = 'others';
+        }
 
         return ValidID::create([
             'filename'=>$file_name,
-            'path'=>$file_path
+            'path'=>$file_path,
+            'type'=>$file_type
         ]);
     }
 
@@ -134,10 +144,14 @@ class RequestDocument{
         $extension = $payload->file('supporting_document')[$i]->getClientOriginalExtension();
         $file_path = $payload->file('supporting_document')[$i]->storeAs('supporting_documents', $file_name, 'public');
 
-        if($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension = 'gif'){
+        Log::info($extension);
+
+        if($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif'){
             $file_type = 'image';
+            Log::info('hey');
         }else if($extension == 'pdf'){
             $file_type = 'pdf';
+            Log::info('hi');
         }else{
             $file_type = 'others';
         }

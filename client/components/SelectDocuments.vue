@@ -56,5 +56,8 @@ input[type=checkbox]{
 input[type=checkbox]:after{
     border: solid white;
 }
+h1{
+  @apply text-3xl font-bold
+}
 
 </style>

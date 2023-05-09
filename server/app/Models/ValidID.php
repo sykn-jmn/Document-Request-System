@@ -11,7 +11,8 @@ class ValidID extends Model
 
     protected $fillable = [
         'filename',
-        'path'
+        'path',
+        'type'
     ];
 
     protected $table = 'valid_ids';

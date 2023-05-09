@@ -76,5 +76,8 @@ export default {
 .label{
   @apply font-bold
 }
+h1{
+  @apply text-sky-900 text-3xl font-bold
+}
 
 </style>
