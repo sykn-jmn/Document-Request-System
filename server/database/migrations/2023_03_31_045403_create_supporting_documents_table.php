@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('supporting_documents', function (Blueprint $table) {
             $table->id();
             $table->string('filename');
+            $table->string('original_name');
             $table->string('path');
             $table->string('type');
             $table->timestamps();

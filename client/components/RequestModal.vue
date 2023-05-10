@@ -37,22 +37,27 @@
                     </div>
                 </div><br>
                 <h2>Valid ID</h2>
-                <div class="">
-                    <div v-if="details.id_type=='image'" class="flex items-center">
+                <div class="doc-container">
+                    <div v-if="details.id_type=='image'" class="doc-wrapper">
                         <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
-                        <p>{{details.id_name}}</p>
-                        <button>View</button>
+                        <p class="font-semibold">{{details.id_name}}</p>
                     </div>
+                    <button class="view-file" @click="showImage(details.id_path)">View</button>
                     <div v-if="details.id_type=='pdf'"></div>
-                </div>
+                </div><br>
                 <h2>Supporting Documents</h2>
-                <div class="" v-for="document in details.request_supporting_dcouments" :key="document.id">
-                    <div v-if="document.type=='image'"></div>
+                <div class="doc-container" v-for="document in details.request_supporting_dcouments" :key="document.id">
+                    <div v-if="document.type=='image'" class="doc-wrapper">
+                        <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
+                        <p class="font-semibold">{{document.original_name}}</p>
+                    </div>
+                    <button class="view-file" @click="showImage(document.path)">View</button>
                     <div v-if="document.type=='pdf'"></div>
                 </div>
             </div>
         </div>
     </div>
+    <ViewImage v-if="viewImage" :path="currentPath" @closeImage="viewImage=false"/>
   </div>
 </template>
 
@@ -63,13 +68,20 @@ export default {
     emits:['closeModal'],
     data(){
         return{
-            data:[]
+            data:[],
+            viewImage:false,
+            currentPath:'',
         }
     },
     mounted(){
 
     },
     methods:{
+        showImage(path){
+            this.currentPath = path
+            this.viewImage = true
+
+        },
         renderID(id){
             console.log(id)
             const charID = id.toString()
@@ -114,6 +126,15 @@ h2{
 .calendar-icon{
     font-size:40px;
     @apply text-sky-900
+}
+.doc-container{
+    @apply p-2 border-slate-300 rounded-md border mt-2 flex items-center space-x-4 justify-between
+}
+.doc-wrapper{
+    @apply flex items-center space-x-4
+}
+.view-file{
+    @apply py-2 px-4 rounded-md bg-blue-500 text-white
 }
 
 </style>

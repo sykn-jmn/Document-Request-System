@@ -17,6 +17,6 @@ class RequestSupportingDocument extends Model
     protected $table = 'request_supporting_documents';
 
     public function get_supporting_documents(){
-        return $this->hasOne(SupportingDocument::class, 'id', 'supporting_document_id')->select('filename','path','type');
+        return $this->hasOne(SupportingDocument::class, 'id', 'supporting_document_id')->select('filename','original_name','path','type');
     }
 }

@@ -62,7 +62,7 @@ class AdminRequestDocument{
             'purpose',
             'schedule',
             'meridiem',
-            'valid_ids.filename as id_name',
+            'valid_ids.original_name as id_name',
             'valid_ids.path as id_path',
             'valid_ids.type as id_type'
         )
@@ -137,7 +137,6 @@ class AdminRequestDocument{
         $file_name = time().'_'.$payload->valid_id->getClientOriginalName();
         $extension = $payload->file('valid_id')->getClientOriginalExtension();
         $file_path = $payload->file('valid_id')->storeAs('valid_ids', $file_name, 'public');
-        Log::info($extension);
 
         if($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif'){
             $file_type = 'image';

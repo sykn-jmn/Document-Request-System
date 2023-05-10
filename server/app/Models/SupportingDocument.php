@@ -10,6 +10,7 @@ class SupportingDocument extends Model
     use HasFactory;
     protected $fillable = [
         'filename',
+        'original_name',
         'path',
         'type',
     ];
