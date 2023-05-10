@@ -62,8 +62,12 @@ class AdminRequestDocument{
             'purpose',
             'schedule',
             'meridiem',
+            'valid_ids.filename as id_name',
+            'valid_ids.path as id_path',
+            'valid_ids.type as id_type'
         )
         ->join('request_documents','request_documents.request_id','=','requests.id')
+        ->join('valid_ids','valid_ids.id','=','requests.valid_id')
         ->join('users','users.id', '=', 'requests.user_id')
         ->join('appointments','appointments.request_id','=','requests.id')
         ->with('request_supporting_dcouments')
@@ -131,11 +135,22 @@ class AdminRequestDocument{
 
     public function storeValidID($payload){
         $file_name = time().'_'.$payload->valid_id->getClientOriginalName();
+        $extension = $payload->file('valid_id')->getClientOriginalExtension();
         $file_path = $payload->file('valid_id')->storeAs('valid_ids', $file_name, 'public');
+        Log::info($extension);
+
+        if($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif'){
+            $file_type = 'image';
+        }else if($extension == 'pdf'){
+            $file_type = 'pdf';
+        }else{
+            $file_type = 'others';
+        }
 
         return ValidID::create([
             'filename'=>$file_name,
-            'path'=>$file_path
+            'path'=>$file_path,
+            'type' => $file_type
         ]);
     }
 
@@ -144,7 +159,7 @@ class AdminRequestDocument{
         $extension = $payload->file('supporting_document')[$i]->getClientOriginalExtension();
         $file_path = $payload->file('supporting_document')[$i]->storeAs('supporting_documents', $file_name, 'public');
 
-        if($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension = 'gif'){
+        if($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png' || $extension == 'gif'){
             $file_type = 'image';
         }else if($extension == 'pdf'){
             $file_type = 'pdf';

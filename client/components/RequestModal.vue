@@ -1,5 +1,5 @@
 <template>
-  <div class="modal">
+  <div class="modal" @click.self="$emit('closeModal')">
     <div class="content">
         <h1 class="text-3xl font-bold">REQUEST NO.{{renderID(details.id)}}</h1>
         <div class="grid grid-cols-3 gap-x-8">
@@ -38,13 +38,17 @@
                 </div><br>
                 <h2>Valid ID</h2>
                 <div class="">
-                    <div v-if="details.id_type=='image'"></div>
+                    <div v-if="details.id_type=='image'" class="flex items-center">
+                        <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
+                        <p>{{details.id_name}}</p>
+                        <button>View</button>
+                    </div>
                     <div v-if="details.id_type=='pdf'"></div>
                 </div>
                 <h2>Supporting Documents</h2>
                 <div class="" v-for="document in details.request_supporting_dcouments" :key="document.id">
-                    <div v-if="details.document.type=='image'"></div>
-                    <div v-if="details.document.type=='pdf'"></div>
+                    <div v-if="document.type=='image'"></div>
+                    <div v-if="document.type=='pdf'"></div>
                 </div>
             </div>
         </div>
@@ -56,6 +60,7 @@
 import moment from 'moment'
 export default {
     props:['details'],
+    emits:['closeModal'],
     data(){
         return{
             data:[]
