@@ -9,6 +9,7 @@ use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\AdminRequestController;
 use App\Http\Controllers\API\RequestController;
 use App\Models\ForgotPassword;
+use Illuminate\Support\Facades\Storage;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -69,6 +70,13 @@ Route::prefix('admin')->group(function(){
     Route::get('/get-request/{id}', [AdminRequestController::class, 'getRequestDetails']);
     Route::get('/count-request', [AdminRequestController::class, 'countRequest']);
     
+});
+
+Route::get('/test/get-pdf',function(){
+    $file = Storage::get('public/supporting_documents/1683819565_RESUME - APUS.pdf');
+    return $file;
+    
+    // return response()->json(['path'=>$link]);
 });
 
 

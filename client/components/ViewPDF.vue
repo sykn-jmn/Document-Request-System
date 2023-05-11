@@ -11,12 +11,19 @@ export default {
       pdfsrc:''
     }
   },
+  mounted(){
+    
+  },
   methods:{
+
     getLink(){
-      const blob = new Blob(['../../server/storage/app/public/supporting_documents/1683726470_loh.pdf'],{type: "application/pdf"})
-      const objectUrl = window.URL.createObjectURL(blob)
-      this.pdfsrc = objectUrl
-      window.open(objectUrl);
+      this.$axios.get('/test/get-pdf',{responseType: 'blob'}).then(res=>{
+        console.log(res)
+          const blob = new Blob([res.data],{type: "application/pdf"})
+          const objectUrl = window.URL.createObjectURL(blob)
+          window.open(objectUrl);
+      })
+      
     }
   }
 }
