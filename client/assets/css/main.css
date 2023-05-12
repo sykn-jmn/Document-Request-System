@@ -243,6 +243,6 @@ input::file-selector-button {
 }
 textarea{
   padding:10px;
-  @apply w-full focus:outline-none border border-black h-56 rounded-md
+  @apply w-full focus:outline-none border border-black rounded-md
 }
 

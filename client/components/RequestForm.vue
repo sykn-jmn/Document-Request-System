@@ -41,7 +41,7 @@
             </div>
             <label class="col-span-2">
                 Purpose of Request
-                <textarea class="mt-4 font-normal" v-model="purposeOfRequest"></textarea>
+                <textarea class="mt-4 font-normal" v-model="purposeOfRequest" rows="6"></textarea>
             </label>
             <div class="detail-container col-span-2">
                 <p class="label">Supporting Documents</p>

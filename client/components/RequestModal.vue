@@ -68,8 +68,25 @@
                 </div>
             </div>
         </div>
+        <h2>Comments/Remarks</h2>
+        <textarea rows="4" v-model="comments"></textarea>
+        <div class="w-fit m-auto flex text-white space-x-4 mt-10">
+            <button class="bg-red-500 status-button" @click="submit('rejected')">
+                <div class="status-wrapper">
+                    <font-awesome-icon :icon="['fas', 'thumbs-down']" flip="horizontal" class="thumbs-icon"/>
+                    <p>Reject</p>
+                </div>
+            </button>
+            <button class="bg-green-500 status-button" @click="submit('approved')">
+                <div class="status-wrapper">
+                    <font-awesome-icon :icon="['fas', 'thumbs-up']" class="thumbs-icon"/>
+                    <p>Approve</p>
+                </div>
+            </button>
+        </div>
     </div>
     <ViewImage v-if="viewImage" :path="currentPath" @closeImage="viewImage=false"/>
+    <Spin v-if="spinning"/>
   </div>
 </template>
 
@@ -83,12 +100,29 @@ export default {
             data:[],
             viewImage:false,
             currentPath:'',
+            comments:'',
+            spinning:false,
         }
     },
     mounted(){
 
     },
     methods:{
+        async submit(status){
+            this.spinning =true
+            var params = {
+                id: this.details.id,
+                status: status,
+                comments:comments
+
+            }
+            await this.$axios.put('/admin/requests/update-status',params).then(response=>{
+                this.$emit('closeModal')
+                this.spinning =false
+            }).catch(err=>{
+                this.spinning =false
+            })
+        },
         async viewFile(filename){
             await this.$axios.get('/admin/requests/get-pdf/'+filename,{responseType: 'blob'}).then(response=>{
                 const blob = new Blob([response.data],{type: "application/pdf"})
@@ -150,10 +184,19 @@ h2{
     @apply p-2 border-slate-300 rounded-md border mt-2 flex items-center space-x-4 justify-between
 }
 .doc-wrapper{
-    @apply flex items-center space-x-4 justify-between bg-green-100 w-full
+    @apply flex items-center space-x-4 justify-between w-full
 }
 .view-file{
     @apply py-2 px-4 rounded-md bg-blue-500 text-white
+}
+.status-button{
+    @apply py-2 w-36 rounded-md
+}
+.thumbs-icon{
+    @apply text-2xl text-white
+}
+.status-wrapper{
+    @apply flex items-center space-x-4 w-fit m-auto
 }
 
 </style>

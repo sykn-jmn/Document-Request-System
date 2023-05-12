@@ -51,6 +51,7 @@ class AdminRequestDocument{
             'request_documents.id',
             'first_name',
             'middle_name',
+            'last_name',
             'birthdate',
             'sex',
             'civil_status',
@@ -103,6 +104,21 @@ class AdminRequestDocument{
             'rejected' => $countRejected,
             'completed' => $countCompleted
         ]);
+    }
+
+    public function updateRequestStatus($payload){
+        $id = $payload->id;
+        $status = $payload->status;
+        $comments = $payload->comemnts;
+
+        RequestDocumentModel::where('id', $id)->update([
+            'status' => $status,
+            'comments' => $comments
+        ]);
+
+        return response()->json(['message'=>'Request id '.$id. ' is '.$status]);
+        
+
     }
 }
 
