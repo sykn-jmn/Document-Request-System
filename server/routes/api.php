@@ -69,6 +69,7 @@ Route::prefix('admin')->group(function(){
     Route::get('/get-requests/{status}', [AdminRequestController::class, 'index']);
     Route::get('/get-request/{id}', [AdminRequestController::class, 'getRequestDetails']);
     Route::get('/count-request', [AdminRequestController::class, 'countRequest']);
+    Route::get('/requests/get-pdf/{path}', [AdminRequestController::class, 'getPDF']);
     
 });
 

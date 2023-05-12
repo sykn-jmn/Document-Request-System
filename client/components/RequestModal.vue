@@ -39,20 +39,32 @@
                 <h2>Valid ID</h2>
                 <div class="doc-container">
                     <div v-if="details.id_type=='image'" class="doc-wrapper">
-                        <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
-                        <p class="font-semibold">{{details.id_name}}</p>
+                        <div class="flex items-center space-x-4 w-fit">
+                            <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
+                            <p class="font-semibold">{{details.id_name}}</p>
+                        </div>
+                        <button class="view-file" @click="showImage(details.id_path)">View</button>
                     </div>
-                    <button class="view-file" @click="showImage(details.id_path)">View</button>
+                    
                     <div v-if="details.id_type=='pdf'"></div>
                 </div><br>
                 <h2>Supporting Documents</h2>
                 <div class="doc-container" v-for="document in details.request_supporting_dcouments" :key="document.id">
                     <div v-if="document.type=='image'" class="doc-wrapper">
-                        <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
-                        <p class="font-semibold">{{document.original_name}}</p>
+                        <div class="flex items-center space-x-4 w-fit">
+                            <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
+                            <p class="font-semibold">{{document.original_name}}</p>
+                        </div>
+                        <button class="view-file" @click="showImage(document.path)">View</button>
                     </div>
-                    <button class="view-file" @click="showImage(document.path)">View</button>
-                    <div v-if="document.type=='pdf'"></div>
+                    
+                    <div v-if="document.type=='pdf'" class="doc-wrapper">
+                        <div class="flex items-center space-x-4 w-fit">
+                            <font-awesome-icon :icon="['fas', 'file-pdf']" style="color: #880bcb;" />
+                            <p class="font-semibold">{{document.original_name}}</p>
+                        </div>
+                        <button class="view-file" @click="viewFile(document.filename)">View</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,6 +89,13 @@ export default {
 
     },
     methods:{
+        async viewFile(filename){
+            await this.$axios.get('/admin/requests/get-pdf/'+filename,{responseType: 'blob'}).then(response=>{
+                const blob = new Blob([response.data],{type: "application/pdf"})
+                const objectUrl = window.URL.createObjectURL(blob)
+                window.open(objectUrl);
+            })
+        },
         showImage(path){
             this.currentPath = path
             this.viewImage = true
@@ -131,7 +150,7 @@ h2{
     @apply p-2 border-slate-300 rounded-md border mt-2 flex items-center space-x-4 justify-between
 }
 .doc-wrapper{
-    @apply flex items-center space-x-4
+    @apply flex items-center space-x-4 justify-between bg-green-100 w-full
 }
 .view-file{
     @apply py-2 px-4 rounded-md bg-blue-500 text-white

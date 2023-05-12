@@ -27,4 +27,7 @@ class AdminRequestController extends Controller
     public function getRequestDetails(AdminRequestDocument $requestDocument, $id){
         return $requestDocument->getRequestDetails($id);
     }
+    public function getPDF(AdminRequestDocument $requestDocument, $path){
+        return $requestDocument->getPDF($path);
+    }
 }

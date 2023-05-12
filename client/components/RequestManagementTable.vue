@@ -22,7 +22,6 @@
     </div>
     <RequestModal :details="details" v-if="showModal" @closeModal="showModal = false"/>
     <Spin v-if="spinning"/>
-    <ViewPDF/>
   </div>
 </template>
 
