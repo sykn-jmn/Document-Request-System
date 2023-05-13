@@ -26,7 +26,8 @@ class RequestDocument{
             'request_documents.id',
             'requests.created_at as request_date',
             'documents.name as type',
-            'requests.status',
+            'request_documents.status',
+            'request_documents.comments',
             'request_documents.updated_at as updated_date'
         )
         ->join('requests','requests.id','=','request_documents.request_id')
@@ -173,6 +174,19 @@ class RequestDocument{
         ]);
     }
     public function storeRequestDocument($requestID, $documentID){
+
+        
+        $charID = (string) $id;
+        if(strlen($charID) < 6){
+            $zerosToAdd = 6 - strlen($charID);
+            $strId = '';
+
+            for($i = 0; $i < $zerosToAdd; $i++){
+                $strId += '0'; 
+            }
+            $strId = $strId + $charID;
+        }
+
         return RequestDocumentModel::create([
             'request_id'=>$requestID,
             'document_id' => $documentID,

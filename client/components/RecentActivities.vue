@@ -33,7 +33,13 @@ export default {
             ]
         }
     },
+    mounted(){
+
+    },
     methods:{
+        getReports(){
+            
+        },
         recentDate(date){
             const dateNow = new Date()
             const diff =  dateNow - date

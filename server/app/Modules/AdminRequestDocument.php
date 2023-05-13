@@ -4,6 +4,7 @@ namespace App\Modules;
 
 use App\Models\Appointment;
 use App\Models\Document;
+use App\Models\Reports;
 use App\Models\Request;
 use App\Models\ValidID;
 use App\Models\SupportingDocument;
@@ -115,6 +116,25 @@ class AdminRequestDocument{
             'status' => $status,
             'comments' => $comments
         ]);
+
+        $charID = (string) $id;
+        if(strlen($charID) < 6){
+            $zerosToAdd = 6 - strlen($charID);
+            $strId = '';
+
+            for($i = 0; $i < $zerosToAdd; $i++){
+                $strId += '0'; 
+            }
+            $strId = $strId.$charID;
+        }
+        
+        $admin = Auth::user();
+        
+        Reports::create([
+            'message' => $strId.' (Baranggay Clearance) was approved by',
+            'name' => $admin->first_name.' '.$admin->last_name        
+        ]);
+
 
         return response()->json(['message'=>'Request id '.$id. ' is '.$status]);
         
