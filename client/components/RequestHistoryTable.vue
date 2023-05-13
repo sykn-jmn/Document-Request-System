@@ -14,7 +14,7 @@
         <td>{{numericDate(request.request_date)}}</td>
         <td>{{request.type}}</td>
         <td><span :class="request.status">{{request.status}}</span></td>
-        <td>{{comment(request.status)}}</td>
+        <td>{{request.comments}}</td>
         <td>{{numericDate(request.update_date)}}</td>
         <td>{{action(request.status)}}</td>
     </tr>
@@ -47,15 +47,6 @@ export default {
                 return "-"
             }
         },
-        comment(status){
-            if(status == 'approved'){
-                return 'Document ready for pickup'
-            }else if(status == 'rejected'){
-                return 'Incomplete requirements'
-            }else{
-                return "-"
-            }
-        }
     }
 
 }
