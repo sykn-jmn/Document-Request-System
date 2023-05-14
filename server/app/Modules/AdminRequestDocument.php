@@ -111,27 +111,29 @@ class AdminRequestDocument{
         $id = $payload->id;
         $status = $payload->status;
         $comments = $payload->comemnts;
+        $request_number = $payload->requestNumber;
 
         RequestDocumentModel::where('id', $id)->update([
             'status' => $status,
             'comments' => $comments
         ]);
 
-        $charID = (string) $id;
-        if(strlen($charID) < 6){
-            $zerosToAdd = 6 - strlen($charID);
-            $strId = '';
+        // $charID = (string) $id;
+        // if(strlen($charID) < 6){
+        //     $zerosToAdd = 6 - strlen($charID);
+        //     $strId = '';
 
-            for($i = 0; $i < $zerosToAdd; $i++){
-                $strId += '0'; 
-            }
-            $strId = $strId.$charID;
-        }
+        //     for($i = 0; $i < $zerosToAdd; $i++){
+        //         $strId += '0'; 
+        //     }
+        //     $strId = $strId.$charID;
+        // }
         
-        $admin = Auth::user();
+        $admin = Auth::guard('admins')->user();
+        Log::info($admin);
         
         Reports::create([
-            'message' => $strId.' (Baranggay Clearance) was approved by',
+            'message' => $request_number.' (Baranggay Clearance) was approved by',
             'name' => $admin->first_name.' '.$admin->last_name        
         ]);
 
@@ -139,6 +141,26 @@ class AdminRequestDocument{
         return response()->json(['message'=>'Request id '.$id. ' is '.$status]);
         
 
+    }
+    public function getReports(){
+        Reports::select(
+            'id',
+            'message',
+            'status',
+            'name',
+            'created_at as date'
+        )->limit(10)
+        ->get();
+    }
+
+    public function getAllReports(){
+        Reports::select(
+            'id',
+            'message',
+            'status',
+            'name',
+            'created_at as date'
+        )->paginate(10);
     }
 }
 

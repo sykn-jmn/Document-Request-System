@@ -176,19 +176,21 @@ class RequestDocument{
     public function storeRequestDocument($requestID, $documentID){
 
         
-        $charID = (string) $id;
+        $charID = (string) $requestID;
         if(strlen($charID) < 6){
             $zerosToAdd = 6 - strlen($charID);
             $strId = '';
 
             for($i = 0; $i < $zerosToAdd; $i++){
-                $strId += '0'; 
+                $strId .= '0'; 
             }
-            $strId = $strId + $charID;
+            $strId = $strId.$charID;
         }
+        Log::info($strId);
 
         return RequestDocumentModel::create([
             'request_id'=>$requestID,
+            'request_number' =>$strId,
             'document_id' => $documentID,
             'status'=>'pending'
         ]);

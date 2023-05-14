@@ -5,6 +5,12 @@
             <p class="font-semibold">{{report.message}}</p>
             <p class="mt-2 text-slate-500">{{convertDateToString(report.date)}}</p>
         </div>
+        <Pagination 
+            :currentPage="currentPage"
+            :lastPage="lastPage"
+            @paginate="paginate"
+        />
+        <Spin v-if="spinning"/>
     </div>
 </template>
 
@@ -14,6 +20,9 @@ export default {
     layout:'admin',
     data(){
         return{
+            currentPage: 1,
+            lastPage:1,
+            spinning:false,
             recentAcitvities:[
                 {
                     id: 1,
@@ -30,7 +39,30 @@ export default {
             ]
         }
     },
+    mounted(){
+        this.getAllReports(this.currentPage)
+    },
     methods:{
+        paginate(value){
+            switch(value){
+            case "prev":
+                var pageNumber = this.currentPage-1
+                break;
+            case"next":
+                var pageNumber = this.currentPage+1
+                break;
+            default:
+                var pageNumber = this.currentPage
+            }
+            this.fetchHistories(pageNumber,null)
+        },
+        async getAllReports(pageNumber){
+            this.spinning = true
+            this.$axios.get('/admin/get-all-reports?page='+pageNumber).then(response=>{
+                this.recentAcitvities = response.data
+                this.spinning = false
+            })
+        },
         recentDate(date){
             const dateNow = new Date()
             const diff =  dateNow - date

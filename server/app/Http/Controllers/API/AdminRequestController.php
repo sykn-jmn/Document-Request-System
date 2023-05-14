@@ -33,4 +33,10 @@ class AdminRequestController extends Controller
     public function updateRequestStatus(AdminRequestDocument $requestDocument, Request $request){
         return $requestDocument->updateRequestStatus($request);
     }
+    public function getReports(AdminRequestDocument $requestDocument){
+        return $requestDocument->getReports();
+    }
+    public function getAllReports(AdminRequestDocument $requestDocument){
+        return $requestDocument->getAllReports();
+    }
 }
