@@ -1,6 +1,6 @@
 <template>
     <div class="sticky top-0 bg-sky-700 pl-4 pr-8 flex justify-between items-center h-16 py-4 w-full">
-        <div class="text-2xl">
+        <div class="text-2xl" @click="hide">
             <font-awesome-icon :icon="['fas', 'bars']" size="lg" />
         </div>
         <div class="flex items-center">

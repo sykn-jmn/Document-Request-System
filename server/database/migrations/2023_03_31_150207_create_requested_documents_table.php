@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('request_documents', function (Blueprint $table) {
             $table->id();
-            $table->string('request_number');
             $table->bigInteger('request_id')->index();
             $table->bigInteger('document_id')->index();
             $table->enum('status', ['pending','proccessing','approved', 'rejected', 'completed'])->index();

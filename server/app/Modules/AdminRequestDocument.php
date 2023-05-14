@@ -67,9 +67,11 @@ class AdminRequestDocument{
             'meridiem',
             'valid_ids.original_name as id_name',
             'valid_ids.path as id_path',
-            'valid_ids.type as id_type'
+            'valid_ids.type as id_type',
+            'documents.name as document_name'
         )
         ->join('request_documents','request_documents.request_id','=','requests.id')
+        ->join('documents','documents.id','=','request_documents.document_id')
         ->join('valid_ids','valid_ids.id','=','requests.valid_id')
         ->join('users','users.id', '=', 'requests.user_id')
         ->join('appointments','appointments.request_id','=','requests.id')
@@ -111,30 +113,29 @@ class AdminRequestDocument{
         $id = $payload->id;
         $status = $payload->status;
         $comments = $payload->comemnts;
-        $request_number = $payload->requestNumber;
 
         RequestDocumentModel::where('id', $id)->update([
             'status' => $status,
             'comments' => $comments
         ]);
 
-        // $charID = (string) $id;
-        // if(strlen($charID) < 6){
-        //     $zerosToAdd = 6 - strlen($charID);
-        //     $strId = '';
+        $charID = (string) $id;
+        if(strlen($charID) < 6){
+            $zerosToAdd = 6 - strlen($charID);
+            $strId = '';
 
-        //     for($i = 0; $i < $zerosToAdd; $i++){
-        //         $strId += '0'; 
-        //     }
-        //     $strId = $strId.$charID;
-        // }
+            for($i = 0; $i < $zerosToAdd; $i++){
+                $strId .= '0'; 
+            }
+            $strId = $strId.$charID;
+        }
         
-        $admin = Auth::guard('admins')->user();
-        Log::info($admin);
+        $admin = Auth::user();
         
         Reports::create([
-            'message' => $request_number.' (Baranggay Clearance) was approved by',
-            'name' => $admin->first_name.' '.$admin->last_name        
+            'message' => $strId.' (Baranggay Clearance) was approved by',
+            'name' => $admin->first_name.' '.$admin->last_name,
+            'status' => $status     
         ]);
 
 
@@ -143,24 +144,30 @@ class AdminRequestDocument{
 
     }
     public function getReports(){
-        Reports::select(
+        $reports = Reports::select(
             'id',
             'message',
             'status',
             'name',
             'created_at as date'
-        )->limit(10)
+        )->orderBy('created_at','desc')
+        ->limit(10)
         ->get();
+        return response()->json($reports);
     }
 
     public function getAllReports(){
-        Reports::select(
+        $allReports = Reports::select(
             'id',
             'message',
             'status',
             'name',
             'created_at as date'
-        )->paginate(10);
+        )
+        ->orderBy('created_at','desc')
+        ->paginate(10);
+
+        return response()->json($allReports);
     }
 }
 

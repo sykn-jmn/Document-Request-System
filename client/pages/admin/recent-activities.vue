@@ -2,7 +2,7 @@
     <div class="bg-white pt-8 px-8 h-fit rounded-3xl text-black">
         <h2>Recent Activity</h2>
         <div class="mt-4" v-for="report in recentAcitvities" :key="report.id">
-            <p class="font-semibold">{{report.message}}</p>
+            <p class="font-semibold">{{report.message}} <span class="text-red-500">{{report.name}}</span></p>
             <p class="mt-2 text-slate-500">{{convertDateToString(report.date)}}</p>
         </div>
         <Pagination 
@@ -23,20 +23,7 @@ export default {
             currentPage: 1,
             lastPage:1,
             spinning:false,
-            recentAcitvities:[
-                {
-                    id: 1,
-                    message: 'Request #000051 (Barangay Clearance) was approved by Admin1',
-                    status:'approved',
-                    date: new Date(2023,4,3)
-                },
-                {
-                    id: 2, 
-                    message: 'Request #000050 (Cedula) was claimed by Juan Dela Cruz',
-                    status:'claimed',
-                    date: new Date(2023,4,5)
-                }
-            ]
+            recentAcitvities:[]
         }
     },
     mounted(){
@@ -59,7 +46,9 @@ export default {
         async getAllReports(pageNumber){
             this.spinning = true
             this.$axios.get('/admin/get-all-reports?page='+pageNumber).then(response=>{
-                this.recentAcitvities = response.data
+                this.recentAcitvities = response.data.data
+                this.currentPage = response.data.current_page
+                this.lastPage = response.data.last_page
                 this.spinning = false
             })
         },

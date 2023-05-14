@@ -13,7 +13,8 @@ class Reports extends Model
     protected $fillable = [
         'id',
         'message',
-        'name'
+        'name',
+        'status'
 
     ];
 }

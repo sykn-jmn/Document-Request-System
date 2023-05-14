@@ -22,10 +22,11 @@
                     <p>Mobile Number:</p>
                     <p class="font-semibold">{{details.mobile_number}}</p>
                 </div><br>
-                <h2>Purpose of Transaction</h2>
-                <div class="bg-stone-200 p-4 rounded-md border border-stone-500 mt-2">
-                    {{details.purpose}}
+                <h2>Requested Document</h2>
+                <div class="p-4 border border-slate-500 mt-2 rounded-md">
+                    <p>{{details.document_name}}</p>
                 </div>
+                
             </div>
             <div>
                 <h2>Pick-up Schedule</h2>
@@ -68,6 +69,10 @@
                 </div>
             </div>
         </div>
+        <h2>Purpose of Transaction</h2>
+        <div class="bg-stone-200 p-4 rounded-md border border-stone-500 mt-2">
+            {{details.purpose}}
+        </div><br>
         <h2>Comments/Remarks</h2>
         <textarea rows="4" v-model="comments"></textarea>
         <div class="w-fit m-auto flex text-white space-x-4 mt-10">
@@ -114,7 +119,6 @@ export default {
                 id: this.details.id,
                 status: status,
                 comments:this.comments,
-                requestNumber: request_number
 
             }
             await this.$axios.put('/admin/requests/update-status',params).then(response=>{
