@@ -7,14 +7,7 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(2, 2, 69, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
-  );
-  @apply text-white;
+  @apply text-white bg-red-900 text-base;
 }
 .modal{
   backdrop-filter: blur(10px);
@@ -29,12 +22,8 @@ body {
 }
 
 .header {
-  padding: 70px 20px 20px 20px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin: auto;
   width: 80%;
+  @apply relative m-auto flex items-center;
 }
 
 .header > h1 {
@@ -114,15 +103,14 @@ nav > ul {
 }
 
 .form-wrapper {
-  @apply px-20;
+  @apply md:px-20;
 }
 
-.form-container {
-  width: 640px;
-  @apply text-black rounded-3xl p-12 shadow-xl bg-white m-auto;
+form{
+  @apply bg-white
 }
 
-.login-form {
+form {
   width: 480px;
   @apply text-black rounded-3xl p-12 shadow-xl bg-white m-auto;
 }
@@ -135,23 +123,22 @@ form > h1 {
 }
 
 form > input[type="text"] {
-  font-size: 20px;
   padding: 10px;
-  width: 100%;
-  @apply border border-blue-700 rounded-md focus:outline-none;
+  @apply border border-slate-700 rounded-md focus:outline-none text-lg w-full;
 }
 
-.form-container > .select-container > select, input {
-  font-size: 20px;
+form > .select-container > select, input {
+  font-size: 16px;
   padding: 10px;
   width: 100%;
-  @apply border border-blue-700 rounded-md focus:outline-none;
+  @apply border border-slate-700 rounded-md focus:outline-none;
+}
+option:hover{
+  background-color: lime;
 }
 
 form > input[type="date"] {
-  font-size: 20px;
-  padding: 10px;
-  @apply border border-blue-700 rounded-md focus:outline-none;
+  @apply border border-slate-700 rounded-md focus:outline-none text-base p-2;
 }
 
 .select-container {
@@ -165,13 +152,8 @@ form > input[type="date"] {
 .input-container {
   @apply flex;
 }
-
-.input-container > input:not(:first-child) {
-  @apply ml-4;
-}
-
-.input-container > div:not(:first-child) {
-  @apply ml-4;
+.input-container{
+  @apply space-x-2
 }
 
 .button-wrapper {
@@ -185,7 +167,7 @@ form > input[type="date"] {
 }
 
 .registration-container {
-  padding-top: 100px;
+  @apply py-8
 }
 
 .eyeIcon {
@@ -194,8 +176,8 @@ form > input[type="date"] {
 }
 
 .password-container {
-  @apply flex items-center px-2 border border-blue-700 rounded-md;
-}
+  @apply flex items-center border border-slate-700 rounded-md text-lg px-2 w-full;
+} 
 
 th,
 td {
