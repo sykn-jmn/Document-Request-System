@@ -36,7 +36,7 @@ class AdminRequestDocument{
         ->join('users','users.id','=','requests.user_id')
         ->join('documents','documents.id','=','request_documents.document_id')
         ->when($status!="all", function ($query) use($status){
-            return $query->where('requests.status',$status);
+            return $query->where('request_documents.status',$status);
         })
         ->when(!empty($search), function ($query) use($search){
             return $query->where('documents.name','LIKE', $search.'%');
@@ -133,7 +133,7 @@ class AdminRequestDocument{
         $admin = Auth::user();
         
         Reports::create([
-            'message' => $strId.' (Baranggay Clearance) was approved by',
+            'message' =>'Request '.$strId.' (Baranggay Clearance) was approved by',
             'name' => $admin->first_name.' '.$admin->last_name,
             'status' => $status     
         ]);

@@ -13,7 +13,7 @@
                 <li><NuxtLink to="/user/request" class="nav_link"><span><font-awesome-icon :icon="['fas', 'file-invoice']" /></span>Request Document</NuxtLink></li>
                 <li><NuxtLink to="/user/request-history/all" class="nav_link"><span><font-awesome-icon :icon="['fas', 'clock-rotate-left']" /></span>Request Hsitory</NuxtLink></li>
                 <li><NuxtLink to="/user/account" class="nav_link"><span><font-awesome-icon :icon="['fas', 'user']" /></span>Account</NuxtLink></li>
-                <li class="pl-12 py-4 hover:bg-stone-900" @click="logout"><span class="mr-4"><font-awesome-icon :icon="['fas', 'power-off']" /></span>Logout</li>
+                <li class="pl-12 py-4 hover:bg-stone-900 cursor-pointer" @click="logout"><span class="mr-4"><font-awesome-icon :icon="['fas', 'power-off']" /></span>Logout</li>
             </ul>
         </nav>
     </div>  

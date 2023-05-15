@@ -9,7 +9,7 @@
             <th>Requested Status</th>
         </thead>
    
-    <tr v-for="request in data" :key="request.id" @click="view(request.id)" class="cursor-pointer">
+    <tr v-for="request in data" :key="request.id" @click="view(request.id,request.status)" class="cursor-pointer">
         <td>#{{renderID(request.id)}}</td>
         <td>{{numericDate(request.schedule)}}</td>
         <td>{{request.document}}</td>
@@ -21,6 +21,7 @@
         <span></span>
     </div>
     <RequestModal :details="details" v-if="showModal" @closeModal="showModal = false"/>
+    <ApprovedModal :details="details" v-if="showModal" @closeModal="showModal = false"/>
     <Spin v-if="spinning"/>
   </div>
 </template>
@@ -33,7 +34,8 @@ export default {
         return{
             showModal:false,
             details:'',
-            spinning:false
+            spinning:false,
+            status:'pending'
         }
     },
     methods:{
@@ -72,11 +74,12 @@ export default {
             }
             return id
         },
-        async view(id){
+        async view(id,status){
             this.spinning = true
             await this.$axios.get('/admin/get-request/'+id).then(response=>{
                 this.details = response.data
                 this.showModal = true
+                this.status = status
                 this.spinning = false
             }).catch(err=>{
                 console.log(err)
