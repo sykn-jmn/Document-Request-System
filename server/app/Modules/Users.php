@@ -2,6 +2,7 @@
 
 namespace App\Modules;
 
+use App\Jobs\SendEmail;
 use App\Models\User;
 use App\Models\UserProfilePicture;
 use App\Models\ForgotPassword as ForgotPasswordModel;
@@ -10,9 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPassword as ForgotPasswordMail;
-use App\Mail\SignUp;
 use App\Http\Traits\GenerateCodeTrait;
 use App\Http\Resources\UserResource;
 use Carbon\Carbon;
@@ -37,6 +36,7 @@ class Users
 
     public function store($payload)
     {
+
         $rules = array(
             'email' => 'required|max:255|email',
             'first_name' => 'required|string',
@@ -57,6 +57,9 @@ class Users
         if($validator->fails()){
             return response()->json(["message" => $validator->errors()]);
         }
+        if($this->checkEmail($payload->email)){
+            return response()->json(['isEmailExist'=>true]);
+        };
 
         $data = array(
             'email' => $payload->email,
@@ -89,7 +92,12 @@ class Users
         
         //send verification email
         $url = 'http://localhost:3000/verify-account/'.$emailCode;
-        Mail::to($payload->email)->send(new SignUp($url));
+
+        $details = (object) array(
+            'url' =>$url,
+            'email' => $payload->email
+        );
+        SendEmail::dispatch($details);
 
         return response()->json(["message"=>"user created successfully", 'isAccountCreated' => true]);
     }

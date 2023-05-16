@@ -48,7 +48,7 @@
                 <span class="h-16">
                     <p class="text-red-500 text-center">{{error}}</p>
                 </span>
-                <label class="flex space-x-4 w-fit m-auto items-center">
+                <label class="flex space-x-2 w-fit m-auto items-center">
                     <input type="checkbox" class="w-fit" required/>
                     <p>I HAVE READ and ACCEPT <span class="text-blue-500">TERMS OF SERVICES</span></p>
                 </label>
@@ -81,7 +81,7 @@ export default {
             errorEmail:'',
             isAccountCreated:false,
             firstForm:true,
-            secondForm:true,
+            secondForm:false,
             data:{
                 first_name:'',
                 middle_name:'',
@@ -164,25 +164,24 @@ export default {
                 if(response.data.isEmailExist){
                     this.errorEmail = "This email is already taken."
                     this.isAccountCreated = false
+                }else{
+                    if(this.data.password != this.confirmPassword){
+                        this.error = "Inconsistent password!"
+                        this.isAccountCreated = false
+                    }
+                    else{
+                        this.error = ""
+                        let params = this.data
+                        this.$axios.post('/user/store', params).then(response =>{
+                            this.secondForm = false
+                            this.isAccountCreated = true
+                        })
+                    }
                 }
             })
 
             //verify password
-            if(this.data.password != this.confirmPassword){
-                this.error = "Inconsistent password!"
-                this.isAccountCreated = false
-            }
-            else{
-                this.error = ""
-                let params = this.data
-                this.$axios.post('/user/store', params).then(response =>{
-                        if(response.data.isAccountCreated){
-                            this.secondForm = false
-                            this.isAccountCreated = true
-                        }
-                    }
-                )
-            }
+            
 
         }
         
@@ -205,6 +204,10 @@ form{
 }
 h2{
     @apply text-center font-semibold text-2xl
+}
+
+input[type=checkbox]{
+    @apply w-4 h-4 
 }
 
 
