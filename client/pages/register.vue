@@ -47,7 +47,12 @@
                 <br>
                 <span class="h-16">
                     <p class="text-red-500 text-center">{{error}}</p>
-                </span>    
+                </span>
+                <label class="flex space-x-4 w-fit m-auto items-center">
+                    <input type="checkbox" class="w-fit" required/>
+                    <p>I HAVE READ and ACCEPT <span class="text-blue-500">TERMS OF SERVICES</span></p>
+                </label>
+                
                 <div class="button-wrapper text-center">
                     <button class="next-button">Next</button>
                 </div>
@@ -76,7 +81,7 @@ export default {
             errorEmail:'',
             isAccountCreated:false,
             firstForm:true,
-            secondForm:false,
+            secondForm:true,
             data:{
                 first_name:'',
                 middle_name:'',
