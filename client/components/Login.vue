@@ -5,7 +5,7 @@
       <input type="text" id="email" name="email" placeholder="Email" v-model="email"><br><br>
       <div class="password-container">
           <input class="border-none" :type="passwordFieldType" id="password" name="password" placeholder="Enter Password" v-model="password" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
-      </div><br>
+      </div>
       <p class="error">{{error}}</p><br>
       <p class="text-center text-sky-600"><NuxtLink to="/forgot-password">Forgot your password?</NuxtLink></p>
       <div class="button-wrapper text-center">
@@ -55,7 +55,7 @@ export default {
         this.spinning = false
       }).catch(err=>{
         this.error = err.response.data.message
-        this.$router.push("/admin")
+        this.$router.push("/")
         this.spinning = false
       })
         

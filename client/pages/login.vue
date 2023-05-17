@@ -16,10 +16,13 @@
 
 <script>
 export default {
-
+    middleware:['login']
 }
 </script>
 
-<style>
+<style scoped>
+h1{
+    line-height: 3.5rem;
+}
 
 </style>

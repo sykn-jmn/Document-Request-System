@@ -16,7 +16,7 @@ export default {
 <style scoped>
 .spin-icon{
     font-size: 40px;
-    @apply text-sky-900
+    @apply text-red-900
 }
 .spin-container{
     position: fixed;

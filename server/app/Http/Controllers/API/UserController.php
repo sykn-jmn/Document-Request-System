@@ -13,6 +13,9 @@ class UserController extends Controller
     function index(Users $users, Request $request){
         return $users->getUser();
     }
+    function resendEmail(Users $users, Request $request){
+        return $users->resendEmail($request);
+    }
     function getDetails(Users $users, Request $request){
         return $users->getDetails();
     }

@@ -27,7 +27,7 @@ class SendEmail implements ShouldQueue
     public function handle(): void
     {
         $email = $this->details->email;
-        $url = $this->details->url;
-        Mail::to($email)->queue(new SignUp($url));
+        $class = $this->details->class;
+        Mail::to($email)->queue($class);
     }
 }

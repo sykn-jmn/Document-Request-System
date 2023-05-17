@@ -35,7 +35,8 @@
                     <input type="text" id="lastname" name="lasttname" v-model="data.mothers_lastname" placeholder="Last Name" required>
                 </div><br>
                 <input type="tel" id="phone_number" name="phone_number" v-model="data.mobile_number" placeholder="Mobile Number (09XXXXXXXXX)" min="11" pattern="[0-9]{11}" required><br><br>
-                <input type="email" id="email" name="email" v-model="data.email" placeholder="Email Address" required><br><br>
+                <input type="email" id="email" name="email" v-model="data.email" placeholder="Email Address" required>
+                <p class="error">{{errorEmail}}</p><br>
                 <div class="input-container">
                     <div class="password-container">
                         <input class="border-none" :type="passwordFieldType" id="password" name="password" v-model="data.password" placeholder="Enter Password" min="8" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>
@@ -44,15 +45,13 @@
                         <input class="border-none" :type="confirmPasswordFieldType" id="confirm_password" v-model="confirmPassword" name="confirm_password" min="8" placeholder="Confirm Password" required><font-awesome-icon :icon="['fas', confirmEyeIconType]" class="eyeIcon" @click="showConfirmPassword = !showConfirmPassword"/>
                     </div>
                 </div>
-                <br>
                 <span class="h-16">
-                    <p class="text-red-500 text-center">{{error}}</p>
-                </span>
+                    <p class="error">{{error}}</p>
+                </span><br>
                 <label class="flex space-x-2 w-fit m-auto items-center">
                     <input type="checkbox" class="w-fit" required/>
                     <p>I HAVE READ and ACCEPT <span class="text-blue-500">TERMS OF SERVICES</span></p>
                 </label>
-                
                 <div class="button-wrapper text-center">
                     <button class="next-button">Next</button>
                 </div>
@@ -62,14 +61,18 @@
                     <h2>Account created successfully!</h2>
                 </div><br>
                 <p class="text-center text-base">Please check your email for verification</p>
+                <p class="text-center text-base">Haven't receive an email? <span class="text-blue-300 font-semibold cursor-pointer" @click="resendEmail">Resend Email</span></p>
             </div>
+            <Spin v-if="spinning"/>
     </div>
 </template>
 
 <script>
 export default {
+    middleware:['login'],
     data(){
         return{
+            spinning:false,
             passwordFieldType:"password",
             confirmPasswordFieldType:"password",
             eyeIconType:"eye-slash",
@@ -157,32 +160,41 @@ export default {
         },
         submitSecondForm(){
             //check email if its already existing
+            this.spinning=true
             var params = {
                 email: this.data.email
             }
-            this.$axios.get('/user/check-email',params).then(response=>{
-                if(response.data.isEmailExist){
-                    this.errorEmail = "This email is already taken."
-                    this.isAccountCreated = false
-                }else{
-                    if(this.data.password != this.confirmPassword){
-                        this.error = "Inconsistent password!"
+            if(this.data.password != this.confirmPassword){
+                this.error = "Inconsistent password!"
+                this.isAccountCreated = false
+            }
+            else{
+                this.error = ""
+                let params = this.data
+                this.$axios.post('/user/store', params).then(response =>{
+                    if(response.data.isEmailExist){
+                        this.errorEmail = "This email is already taken."
                         this.isAccountCreated = false
                     }
                     else{
-                        this.error = ""
-                        let params = this.data
-                        this.$axios.post('/user/store', params).then(response =>{
-                            this.secondForm = false
-                            this.isAccountCreated = true
-                        })
+                        this.secondForm = false
+                        this.isAccountCreated = true
                     }
-                }
-            })
-
-            //verify password
+                    this.spinning=false
+                })
+            }
             
-
+        },
+        async resendEmail(){
+            this.spinning = true
+            var params = {
+                email: this.data.email
+            }
+            await this.$axios.post('/user/resend-email', params).then(response =>{
+                this.spinning = false
+            }).catch(err=>{
+                this.spinning = false
+            })
         }
         
     }

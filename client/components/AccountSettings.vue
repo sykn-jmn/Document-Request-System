@@ -205,5 +205,8 @@ h2{
 .formButtonContainer > button[type="submit"]{
     @apply bg-yellow-400 py-2 px-28 rounded-3xl text-2xl
 }
+form{
+    @apply w-fit
+}
 
 </style>

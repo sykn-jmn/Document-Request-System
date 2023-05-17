@@ -14,7 +14,7 @@ class ForgotPassword extends Model
         'code',
     ];
 
-    protected $table = 'forgot_password';
+    protected $table = 'forgot_passwords';
 
     public function users(): HasOne
     {

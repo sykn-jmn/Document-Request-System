@@ -33,14 +33,12 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::prefix('user')->group(function(){
         Route::get('/get-details', [UserController::class, 'getDetails']);
-        Route::get('/send-code', [UserController::class, 'sendCode']);
         Route::put('/update-user', [UserController::class, 'updateInfo']);
         Route::get('/request/get-slots',[RequestController::class, 'getSlots']);
         Route::get('/documents', [RequestController::class, 'getDocuments']);
         Route::post('/submit-request', [RequestController::class, 'submitRequest']);
         Route::post('/upload-photo', [UserController::class, 'uploadPhoto']);
         Route::get('/profile-pic', [UserController::class, 'getProfilePic']);
-        Route::get('/get-requests/{status}', [RequestController::class, 'index']);
         Route::get('/count-request', [RequestController::class, 'countRequest']);
     });
 
@@ -52,7 +50,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/verify-code-password', [AdminController::class, 'verifyCodePassword']);
         Route::put('/update-password', [AdminController::class, 'updatePassword']);
         Route::put('/update-user', [AdminController::class, 'updateInfo']);
-        Route::get('/check-email',[AdminController::class, 'checkEmail']);
         Route::get('/request/get-slots',[AdminRequestController::class, 'getSlots']);
         Route::get('/documents', [AdminRequestController::class, 'getDocuments']);
         Route::post('/submit-request', [AdminRequestController::class, 'submitRequest']);
@@ -71,10 +68,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::prefix('user')->group(function(){
     Route::post('/store', [UserController::class, 'store']);
+    Route::post('/resend-email', [UserController::class, 'resendEmail']);
     Route::get('/check-email',[UserController::class, 'checkEmail']);
+    Route::get('/send-code', [UserController::class, 'sendCode']);
     Route::put('verify-account', [UserController::class, 'verify']);
     Route::get('/verify-code-password', [UserController::class, 'verifyCodePassword']);
     Route::put('/update-password', [UserController::class, 'updatePassword']);
+    Route::get('/get-requests/{status}', [RequestController::class, 'index']);
+
 });
 
 

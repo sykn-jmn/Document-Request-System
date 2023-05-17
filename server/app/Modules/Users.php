@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Mail\ForgotPassword as ForgotPasswordMail;
 use App\Http\Traits\GenerateCodeTrait;
 use App\Http\Resources\UserResource;
+use App\Mail\SignUp;
 use Carbon\Carbon;
 
 class Users
@@ -33,7 +34,18 @@ class Users
         $userDetails= User::where('id', $id)->first();
         return response()->json($userDetails);
     }
+    public function resendEmail($payload){
+        $user = User::where('email', $payload->email)->first();
+        $emailCode = $this->generateCode(). $user->id;
+        $storeCodeTransaction = User::where('id', $user->id)->update(['email_code'=> $emailCode]);
 
+        $url = 'http://localhost:3000/verify-account/'.$emailCode;
+        $details = (object) array(
+            'email' => $payload->email,
+            'class' => new SignUp($url)
+        );
+        SendEmail::dispatch($details);
+    }
     public function store($payload)
     {
 
@@ -87,6 +99,9 @@ class Users
 
         if(!$userTransaction || !$storeCodeTransaction){
            DB::rollback();
+           return response([
+            'message' => 'Something went wrong'
+           ],500);
         }
         DB::commit();
         
@@ -94,8 +109,8 @@ class Users
         $url = 'http://localhost:3000/verify-account/'.$emailCode;
 
         $details = (object) array(
-            'url' =>$url,
-            'email' => $payload->email
+            'email' => $payload->email,
+            'class' => new SignUp($url)
         );
         SendEmail::dispatch($details);
 
@@ -136,7 +151,12 @@ class Users
             'code' => $code
         );
         ForgotPasswordModel::create($storeCode);
-        Mail::to($email)->send(new ForgotPasswordMail($code));
+
+        $details = (object) array(
+            'email' => $payload->email,
+            'class' => new ForgotPasswordMail($code)
+        );
+        SendEmail::dispatch($details);
         return response()->json(['isEmailExist'=>true,'user_id'=>$isEmailExist->id]);
     }
 
