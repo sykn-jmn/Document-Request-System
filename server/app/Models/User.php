@@ -27,6 +27,8 @@ class User extends Authenticatable
         'birthdate',
         'gender',
         'civil_status',
+        'citizenship',
+        'suffix',
         'mobile_number',
         'mothers_firstname',
         'mothers_middlename',

@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             'birthdate' => '2000-02-22',
             'sex' => 'male',
             'civil_status' => 'single',
+            'suffix' => '',
+            'citizenship' => 'Filipino',
             'mobile_number' => '09751304307',
             'purok' => 'Purok-9',
             'baranggay' => 'Linangkayan',

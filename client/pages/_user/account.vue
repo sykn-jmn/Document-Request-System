@@ -3,7 +3,7 @@
     <h1>Profile Preview</h1><br>
     <ProfilePreview /><br>
     <h1>Account Settings</h1>
-    <AccountSettings />
+    <AccountInformation />
   </div>
 </template>
 

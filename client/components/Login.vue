@@ -9,7 +9,7 @@
       <p class="error">{{error}}</p><br>
       <p class="text-center text-sky-600"><NuxtLink to="/forgot-password">Forgot your password?</NuxtLink></p>
       <div class="button-wrapper text-center">
-          <button class="py-4 w-full bg-red-500 rounded-lg m-auto font-bold text-white" @click="login">LOGIN</button>
+          <button class="py-2 w-2/3 bg-red-500 rounded-lg m-auto font-bold text-white" @click="login">LOGIN</button>
       </div><br>
       <p class="text-center text-sky-600">Don't have an account? <span class="underline font-bold"><NuxtLink to="/register">Signup</NuxtLink></span></p>
     </form>
