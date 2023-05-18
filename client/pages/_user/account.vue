@@ -1,7 +1,7 @@
 <template>
   <div class="account-container">
-    <h1>Account Information</h1><br>
-    <AccountInformation /><br>
+    <h1>Profile Preview</h1><br>
+    <ProfilePreview /><br>
     <h1>Account Settings</h1>
     <AccountSettings />
   </div>
