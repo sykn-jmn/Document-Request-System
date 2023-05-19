@@ -7,27 +7,27 @@
     </div>
     <div class="info-box">
       <p>First Name:</p>
-      <p class="font-semibold">{{firstName}}</p>
+      <p class="font-semibold col-span-2">{{firstName}}</p>
       <p>Middle Name:</p>
-      <p class="font-semibold">{{middleName}}</p>
+      <p class="font-semibold col-span-2">{{middleName}}</p>
       <p>Last Name:</p>
-      <p class="font-semibold">{{lastName}}</p>
+      <p class="font-semibold col-span-2">{{lastName}}</p>
       <p>Suffix:</p>
-      <p class="font-semibold">{{suffix?suffix:"N/A"}}</p>
+      <p class="font-semibold col-span-2">{{suffix?suffix:"N/A"}}</p>
       <p>Sex/Gender:</p>
-      <p class="font-semibold">{{capitalize(sex)}}</p>
+      <p class="font-semibold col-span-2">{{capitalize(sex)}}</p>
       <p>Civil Status:</p>
-      <p class="font-semibold">{{capitalize(civilStatus)}}</p>
+      <p class="font-semibold col-span-2">{{capitalize(civilStatus)}}</p>
       <p>Birthdate:</p>
-      <p class="font-semibold">{{birthdate}}</p>
+      <p class="font-semibold col-span-2">{{birthdate}}</p>
       <p>Birthplace:</p>
-      <p class="font-semibold">{{birthplace}}</p>
+      <p class="font-semibold col-span-2">{{birthplace}}</p>
       <p>Religion:</p>
-      <p class="font-semibold">{{religion}}</p>
+      <p class="font-semibold col-span-2">{{religion}}</p>
       <p>Citizenship:</p>
-      <p class="font-semibold">{{citizenship}}</p>
+      <p class="font-semibold col-span-2">{{citizenship}}</p>
       <p>Address:</p>
-      <p class="font-semibold">{{purok}}, {{baranggay}}, {{municipality}}, {{province}}</p><br>
+      <p class="font-semibold col-span-2">{{purok}}, {{baranggay}}, {{municipality}}, {{province}}</p><br>
     </div>
     <div class="flex items-center justify-around">
       <hr>
@@ -36,9 +36,9 @@
     </div>
     <div class="info-box">
       <p>Mobile Number:</p>
-      <p class="font-semibold">{{mobileNumber}}</p>
+      <p class="font-semibold col-span-2">{{mobileNumber}}</p>
       <p>Email:</p>
-      <p class="font-semibold">{{email}}</p>
+      <p class="font-semibold col-span-2">{{email}}</p>
     </div>
     <div class="flex items-center justify-around">
       <hr>
@@ -47,10 +47,10 @@
     </div>
     <div class="info-box">
       <p>Mother's Maiden Name:</p>
-      <p class="font-semibold">{{mothersFirstname}} {{mothersMiddlename}} {{mothersLastname}}</p>
+      <p class="font-semibold col-span-2">{{mothersFirstname}} {{mothersMiddlename}} {{mothersLastname}}</p>
     </div>
     <Spin v-if="spinning"/>
-  </div>
+  </div>  
 </template>
 
 <script>
@@ -110,7 +110,7 @@ export default {
             this.mobileNumber=response.data.mobile_number
             this.mothersLastname=response.data.mothers_lastname
             this.mothersFirstname=response.data.mothers_firstname
-            this.mothersMiddleName=response.data.mothers_middlename
+            this.mothersMiddlename=response.data.mothers_middlename
           }
         ).then(response=>{
             this.spinning = false
@@ -130,7 +130,7 @@ h2{
   @apply text-center
 }
 .info-box{
-  @apply grid grid-cols-2 md:m-auto pt-8 pb-16 w-2/5 text-base
+  @apply grid grid-cols-3 pt-8 pb-16 w-3/5 text-base m-auto
 }
 
 </style>

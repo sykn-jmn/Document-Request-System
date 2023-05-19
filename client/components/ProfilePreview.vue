@@ -81,7 +81,7 @@ export default {
   @apply text-white w-full text-center text-base
 }
 .button-wrapper > label{
-  @apply py-2 px-4 bg-yellow-400 w-full rounded-lg cursor-pointer
+  @apply py-2 px-4 bg-red-600 w-full rounded-lg cursor-pointer
 }
 
 .details-wrapper{
