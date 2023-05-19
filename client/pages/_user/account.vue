@@ -2,7 +2,14 @@
   <div class="account-container">
     <h1>Profile Preview</h1><br>
     <ProfilePreview /><br>
-    <h1>Account Settings</h1>
+    <div class="flex justify-between items-center">
+      <h1>Account Settings</h1>
+      <div class="text-white flex space-x-4">
+        <button class="bg-red-500 p-2 flex items-center space-x-4"><font-awesome-icon :icon="['fas', 'pen-to-square']" /><p>Edit Information</p></button>
+        <button class="bg-red-500 p-2 flex items-center space-x-4"><font-awesome-icon :icon="['fas', 'lock']" /><p>Change Password</p></button>
+      </div>
+    </div>
+    
     <AccountInformation />
   </div>
 </template>
