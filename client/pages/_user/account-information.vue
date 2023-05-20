@@ -4,57 +4,58 @@
     <form @submit.prevent="save" class="account-settings">
         <h2>Full Name</h2>
         <div class="md:flex space-x-8">
-            <label><input type="text" v-model="firstName" required>Last Name</label>
-            <label><input type="text" v-model="middleName" required>First Name</label>
-            <label class="end-row"><input type="text" v-model="lastName" required>Middle Name</label>
-            <label class="end-row"><input type="text" v-model="suffix" required>Suffix</label>
+            <label><input type="text" v-model="data.first_name" required>Last Name</label>
+            <label><input type="text" v-model="data.middle_name" required>First Name</label>
+            <label class="end-row"><input type="text" v-model="data.last_name" required>Middle Name</label>
+            <label class="end-row"><input type="text" v-model="data.suffix" required>Suffix</label>
         </div>
         <div class="input-container">
             <h2>Birthdate</h2>
             <h2>Birthplace</h2>
             <h2>Citizenship</h2>
-            <label><input type="date" v-model="birthdate" required>yyyy-mm-dd</label>
-            <label class="end-row"><input type="text" v-model="birthplace"></label>
-            <label class="end-row"><input type="text" v-model="citizenship"></label>
+            <label><input type="date" v-model="data.birthdate" required>yyyy-mm-dd</label>
+            <label class="end-row"><input type="text" v-model="data.birthplace"></label>
+            <label class="end-row"><input type="text" v-model="data.citizenship"></label>
             <h2>Sex</h2>
             <h2>Civil Status</h2>
             <h2>Religion</h2>
             <div class="flex space-x-4 pl-8">
-                <label for="male"><input type="radio" v-model="sex" value="male" id="male" required>Male</label>
-                <label for="female"><input type="radio" v-model="sex" value="female" id="female" required>Female</label>
+                <label for="male"><input type="radio" v-model="data.sex" value="male" id="male" required>Male</label>
+                <label for="female"><input type="radio" v-model="data.sex" value="female" id="female" required>Female</label>
             </div>
-            <select v-model="civilStatus" required>
+            <select v-model="data.civil_status" required>
                 <option value="single">Single</option>
                 <option value="married">Married</option>
             </select>
-            <label class="end-row"><input type="text" v-model="religion"></label>
+            <label class="end-row"><input type="text" v-model="data.religion"></label>
             <h2 class="col-span-2">Address</h2>
             <h2>ZIP Code</h2>
-            <label><input type="text" v-model="purok">Purok</label>
-            <label><input type="text" v-model="baranggay">Baranggay</label>
-            <label><input class="end-row" type="text" v-model="zipCode"></label>
-            <label><input type="text" v-model="municipality">Municipality</label>
-            <label class="end-row"><input type="text" v-model="province">Province</label><br>
+            <label><input type="text" v-model="data.purok">Purok</label>
+            <label><input type="text" v-model="data.baranggay">Baranggay</label>
+            <label><input class="end-row" type="text" v-model="data.zip_code"></label>
+            <label><input type="text" v-model="data.municipality">Municipality</label>
+            <label class="end-row"><input type="text" v-model="data.province">Province</label><br>
             <h2 class="col-span-2">Email</h2>
             <h2>Mobile Number</h2>
-            <label class="col-span-2"><input type="text" v-model="email" required></label>
-            <label><input type="tel" v-model="mobileNumber" min="11" pattern="[0-9]{11}" required></label><br>
+            <label class="col-span-2"><input type="text" v-model="data.email" required></label>
+            <label><input type="tel" v-model="data.mobile_number" min="11" pattern="[0-9]{11}" required></label><br>
             <h2 class="col-span-3">Mother's Maiden Name</h2>
-            <label><input type="text" v-model="mothersLastname" required>Last Name</label>
-            <label><input type="text" v-model="mothersFirstname" required>First Name</label>
-            <label class="end-row" ><input type="text" v-model="mothersMiddleName" required>Middle Name</label>
-            <h2 class="col-span-3">Password</h2>
+            <label><input type="text" v-model="data.mothers_lastname" required>Last Name</label>
+            <label><input type="text" v-model="data.mothers_firstname" required>First Name</label>
+            <label class="end-row" ><input type="text" v-model="data.mothers_middlename" required>Middle Name</label>
+            <!-- <h2 class="col-span-3">Password</h2>
             <label><input type="password" v-model="newPassword" min="8">New Password</label>
             <div class="flex">
                 <label><input type="password" v-model="confirmNewPassword" min="8">Retype New Password</label>
                 <span class="error">{{errorPass}}</span>
-            </div>
+            </div> -->
             
         </div><br>
         <div class="formButtonContainer">
             <button type="submit">Save</button>
         </div>
     </form>
+    <UpdateUserModal v-if="updateUserModal" :data="data" @close="updateUserModal = false"/>
     <Spin v-if="spinning" />
   </div>
 </template>
@@ -65,66 +66,29 @@ export default {
     layout:'user',
     data(){
         return{
-            firstName:'',
-            middleName:'',
-            lastName:'',
-            birthdate:'',
-            birthplace:'',
-            gender:'',
-            sex: '',
-            civilStatus:'',
-            citizenship:'',
-            religion:'',
-            purok:'',
-            baranggay:'',
-            zipCode:'',
-            municipality:'',
-            province:'',
-            email:'',
-            mobileNumber:'',
-            mothersLastname:'',
-            mothersFirstname:'',
-            mothersMiddleName:'',
+            updateUserModal:false,
+            data:{
+            },
             spinning:false
         }
     },
     mounted(){
         this.getUserData()
     },
-    watch:{
-        confirmNewPassword(){
-            if(this.newPassword != this.confirmNewPassword){
-                this.errorPass = "Inconsistent password!"
-            }else{
-                this.errorPass = ""
-            }
-        }
-    },
+    // watch:{
+    //     confirmNewPassword(){
+    //         if(this.newPassword != this.confirmNewPassword){
+    //             this.errorPass = "Inconsistent password!"
+    //         }else{
+    //             this.errorPass = ""
+    //         }
+    //     }
+    // },
     methods:{
         async getUserData(){
             this.spinning = true
             await this.$axios.get('/user/get-details').then(response=>{
-                this.firstName=response.data.first_name
-                this.middleName=response.data.middle_name
-                this.lastName=response.data.last_name
-                this.birthdate=response.data.birthdate
-                this.birthplace=response.data.birthplace
-                this.gender=response.data.gender
-                this.sex=response.data.sex
-                this.civilStatus=response.data.civil_status
-                this.religion=response.data.religion
-                this.purok=response.data.purok
-                this.citizenship=response.data.citizenship
-                this.suffix=response.data.suffix
-                this.baranggay=response.data.baranggay
-                this.zipCode=response.data.zip_code
-                this.municipality=response.data.municipality
-                this.province=response.data.province
-                this.email=response.data.email
-                this.mobileNumber=response.data.mobile_number
-                this.mothersLastname=response.data.mothers_lastname
-                this.mothersFirstname=response.data.mothers_firstname
-                this.mothersMiddlename=response.data.mothers_middlename
+                this.data=response.data
                 }
             ).then(response=>{
                 this.spinning = false
@@ -132,42 +96,15 @@ export default {
                 this.spinning = false
             })
         },  
-        async save(){
-            this.spinning = true
-            if(this.newPassword != this.confirmNewPassword){
-                this.errorPass = "Inconsistent password!"
-            }else{
-                this.errorPass=""
-                var params = {
-                    first_name:this.firstName,
-                    middle_name:this.middleName,
-                    last_name:this.lastName,
-                    birthdate:this.birthdate,
-                    birthplace:this.birthplace,
-                    sex: this.sex,
-                    civil_status:this.civilStatus,
-                    religion:this.religion,
-                    purok:this.purok,
-                    baranggay:this.baranggay,
-                    zip_code:this.zipCode,
-                    municipality:this.municipality,
-                    province:this.province,
-                    email:this.email,
-                    mobile_number:this.mobileNumber,
-                    mothers_lastname:this.mothersLastname,
-                    mothers_firstname:this.mothersFirstname,
-                    mothers_middlename:this.mothersMiddleName,
-                    password: this.newPassword,
-                    gender:this.gender
-            }
-            await this.$axios.put('/user/update-user', params).then(response=>{
-                    this.getUserData()
-                    this.spinning = false
-                }).catch(err=>{
-                    this.spinning = false
-                })
-            }
-        },
+        save(){
+            this.updateUserModal = true
+            
+            // if(this.newPassword != this.confirmNewPassword){
+            //     this.errorPass = "Inconsistent password!"
+            // }else{
+            //     this.errorPass=""   
+            // }
+        }
     }
 }
 </script>

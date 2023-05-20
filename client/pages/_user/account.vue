@@ -5,7 +5,7 @@
     <div class="md:flex justify-between items-center mb-2">
       <h1>Account Settings</h1>
       <div class="text-white md:flex space-x-4">
-        <button class="bg-red-600 p-2 md:flex items-center space-x-4"><font-awesome-icon :icon="['fas', 'pen-to-square']" /><p>Edit Information</p></button>
+        <button class="bg-red-600 p-2 md:flex items-center space-x-4" @click="$router.push('/user/account-information')"><font-awesome-icon :icon="['fas', 'pen-to-square']"/><p>Edit Information</p></button>
         <button class="bg-red-600 p-2 md:flex items-center space-x-4"><font-awesome-icon :icon="['fas', 'lock']" /><p>Change Password</p></button>
       </div>
     </div>  

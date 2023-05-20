@@ -60,6 +60,7 @@ export default {
       firstName:'',
       middleName:'',
       lastName:'',
+      suffix:'',
       birthdate:'',
       birthplace:'',
       gender:'',
@@ -76,7 +77,7 @@ export default {
       mobileNumber:'',
       mothersLastname:'',
       mothersFirstname:'',
-      mothersMiddleName:'',
+      mothersMiddlename:'',
       spinning:false
     }
   },

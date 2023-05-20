@@ -197,6 +197,8 @@ class Users
             'birthplace' => 'nullable|string',
             'sex' => 'nullable|string',
             'civil_status' => 'required|string',
+            'suffix' => 'string',
+            'citizenship' => 'string',
             'religion' => 'nullable|string',
             'purok' => 'nullable|string',
             'baranggay' => 'nullable|string',
@@ -213,7 +215,7 @@ class Users
         $validator = Validator::make($payload->all(), $rules);
 
         if($validator->fails()){
-            return response()->json(["message" => $validator->errors(),401]);
+            return response(["message" => $validator->errors()], 500);
         }
 
         $data = array(
@@ -221,6 +223,8 @@ class Users
             'first_name' => $payload->first_name,
             'middle_name' => $payload->middle_name,
             'last_name' => $payload->last_name,
+            'suffix' => $payload->suffix,
+            'citizenship' => $payload->citizenship,
             'birthdate' => $payload->birthdate,
             'birthplace' => $payload->birthplace,
             'sex' => $payload->sex,
@@ -240,7 +244,9 @@ class Users
         if($payload->password){
             $data['password'] = bcrypt($payload->password);
         }
-        $id = Auth::guard('users')->user()->id;
+        $id = Auth::user()->id;
+        Log::info('hi');
+        Log::info(Auth::user());
         $updateTransaction = User::where('id', $id)->update($data);
         if(!$updateTransaction){
             return response()->json(['message'=>'cannot update data',401]);

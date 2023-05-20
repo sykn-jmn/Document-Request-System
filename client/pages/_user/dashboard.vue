@@ -131,7 +131,7 @@ export default {
 
 <style scoped>
 .icon-container{
-    @apply bg-yellow-400 w-32 h-32 p-4 rounded-2xl
+    @apply bg-red-500 w-32 h-32 p-4 rounded-2xl
 }
 .icon-wrapper{
     @apply w-fit m-auto
