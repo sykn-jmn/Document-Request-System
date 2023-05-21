@@ -67,10 +67,10 @@ class Users
         $validator = Validator::make($payload->all(), $rules);
 
         if($validator->fails()){
-            return response()->json(["message" => $validator->errors()]);
+            return response(["message" => $validator->errors()],500);
         }
         if($this->checkEmail($payload->email)){
-            return response()->json(['isEmailExist'=>true]);
+            return response(['isEmailExist'=>true],500);
         };
 
         $data = array(
@@ -281,7 +281,7 @@ class Users
         ]);
     }
     public function getProfilePic(){
-        $getUserProfile = UserProfilePicture::where('user_id', Auth::guard('users')->user()->id)->first();
+        $getUserProfile = UserProfilePicture::where('user_id', Auth::user()->id)->first();
         return response()->json($getUserProfile);
     }
 

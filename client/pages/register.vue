@@ -172,15 +172,15 @@ export default {
                 this.error = ""
                 let params = this.data
                 this.$axios.post('/user/store', params).then(response =>{
-                    if(response.data.isEmailExist){
-                        this.errorEmail = "This email is already taken."
-                        this.isAccountCreated = false
-                    }
-                    else{
-                        this.secondForm = false
-                        this.isAccountCreated = true
-                    }
+                    this.secondForm = false
+                    this.isAccountCreated = true
                     this.spinning=false
+                }).catch(err=>{
+                    if(err.response.data.isEmailExist){
+                        this.errorEmail = "This email is already taken."
+                    }
+                        this.isAccountCreated = false
+                        this.spinning=false
                 })
             }
             

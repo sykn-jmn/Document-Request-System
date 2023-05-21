@@ -11,6 +11,7 @@
     </div>  
     
     <AccountInformation />
+    <ChangePasswordModal />
   </div>
 </template>
 

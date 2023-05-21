@@ -41,7 +41,7 @@ body {
 }
 
 .nav_header {
-  @apply h-16 py-4 bg-red-600;
+  @apply h-16 py-4 bg-sky-900;
 }
 
 .navUser {
@@ -115,10 +115,7 @@ form {
 }
 
 form > h1 {
-  font-size: 25px;
-  font-weight: bolder;
-  color: #003f67;
-  text-align: center;
+  @apply text-black text-center font-bold text-2xl
 }
 
 form > input[type="text"] {
@@ -218,5 +215,8 @@ input::file-selector-button {
 textarea{
   padding:10px;
   @apply w-full focus:outline-none border border-black rounded-md
+}
+.change-password-form{
+  @apply p-8
 }
 
