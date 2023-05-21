@@ -191,20 +191,25 @@ class RequestDocument{
     }
 
     public function countRequest(){
+        $id = Auth::user()->id;
         $countPending = RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
                                         ->where('request_documents.status','pending')
+                                        ->where('requesrs.user_id',$id)
                                         ->count();
 
         $countApproved = RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
                                         ->where('request_documents.status','approved')
+                                        ->where('requesrs.user_id',$id)
                                         ->count();
                             
         $countRejected= RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
                                         ->where('request_documents.status','rejected')
+                                        ->where('requesrs.user_id',$id)
                                         ->count();
 
         $countCompleted = RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
                                         ->where('request_documents.status','completed')
+                                        ->where('requesrs.user_id',$id)
                                         ->count();
 
         return response()->json([
