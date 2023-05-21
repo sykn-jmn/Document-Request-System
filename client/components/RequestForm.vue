@@ -174,5 +174,8 @@ form{
 h1{
   @apply text-3xl font-bold
 }
+form{
+    @apply w-full
+}
 
 </style>

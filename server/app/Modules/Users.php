@@ -286,12 +286,12 @@ class Users
     }
     public function changePassword($payload){
 
-        $currPassword = $payload->currPasword;
+        $currPassword = $payload->currPassword;
         $newPassword = $payload->newPassword;
     
         $id = Auth::user()->id;
         $user = User::where('id',$id)->first();
-        Log::info($user->password);
+        Log::info($currPassword);
 
         if(!Hash::check($currPassword, $user->password)){
             return response([
