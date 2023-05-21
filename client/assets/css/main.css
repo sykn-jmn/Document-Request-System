@@ -166,7 +166,7 @@ form > input[type="date"] {
 }
 
 .password-container {
-  @apply flex items-center border border-slate-700 rounded-md text-lg px-2 w-full;
+  @apply flex items-center border border-slate-700 rounded-md text-base px-2 w-full;
 } 
 
 th,

@@ -34,6 +34,9 @@ class UserController extends Controller
     function updatePassword(Users $users, Request $request){
         return $users->updatePassword($request);
     }
+    function changePassword(Users $users, Request $request){
+        return $users->changePassword($request);
+    }
     function updateInfo(Users $users, Request $request){
         return $users->updateInfo($request);
     }

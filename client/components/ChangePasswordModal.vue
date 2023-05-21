@@ -1,6 +1,6 @@
 <template>
   <div class="modal">
-    <form class="change-password-form">
+    <form class="change-password-form" @submit.prevent="submit">
         <h1>Change Password</h1><br>
         <div class="border-t border-slate-400 p-4">
             <label>Current Password</label>
@@ -15,12 +15,14 @@
             <div class="password-container" >
                 <input class="border-none" :type="confirmPasswordFieldType" id="confirm_password" v-model="confirmPassword" name="confirm_password" min="8"  required><font-awesome-icon :icon="['fas', confirmEyeIconType]" class="eyeIcon" @click="showConfirmPassword = !showConfirmPassword"/>
             </div>
-        </div><br>
+        </div>
+        <p class="error">{{error}}</p><br>
         <div class="md:flex m-auto w-fit space-x-2">
             <button class="w-fit bg-slate-300 px-16 py-1 rounded-md" @click="$emit('close')">Back</button>
             <button class="w-fit bg-red-500 px-16 py-1 rounded-md text-white" @click="submit">Submit</button>
         </div>
     </form>
+    <Spin v-if="spinning"/>
   </div>
 </template>
 
@@ -43,6 +45,9 @@ export default {
             showCurrPassword:false,
             showNewPassword:false,
             showConfirmPassword:false,
+
+            spinning:false,
+            error:'',
         }
     },
      watch:{
@@ -73,10 +78,32 @@ export default {
                 this.confirmEyeIconType = "eye-slash"
             }
         },
+        confirmPassword(){
+            if(this.newPassword != this.confirmPassword){
+                this.error = "Inconsistent password!"
+            }else{
+                this.error = ""
+            }
+        }
      },
      methods:{
-        updatePassword(){
-
+        async submit(){
+            this.spinning = true
+            if(this.newPassword != this.confirmPassword){
+                this.error= "Inconsistent password!"
+            }else{
+                var params={
+                    currPassword:this.currPassword,
+                    newPassword:this.newPassword,
+                }
+                await this.$axios.put('/user/account/change-password',params).then(response=>{
+                    this.$emit('close')
+                    this.spinning = false
+                }).catch(err=>{
+                    this.error = err.response.data.message
+                    this.spinning = false
+                })
+            }
         }
      }
 }

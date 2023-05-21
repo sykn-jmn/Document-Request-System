@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             'mothers_middlename' => 'Ihan',
             'mothers_lastname' => 'Ojales',
             'email_verified_at' => now(),
-            'password' => bcrypt('123456789'),
+            'password' => Hash::make('123456789'),
         ]);
         Admin::create([
             'email' => 'admin@edokumento.com',

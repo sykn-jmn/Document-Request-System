@@ -284,5 +284,28 @@ class Users
         $getUserProfile = UserProfilePicture::where('user_id', Auth::user()->id)->first();
         return response()->json($getUserProfile);
     }
+    public function changePassword($payload){
+
+        $currPassword = $payload->currPasword;
+        $newPassword = $payload->newPassword;
+    
+        $id = Auth::user()->id;
+        $user = User::where('id',$id)->first();
+        Log::info($user->password);
+
+        if(!Hash::check($currPassword, $user->password)){
+            return response([
+                'message'=>"Invalid Current Password"
+            ],500);
+        }
+        $userTransaction = User::where('id', $id)->update(['password'=> Hash::make($newPassword)]);
+
+        if(!$userTransaction){
+            return response([
+                'message'=>"Something Went Wrong"
+            ],500);
+        }
+        return response()->json(['message'=>'Updated password successfully']);
+    }
 
 }

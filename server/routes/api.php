@@ -40,6 +40,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/upload-photo', [UserController::class, 'uploadPhoto']);
         Route::get('/profile-pic', [UserController::class, 'getProfilePic']);
         Route::get('/count-request', [RequestController::class, 'countRequest']);
+
+        Route::prefix('account')->group(function(){
+            Route::put('change-password', [UserController::class, 'changePassword']);
+        });
     });
 
     Route::prefix('admin')->group(function(){

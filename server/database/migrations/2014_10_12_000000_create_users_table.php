@@ -24,7 +24,6 @@ Schema::create('users', function (Blueprint $table) {
     $table->enum('civil_status',['single','married']);
     $table->string('suffix')->nullable();
     $table->string('citizenship')->nullable();
-    $table->string('citizenship');
     $table->string('mobile_number');
     $table->string('religion')->nullable();
     $table->string('purok')->nullable();
