@@ -47,14 +47,21 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Admin',
             'birthdate' => '2000-02-22',
             'sex' => 'male',
-            'civil_status'=> 'single',
-            'position' => 'administrator',
-            'mobile_number' => '09876543219',
-            'mothers_firstname' => 'Admin',
-            'mothers_middlename' => 'Admin',
-            'mothers_lasttname' => 'Admin',
+            'civil_status' => 'single',
+            'suffix' => '',
+            'position' => 'Admin',
+            'citizenship' => 'Filipino',
+            'mobile_number' => '09751304307',
+            'purok' => 'Purok-9',
+            'baranggay' => 'Linangkayan',
+            'municipality' => 'Naawan',
+            'province' => 'Misamis Oriental',
+            'zip_code' => '9023',
+            'mothers_firstname' => 'Jeniza',
+            'mothers_middlename' => 'Ihan',
+            'mothers_lastname' => 'Ojales',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456789')
+            'password' => Hash::make('123456789'),
         ]);
 
         Document::create([

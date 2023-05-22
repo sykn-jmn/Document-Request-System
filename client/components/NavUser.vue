@@ -1,7 +1,7 @@
 <template>
     <div class="sticky top-0 h-screen">
         <div class="nav_header">
-            <h1 class="text-2xl text-center">{{$config.appName}}</h1>
+            <img src="~assets/images/Asset 13.png" width="200" height="200" class="m-auto"/>
         </div>
         <nav class="navUser">
             <div class="nav_profile text-center text-xl">

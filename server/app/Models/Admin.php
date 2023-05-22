@@ -16,20 +16,23 @@ class Admin extends Authenticatable
     protected $table = 'admins';
 
     protected $fillable = [
+        'profile_picture_id',
         'email',
         'first_name',
         'middle_name',
         'last_name',
         'birthdate',
         'sex',
-        'civil_status',
         'position',
+        'civil_status',
+        'citizenship',
+        'suffix',
         'mobile_number',
         'mothers_firstname',
         'mothers_middlename',
-        'mothers_lasttname',
-        'email_verified_at',
-        'password'
+        'mothers_lastname',
+        'email_code',
+        'password',
     ];
 
 }

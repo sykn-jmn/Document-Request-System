@@ -13,19 +13,30 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('profile_picture_id')->index()->nullable();
             $table->string('email')->unique();
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
             $table->date('birthdate');
+            $table->string('birthplace')->nullable();
             $table->enum('sex',['male','female']);
             $table->enum('civil_status',['single','married']);
-            $table->string('position');
+            $table->string('suffix')->nullable();
+            $table->string('citizenship')->nullable();
             $table->string('mobile_number');
+            $table->string('position');
+            $table->string('religion')->nullable();
+            $table->string('purok')->nullable();
+            $table->string('baranggay')->nullable();
+            $table->string('municipality')->nullable();
+            $table->string('province')->nullable();
+            $table->string('zip_code')->nullable();
             $table->string('mothers_firstname');
             $table->string('mothers_middlename');
-            $table->string('mothers_lasttname');
+            $table->string('mothers_lastname');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('email_code')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

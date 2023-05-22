@@ -36,7 +36,7 @@ export default {
     methods:{
         async getDocuments(){
             this.spinning = true
-            await this.$axios.get('/user/documents').then(response=>{
+            await this.$axios.get('/user/request/documents').then(response=>{
                 this.documents = response.data
                 this.spinning = false
             }).catch(err=>{

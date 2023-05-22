@@ -1,5 +1,5 @@
 <template>
-    <div class="sticky top-0 bg-sky-700 pl-4 pr-8 flex justify-between items-center h-16 py-4 w-full">
+    <div class="sticky top-0 bg-red-600 pl-4 pr-8 flex justify-between items-center h-16 py-4 w-full">
         <div class="text-2xl">
             <font-awesome-icon :icon="['fas', 'bars']" size="lg" />
         </div>
@@ -30,7 +30,7 @@ export default {
             )
         },
         getImgUrl(){
-            const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/no_profile_pic.jpg")
+            const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/Maranding_Logo.png")
         return imgUrl
       }
     }

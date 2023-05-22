@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col pt-24 justify-between">
-    <h1 class="text-center text-3xl">{{appName}}</h1>
+    <img src="~assets/images/Asset 13.png" width="200" height="200"/>
 
     <form @submit.prevent="submitEmail" class="forgotPasswordForm" v-if="firstForm">
       <h2 class="text-sky-900 font-black text-2xl mt-16 text-center">Forgot Your Password?</h2><br>

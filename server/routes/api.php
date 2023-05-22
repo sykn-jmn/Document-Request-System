@@ -25,47 +25,56 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/auth')->group(function(){
         Route::get('/user', [UserController::class, 'index']);
         Route::get('/admin', function(){
-            return response()->json(['message'=>'ola soy dora']);
+            return response()->json(Auth::user());
         });
+        
         Route::get('/test',function(){
             return response()->json(Auth::user());
         });
     });
     Route::prefix('user')->group(function(){
-        Route::get('/get-details', [UserController::class, 'getDetails']);
-        Route::put('/update-user', [UserController::class, 'updateInfo']);
-        Route::get('/request/get-slots',[RequestController::class, 'getSlots']);
-        Route::get('/documents', [RequestController::class, 'getDocuments']);
-        Route::post('/submit-request', [RequestController::class, 'submitRequest']);
-        Route::post('/upload-photo', [UserController::class, 'uploadPhoto']);
+        
         Route::get('/profile-pic', [UserController::class, 'getProfilePic']);
-        Route::get('/count-request', [RequestController::class, 'countRequest']);
-
+        Route::get('/get-details', [UserController::class, 'getDetails']);
+        
         Route::prefix('account')->group(function(){
             Route::put('change-password', [UserController::class, 'changePassword']);
+            Route::put('/update-user', [UserController::class, 'updateInfo']);
+            Route::post('/upload-photo', [UserController::class, 'uploadPhoto']);
+        });
+        Route::prefix('request')->group(function(){
+            Route::get('/get-slots',[RequestController::class, 'getSlots']);
+            Route::get('/documents', [RequestController::class, 'getDocuments']);
+            Route::post('/submit-request', [RequestController::class, 'submitRequest']);
+        });
+        Route::prefix('dashboard')->group(function(){
+            Route::get('/count-request', [RequestController::class, 'countRequest']);
         });
     });
 
     Route::prefix('admin')->group(function(){
-        Route::get('/get-details', [AdminController::class, 'getDetails']);
-        Route::post('/store', [AdminController::class, 'store']);
-        Route::get('send-code', [AdminController::class, 'sendCode']);
-        Route::put('verify-account', [AdminController::class, 'verify']);
-        Route::get('/verify-code-password', [AdminController::class, 'verifyCodePassword']);
-        Route::put('/update-password', [AdminController::class, 'updatePassword']);
-        Route::put('/update-user', [AdminController::class, 'updateInfo']);
-        Route::get('/request/get-slots',[AdminRequestController::class, 'getSlots']);
-        Route::get('/documents', [AdminRequestController::class, 'getDocuments']);
-        Route::post('/submit-request', [AdminRequestController::class, 'submitRequest']);
-        Route::post('/upload-photo', [AdminController::class, 'uploadPhoto']);
+
         Route::get('/profile-pic', [AdminController::class, 'getProfilePic']);
-        Route::get('/get-requests/{status}', [AdminRequestController::class, 'index']);
-        Route::get('/get-request/{id}', [AdminRequestController::class, 'getRequestDetails']);
-        Route::get('/count-request', [AdminRequestController::class, 'countRequest']);
-        Route::get('/requests/get-pdf/{path}', [AdminRequestController::class, 'getPDF']);
-        Route::put('/requests/update-status', [AdminRequestController::class, 'updateRequestStatus']);
-        Route::get('/get-reports', [AdminRequestController::class, 'getReports']);
+        Route::get('/get-details', [AdminController::class, 'getDetails']);
         Route::get('/get-all-reports', [AdminRequestController::class, 'getAllReports']);
+        Route::post('/store', [AdminController::class, 'store']);
+        
+        Route::prefix('account')->group(function(){
+            Route::put('change-password', [AdminController::class, 'changePassword']);
+            Route::put('/update-user', [AdminController::class, 'updateInfo']);
+            Route::post('/upload-photo', [AdminController::class, 'uploadPhoto']);
+        });
+        Route::prefix('request')->group(function(){
+            Route::get('/documents', [RequestController::class, 'getDocuments']);
+            Route::get('/get-requests/{status}', [AdminRequestController::class, 'index']);
+            Route::get('/get-request/{id}', [AdminRequestController::class, 'getRequestDetails']);
+            Route::get('/get-pdf/{path}', [AdminRequestController::class, 'getPDF']);
+            Route::put('/update-status', [AdminRequestController::class, 'updateRequestStatus']);
+        });
+        Route::prefix('dashboard')->group(function(){
+            Route::get('/get-reports', [AdminRequestController::class, 'getReports']);
+            Route::get('/count-request', [AdminRequestController::class, 'countRequest']);
+        });
         
     });
 });
@@ -81,6 +90,10 @@ Route::prefix('user')->group(function(){
     Route::get('/get-requests/{status}', [RequestController::class, 'index']);
 
 });
+
+Route::get('send-code', [AdminController::class, 'sendCode']);
+Route::put('verify-account', [AdminController::class, 'verify']);
+Route::get('/verify-code-password', [AdminController::class, 'verifyCodePassword']);
 
 
 Route::get('/test/get-pdf',function(){

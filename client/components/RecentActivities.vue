@@ -25,7 +25,7 @@ export default {
     },
     methods:{
         async getReports(){
-            this.$axios.get('/admin/get-reports').then(response=>{
+            this.$axios.get('/admin/dashboard/get-reports').then(response=>{
                 this.recentAcitvities = response.data
             })
         },

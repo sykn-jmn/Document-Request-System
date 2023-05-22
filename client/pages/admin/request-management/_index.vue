@@ -56,7 +56,7 @@ export default {
         var params = {
           search:search
         }
-        await this.$axios.get('/admin/get-requests/'+this.$route.params.index+'?page=' + pageNumber, {params}).then(response=>{
+        await this.$axios.get('/admin/request/get-requests/'+this.$route.params.index+'?page=' + pageNumber, {params}).then(response=>{
           this.data = response.data.data
           this.currentPage = response.data.current_page
           this.lastPage = response.data.last_page

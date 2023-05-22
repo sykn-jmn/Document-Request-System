@@ -1,6 +1,6 @@
 <template>
     <div class="registration-container">
-        <h1 class="text-center text-2xl">{{appName}}</h1><br>
+        <img src="~assets/images/Asset 13.png" width="200" height="200" class="m-auto"/><br>
             <form @submit.prevent="submitFirstForm" v-if="firstForm">
                 <p class="text-center">Step 1 of 2</p><br>
                 <h2>Sign up for an Account</h2><br>

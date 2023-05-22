@@ -6,9 +6,8 @@
 
 
 body {
-  background: linear-gradient(45deg, red, blue) ;
   font-family: "Roboto", sans-serif;
-  @apply text-white text-base;
+  @apply text-white text-base bg-red-700;
 }
 .modal{
   backdrop-filter: blur(10px);

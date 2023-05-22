@@ -77,7 +77,7 @@ export default {
         },
         async submit(){
             this.spinning = true
-            await this.$axios.put('/user/update-user', this.data).then(response=>{
+            await this.$axios.put('/user/account/update-user', this.data).then(response=>{
                 this.spinning = false
                 this.$emit('close')
             }).catch(err=>{

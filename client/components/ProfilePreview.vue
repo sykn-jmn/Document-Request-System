@@ -55,7 +55,7 @@ export default {
         let formData = new FormData()
         formData.append("file", this.file)
 
-        this.$axios.post('/user/upload-photo',formData,config).then(response=>{
+        this.$axios.post('/user/account/upload-photo',formData,config).then(response=>{
         }).catch(err=>console.log(err))
       },
       async getProfilePicture(){

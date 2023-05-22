@@ -72,7 +72,7 @@ export default {
         },
         async submitRequest(){
             this.spinning = true
-            await this.$axios.post('/user/submit-request', this.$store.state.request.formData).then(response=>{
+            await this.$axios.post('/user/request/submit-request', this.$store.state.request.formData).then(response=>{
                 this.page++
                 this.spinning = false
             }).catch(err=>{

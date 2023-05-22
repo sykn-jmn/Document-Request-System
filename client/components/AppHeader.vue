@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class=title>
-        <h1 class="text-2xl">{{appName}}</h1>
+        <img src="~assets/images/Asset 13.png" width="200" height="200"/>
     </div>
     <nav class="navHome">
         <ul>

@@ -1,7 +1,7 @@
 <template>
     <div class="sticky top-0 h-screen">
         <div class="nav_header">
-            <h1 class="text-2xl text-center">{{$config.appName}}</h1>
+            <img src="~assets/images/Asset 13.png" width="200" height="200" class="m-auto"/>
         </div>
         <nav class="navUser">
             <div class="nav_profile text-center text-xl">
@@ -10,7 +10,7 @@
             </div><br>
             <ul>
                 <li><NuxtLink to="/admin/dashboard" class="nav_link"><span><font-awesome-icon :icon="['fas', 'table-list']" /></span>Dashboard</NuxtLink></li>
-                <li><NuxtLink to="/admin/request-management/all" class="nav_link"><span><font-awesome-icon :icon="['fas', 'file-invoice']" /></span>Request Management</NuxtLink></li>
+                <li><NuxtLink to="/admin/request-management/pending" class="nav_link"><span><font-awesome-icon :icon="['fas', 'file-invoice']" /></span>Request Management</NuxtLink></li>
                 <li><NuxtLink to="/admin/recent-activities" class="nav_link"><span><font-awesome-icon :icon="['fas', 'clock-rotate-left']" /></span>Recent Activity</NuxtLink></li>
                 <li><NuxtLink to="/admin/account" class="nav_link"><span><font-awesome-icon :icon="['fas', 'user']" /></span>Account</NuxtLink></li>
                 <li class="pl-12 py-4 hover:bg-stone-900 cursor-pointer" @click="logout"><span class="mr-4"><font-awesome-icon :icon="['fas', 'power-off']" /></span>Logout</li>
@@ -29,6 +29,8 @@ export default {
     },
     mounted(){
         this.getProfilePicture()
+        console.log('hi')
+        console.log(this.$auth.state)
     },
     methods: {
         async logout() {
@@ -41,7 +43,7 @@ export default {
             )
         },
         getImgUrl(){
-            const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/no_profile_pic.jpg")
+            const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/Maranding_Logo.png")
         return imgUrl
       }
     },

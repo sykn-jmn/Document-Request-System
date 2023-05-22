@@ -12,7 +12,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="second-container" @click="$router.push('/user/request-history/pending')">
+                <button class="second-container" @click="$router.push('/admin/request-management/pending')">
                     <span>See all pending request</span>
                     <font-awesome-icon :icon="['fas', 'arrow-right']" />
                 </button>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="second-container" @click="$router.push('/user/request-history/approved')">
+                <button class="second-container" @click="$router.push('/admin/request-management/approved')">
                     <span>See all approved request</span>
                     <font-awesome-icon :icon="['fas', 'arrow-right']" />
                 </button>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="second-container" @click="$router.push('/user/request-history/rejected')">
+                <button class="second-container" @click="$router.push('/admin/request-management/rejected')">
                     <span>See all rejected request</span>
                     <font-awesome-icon :icon="['fas', 'arrow-right']" />
                 </button>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="second-container" @click="$router.push('/user/request-history/completed')">
+                <button class="second-container" @click="$router.push('/admin/request-management/completed')">
                     <span>See all completed request</span>
                     <font-awesome-icon :icon="['fas', 'arrow-right']" />
                 </button>
@@ -79,7 +79,7 @@ export default {
     },
     methods:{
         async getCountRequest(){
-            await this.$axios.get('/user/count-request').then(response=>{
+            await this.$axios.get('/admin/dashboard/count-request').then(response=>{
                 this.countRequest = response.data
             }  
             ).catch(err =>{

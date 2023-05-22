@@ -254,7 +254,7 @@ class Users
         return response()->json(['message'=>'User update successfully']);
     }
     public function uploadPhoto($payload){
-        $getUserProfilePic = UserProfilePicture::where('user_id',Auth::guard('users')->user()->id)->first();
+        $getUserProfilePic = UserProfilePicture::where('user_id',Auth::user()->id)->first();
 
         $userProfilePicture = new UserProfilePicture;  
         $file_name = time().'_'.$payload->file->getClientOriginalName();
@@ -262,13 +262,13 @@ class Users
         $file_path = $payload->file('file')->storeAs('profile_pic', $file_name, 'public');
 
         if($getUserProfilePic){
-            UserProfilePicture::where('user_id',Auth::guard('users')->user()->id)
+            UserProfilePicture::where('user_id',Auth::user()->id)
                                 ->update([
                                     'filename'=>$file_name,
                                     'path'=>$file_path
                                 ]);
         }else{
-            $userProfilePicture->user_id = Auth::guard('users')->user()->id;
+            $userProfilePicture->user_id = Auth::user()->id;
             $userProfilePicture->filename = $file_name;
             $userProfilePicture->path = $file_path;
             $userProfilePicture->save();
