@@ -127,7 +127,7 @@ export default {
     @apply text-blue-400
 }
 .overview-container{
-    @apply bg-white rounded-2xl w-80 mb-4 w-full
+    @apply bg-white rounded-2xl w-80 mb-4 w-fit
 }
 .first-container{
     @apply p-4 border-b-2 border-slate-200

@@ -197,7 +197,7 @@ class Users
             'birthplace' => 'nullable|string',
             'sex' => 'nullable|string',
             'civil_status' => 'required|string',
-            'suffix' => 'string',
+            'suffix' => 'nullable|string',
             'citizenship' => 'string',
             'religion' => 'nullable|string',
             'purok' => 'nullable|string',

@@ -1,7 +1,7 @@
 <template>
   <div class="form-wrapper">
     <form class="login-form" onsubmit="return false;">
-      <h1>Log In To Your Account</h1><br>
+      <h1>Log In To Your Admin Account</h1><br>
       <input type="text" id="email" name="email" placeholder="Email" v-model="email"><br><br>
       <div class="password-container">
           <input class="border-none" :type="passwordFieldType" id="password" name="password" placeholder="Enter Password" v-model="password" required><font-awesome-icon :icon="['fas', eyeIconType]" class="eyeIcon" @click="showPassword = !showPassword"/>

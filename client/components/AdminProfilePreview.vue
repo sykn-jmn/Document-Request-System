@@ -20,7 +20,7 @@
         </div>
         <div class="contact-wrapper">
           <font-awesome-icon :icon="['fas', 'location-dot']" />
-          <p>aasdasdsadsd</p>         
+          <p>{{user.purok}}, {{user.baranggay}}, {{user.municipality}}, {{user.province}}</p>         
         </div><br><br>
         <p>Registration Date: <span class="font-medium">{{registrationDate()}}</span></p>
       </div>
@@ -35,15 +35,23 @@ export default {
         fullName:this.$auth.state.user.first_name + " " + this.$auth.state.user.middle_name + " " + this.$auth.state.user.last_name,
         user:this.$auth.state.user,
         file:"",
-        profilePicPath:""
+        profilePicPath:"",
+        defaultPath:"",
       }
     },
     mounted(){
       this.getProfilePicture()
     },
     methods:{
+        async getAdminDetails(){
+            await this.$axios.get('/admin/get-details').then(response=>{
+                this.user = response.data
+            }).catch(err=>{
+                console.log(err)
+            })
+        },
       registrationDate(){
-          return moment(this.$auth.$state.user.created_at).format('MMMM d, YYYY');
+          return moment(this.$auth.$state.user.email_verified_at).format('MMMM d, YYYY');
       },
       uploadPhoto(e){
         const config = {
@@ -55,17 +63,17 @@ export default {
         let formData = new FormData()
         formData.append("file", this.file)
 
-        this.$axios.post('/user/account/upload-photo',formData,config).then(response=>{
+        this.$axios.post('/admin/account/upload-photo',formData,config).then(response=>{
         }).catch(err=>console.log(err))
       },
       async getProfilePicture(){
-        await this.$axios.get('/user/profile-pic').then(response=>{
+        await this.$axios.get('/admin/profile-pic').then(response=>{
             this.profilePicPath = response.data.path
           }
         )
       },
       getImgUrl(){
-          let imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/no_profile_pic.jpg")
+          let imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/Maranding_Logo.png")
         return imgUrl
       }
     }

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\AdminController;
+use App\Http\Controllers\API\ResidentController;
 use App\Http\Controllers\API\AdminRequestController;
 use App\Http\Controllers\API\RequestController;
 use App\Models\ForgotPassword;
@@ -58,6 +59,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/get-details', [AdminController::class, 'getDetails']);
         Route::get('/get-all-reports', [AdminRequestController::class, 'getAllReports']);
         Route::post('/store', [AdminController::class, 'store']);
+
+        Route::prefix('residents')->group(function(){
+            Route::get('get-all-residents/{filter}',[ResidentController::class, 'index']);
+        });
         
         Route::prefix('account')->group(function(){
             Route::put('change-password', [AdminController::class, 'changePassword']);
@@ -74,6 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('dashboard')->group(function(){
             Route::get('/get-reports', [AdminRequestController::class, 'getReports']);
             Route::get('/count-request', [AdminRequestController::class, 'countRequest']);
+            Route::get('/count-residents', [AdminRequestController::class, 'countResidents']);
         });
         
     });

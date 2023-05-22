@@ -4,7 +4,7 @@
         <div class="home">
             <div class="description-title text-right">
                 <img src="~assets/images/Maranding_Logo.png" width="200" height="200" class="m-auto"/>
-                <h1><span class="text-yellow-400">Make</span> your document <span class="text-yellow-400">request faster</span></h1><br>
+                <h1>Make your document request faster</h1><br>
                 <p class="font-medium">Save your time and have a hassle free request of branggay documents.</p>
             </div>
             <AdminLogin />

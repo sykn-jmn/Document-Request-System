@@ -55,7 +55,7 @@
             <button type="submit">Save</button>
         </div>
     </form>
-    <UpdateUserModal v-if="updateUserModal" :data="data" @close="updateUserModal = false"/>
+    <UpdateAdminModal v-if="updateUserModal" :data="data" @close="updateUserModal = false"/>
     <Spin v-if="spinning" />
   </div>
 </template>
@@ -63,7 +63,7 @@
 <script>
 import moment from 'moment'
 export default {
-    layout:'user',
+    layout:'admin',
     data(){
         return{
             updateUserModal:false,
@@ -87,7 +87,7 @@ export default {
     methods:{
         async getUserData(){
             this.spinning = true
-            await this.$axios.get('/user/get-details').then(response=>{
+            await this.$axios.get('/admin/get-details').then(response=>{
                 this.data=response.data
                 }
             ).then(response=>{

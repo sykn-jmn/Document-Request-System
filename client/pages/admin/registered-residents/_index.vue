@@ -1,7 +1,6 @@
 <template>
   <div class="main-container">
     <h1>Register Residents</h1>
-    <p class="addUser" @click="User">+ ADD USER</p><br>
     <Search 
       @search="search" 
       :selected="$route.params.index" 
@@ -56,8 +55,8 @@ export default {
         var params = {
           search:search
         }
-        await this.$axios.get('/admin/get-residents/'+this.$route.params.index+'?page=' + pageNumber, {params}).then(response=>{
-          this.data = response.data.data
+        await this.$axios.get('/admin/residents/get-all-residents/'+this.$route.params.index+'?page=' + pageNumber, {params}).then(response=>{
+          this.data = response.data
           this.currentPage = response.data.current_page
           this.lastPage = response.data.last_page
           this.spinning = false

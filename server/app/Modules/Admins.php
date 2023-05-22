@@ -17,7 +17,7 @@ use App\Http\Resources\UserResource;
 use App\Mail\SignUp;
 use Carbon\Carbon;
 
-class Users
+class Admins
 {
     use GenerateCodeTrait;
 
@@ -197,7 +197,7 @@ class Users
             'birthplace' => 'nullable|string',
             'sex' => 'nullable|string',
             'civil_status' => 'required|string',
-            'suffix' => 'string',
+            'suffix' => 'nullable|string',
             'citizenship' => 'string',
             'religion' => 'nullable|string',
             'purok' => 'nullable|string',
@@ -242,7 +242,7 @@ class Users
         );
 
         if($payload->password){
-            $data['password'] = bcrypt($payload->password);
+            $data['password'] = Hash::make($payload->password);
         }
         $id = Auth::user()->id;
         $updateTransaction = Admin::where('id', $id)->update($data);
@@ -279,13 +279,14 @@ class Users
         ]);
     }
     public function getProfilePic(){
-        $getUserProfile = AdminProfilePicture::where('user_id', Auth::user()->id)->first();
+        $getUserProfile = AdminProfilePicture::where('admin_id', Auth::user()->id)->first();
         return response()->json($getUserProfile);
     }
     public function changePassword($payload){
 
         $currPassword = $payload->currPassword;
         $newPassword = $payload->newPassword;
+
     
         $id = Auth::user()->id;
         $user = Admin::where('id',$id)->first();

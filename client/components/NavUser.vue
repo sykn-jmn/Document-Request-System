@@ -24,7 +24,8 @@ export default {
     data(){
         return{
             name: this.$auth.state.user.first_name + " " + this.$auth.state.user.last_name,
-            profilePicPath:""
+            profilePicPath:"",
+            defaultPath:"",
         }
     },
     mounted(){
@@ -41,7 +42,12 @@ export default {
             )
         },
         getImgUrl(){
-            const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/no_profile_pic.jpg")
+            if(this.$auth.$state.user.sex == 'male'){
+                this.defaultPath = "Male_Icon.png"
+            }else{
+                this.defaultPath = "Female_Icon.png"
+            }
+            const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/"+this.defaultPath)
         return imgUrl
       }
     },

@@ -90,7 +90,7 @@ export default {
     },
     async getUserData(){
         this.spinning = true
-        await this.$axios.get('/user/get-details').then(response=>{
+        await this.$axios.get('/admin/get-details').then(response=>{
             this.firstName=response.data.first_name
             this.middleName=response.data.middle_name
             this.lastName=response.data.last_name

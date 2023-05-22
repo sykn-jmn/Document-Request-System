@@ -39,4 +39,7 @@ class AdminRequestController extends Controller
     public function getAllReports(AdminRequestDocument $requestDocument){
         return $requestDocument->getAllReports();
     }
+    public function countResidents(AdminRequestDocument $requestDocument){
+        return $requestDocument->countResidents();
+    }
 }

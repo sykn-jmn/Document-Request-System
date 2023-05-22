@@ -2,6 +2,7 @@
 
 namespace App\Modules;
 
+use App\Models\User;
 use App\Models\Appointment;
 use App\Models\Document;
 use App\Models\Reports;
@@ -168,6 +169,12 @@ class AdminRequestDocument{
         ->paginate(10);
 
         return response()->json($allReports);
+    }
+    public function countResidents(){
+        $count = User::count();
+        return response()->json([
+            'count'=>$count
+        ]);
     }
 }
 

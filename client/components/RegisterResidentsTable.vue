@@ -5,20 +5,18 @@
             <th>Full Name</th>
             <th>Registration Date</th>
             <th>Sex</th>
-            <th>Contact Information</th>
+            <th>Mobile</th>
+            <th>Email</th>
             <th>Address</th>
         </thead>
    
     <tr v-for="resident in data" :key="resident.id">
-        <td>{{resident.first_name}} {{resident.last_name}}</td>
-        <td>{{resident.email_verified_at}}</td>
-        <td>
-            <div>
-                <p>{{resident.email}}</p>
-                <p>{{resident.mobile_number}}</p>
-            </div>
-        </td>
-        <td>{{resident.purok+" "+resident.branggay+" "+resident.municipality+" "+resident.province}}</td>
+        <td>{{resident.last_name}}, {{resident.first_name}} {{resident.middle_name[0]}}.</td>
+        <td>{{wordDate(resident.email_verified_at)}}</td>
+        <td>{{capitalize(resident.sex)}}</td>
+        <td>{{resident.mobile_number}}</td>
+        <td>{{resident.email}}</td>
+        <td>{{resident.purok+", "+resident.baranggay+", "+resident.municipality+", "+resident.province}}</td>
     </tr>
 
     </table>
@@ -37,7 +35,12 @@ export default {
         }
     },
     methods:{
-
+        capitalize(word){
+            return word.charAt(0).toUpperCase() + word.slice(1)
+        },
+        wordDate(date){
+          return moment(date).format('MMMM d, YYYY');
+        },
     }
 
 }

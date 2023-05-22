@@ -118,7 +118,7 @@ export default {
             return moment().format('dddd, MMMM Do'); 
         },
         async getCountRequest(){
-            await this.$axios.get('/user/dashbboard/count-request').then(response=>{
+            await this.$axios.get('/user/dashboard/count-request').then(response=>{
                 this.countRequest = response.data
             }  
             ).catch(err =>{

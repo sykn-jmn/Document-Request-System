@@ -10,7 +10,7 @@
             </div>
             <span class="text-3xl font-bold">{{countResidents}}</span>
         </div>
-        <div class="mt-8 border-t border-slate-300 p-4 h-fit">
+        <div class="mt-8 border-t border-slate-300 p-4 h-fit cursor-pointer" @click="$router.push('/admin/registered-residents/all')">
             <p class="text-center text-blue-500 font-semibold text-xl">See All</p>
         </div>
 
@@ -21,7 +21,19 @@
 export default {
     data(){
         return{
-            countResidents:2250,
+            countResidents:0,
+        }
+    },
+    mounted(){
+        this.getCountResidents()
+    },
+    methods:{
+        async getCountResidents(){
+            await this.$axios.get('/admin/dashboard/count-residents').then(response=>{
+                this.countResidents = response.data.count
+            }).catch(err=>{
+                console.log(err.response)
+            })
         }
     }
 }
