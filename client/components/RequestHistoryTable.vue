@@ -16,13 +16,24 @@
         <td><span :class="request.status">{{request.status}}</span></td>
         <td>{{request.comments}}</td>
         <td>{{numericDate(request.update_date)}}</td>
-        <td>{{action(request.status)}}</td>
+        <td>
+            <div v-if="request.status != 'rejected'" class="text-center text-blue-500">
+                <button class="hover:text-blue-900 p-2" @click="cancel(request.id)">Cancel</button>
+                <hr>
+                <button class="hover:text-blue-900 p-2" @click="resched(request.id)">Resched</button>
+            </div>
+            <div v-else>
+                <button class="hover:text-blue-900 p-2">Submit Missing Documents</button>
+            </div>
+        </td>
     </tr>
 
     </table>
     <div>
         <span></span>
     </div>
+    <ConfirmationModal :message="message" @close="confirmModal = false" @delete="deleteRequest" v-if="confirmModal" />
+    <ReschedModal />
   </div>
 </template>
 
@@ -32,21 +43,27 @@ export default {
     props:['data'],
     data(){
         return{
+            message:'',
+            confirmModal:false,
+            selectedId:'',
         }
     },
     methods:{
         numericDate(date){
             return moment(date).format('yyyy-MM-DD')
         },
-        action(status){
-            if(status == 'approved'){
-                return 'Pickup Document'
-            }else if(status == 'rejected'){
-                return 'Submit missing documents'
-            }else{
-                return "-"
-            }
+        cancel(id){
+            this.selectedId = id
+            this.message = "Are you sure you want to cancel you request?"
+            this.confirmModal=true
+            
         },
+        async deleteRequest(){
+            await this.$axios.delete('/user/request/delete-request/'+this.selectedId).then(response=>{
+                this.$emit('refresh')
+                this.confirmModal = false
+            })
+        }
     }
 
 }

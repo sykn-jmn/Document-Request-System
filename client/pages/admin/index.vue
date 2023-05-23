@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col min-h-screen">
-        <AppHeader />
+        <AdminAppHeader />
         <div class="home">
             <div class="description-title text-right">
                 <img src="~assets/images/Maranding_Logo.png" width="200" height="200" class="m-auto"/>

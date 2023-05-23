@@ -3,7 +3,7 @@
     <h1>Request History</h1>
     <p class="newRequest" @click="newRequest">+ MAKE NEW REQUEST</p><br>
     <Search @search="search" :selected="$route.params.index" :options="options" placeholder="Search Request Document"/><br>
-    <RequestHistoryTable :data="data"/>
+    <RequestHistoryTable :data="data" @refresh="fetchHistories(currentPage,null)"/>
     <Pagination 
       :currentPage="currentPage"
       :lastPage="lastPage"
@@ -51,7 +51,7 @@ export default {
         var params = {
           search:search
         }
-        await this.$axios.get('/user/get-requests/'+this.$route.params.index+'?page=' + pageNumber, {params}).then(response=>{
+        await this.$axios.get('/user/request/get-requests/'+this.$route.params.index+'?page=' + pageNumber, {params}).then(response=>{
           this.data = response.data.data
           this.currentPage = response.data.current_page
           this.lastPage = response.data.last_page

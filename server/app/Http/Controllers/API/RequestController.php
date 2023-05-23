@@ -23,4 +23,7 @@ class RequestController extends Controller
     public function countRequest(Request $request, RequestDocument $requestDocument){
         return $requestDocument->countRequest();
     }
+    public function deleteRequest(RequestDocument $requestDocument, $id){
+        return $requestDocument->deleteRequest($id);
+    }
 }

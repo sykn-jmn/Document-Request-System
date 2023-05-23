@@ -245,8 +245,6 @@ class Users
             $data['password'] = bcrypt($payload->password);
         }
         $id = Auth::user()->id;
-        Log::info('hi');
-        Log::info(Auth::user());
         $updateTransaction = User::where('id', $id)->update($data);
         if(!$updateTransaction){
             return response()->json(['message'=>'cannot update data',401]);
@@ -291,7 +289,6 @@ class Users
     
         $id = Auth::user()->id;
         $user = User::where('id',$id)->first();
-        Log::info($currPassword);
 
         if(!Hash::check($currPassword, $user->password)){
             return response([

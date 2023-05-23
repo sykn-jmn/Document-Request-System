@@ -47,6 +47,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/get-slots',[RequestController::class, 'getSlots']);
             Route::get('/documents', [RequestController::class, 'getDocuments']);
             Route::post('/submit-request', [RequestController::class, 'submitRequest']);
+            Route::get('/get-requests/{status}', [RequestController::class, 'index']);
+            Route::delete('/delete-request/{id}', [RequestController::class, 'deleteRequest']);
         });
         Route::prefix('dashboard')->group(function(){
             Route::get('/count-request', [RequestController::class, 'countRequest']);
@@ -93,7 +95,6 @@ Route::prefix('user')->group(function(){
     Route::put('verify-account', [UserController::class, 'verify']);
     Route::get('/verify-code-password', [UserController::class, 'verifyCodePassword']);
     Route::put('/update-password', [UserController::class, 'updatePassword']);
-    Route::get('/get-requests/{status}', [RequestController::class, 'index']);
 
 });
 

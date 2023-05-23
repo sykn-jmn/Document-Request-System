@@ -21,7 +21,7 @@ class RequestDocument{
 
     public function getRequests($payload, $status){
         $search = $payload->search;
-        
+        $id = Auth::user()->id;
         $requests = RequestDocumentModel::select(
             'request_documents.id',
             'requests.created_at as request_date',
@@ -38,7 +38,7 @@ class RequestDocument{
         ->when(!empty($search), function ($query) use($search){
             return $query->where('documents.name','LIKE', $search.'%');
         })
-        ->where('requests.user_id', Auth::user()->id)
+        ->where('requests.user_id', $id)
         ->paginate(7);
  
         return response()->json($requests);
@@ -218,6 +218,10 @@ class RequestDocument{
             'rejected' => $countRejected,
             'completed' => $countCompleted
         ]);
+    }
+    public function deleteRequest($id){
+        RequestDocumentModel::where('id',$id)->delete();
+        return response()->json(['message'=>'deleted request successfully']);
     }
 }
 
