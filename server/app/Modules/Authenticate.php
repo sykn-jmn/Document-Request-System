@@ -63,7 +63,5 @@ class Authenticate
     public function logout($payload)
         {
             Auth::logout();
-            $payload->session()->invalidate();
-            $payload->session()->regenerateToken();
         }
 }

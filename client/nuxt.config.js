@@ -71,11 +71,17 @@ export default {
         url: "http://localhost:8000/api",
         endpoints: {
           login: { url: "/auth/admin/login", method: "post" },
-          logout: { url: "/auth/admin/logout", method: "post" },
+          logout: { url: "/auth/logout", method: "post" },
           user: { url: "/auth/admin", method: "get" },
         },
       },
     },
+    // redirect: {
+    //   login: "/admin",
+    //   logout: "/admin",
+    //   callback: "/admin",
+    //   home: "/admin/dashboard",
+    // },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -5,9 +5,9 @@
     </div>
     <nav class="navHome">
         <ul>
-            <li><NuxtLink to="https://nuxtjs.org">Home</NuxtLink></li>
-            <li><NuxtLink to="https://nuxtjs.org">About </NuxtLink></li>
-            <li><NuxtLink to="https://nuxtjs.org">Services</NuxtLink></li>
+            <li><NuxtLink to="/">Home</NuxtLink></li>
+            <li><NuxtLink to="about">About </NuxtLink></li>
+            <li><NuxtLink to="services">Services</NuxtLink></li>
         </ul>
     </nav>
     <p class="signup font-bold">
@@ -23,6 +23,8 @@ export default {
             return process.env.NUXT_ENV_APP_NAME;
         },
     },
+    mounted(){
+    }
 }
 </script>
 

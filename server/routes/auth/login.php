@@ -21,7 +21,7 @@ Route::post('/auth/login', [AuthController::class, 'userLogin']);
 // });
 
 
-Route::post('/auth/logout', [AuthController::class, 'userLogout']);
+Route::post('/auth/logout', [AuthController::class, 'logout']);
 
 Route::post('/auth/admin/login', [AuthController::class, 'adminLogin']);
 // Route::post('/auth/login', function(){
@@ -29,5 +29,5 @@ Route::post('/auth/admin/login', [AuthController::class, 'adminLogin']);
 // });
 
 
-Route::post('/auth/admin/logout', [AuthController::class, 'adminLogout']);
+
 

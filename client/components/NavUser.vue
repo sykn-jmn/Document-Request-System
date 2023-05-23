@@ -33,7 +33,10 @@ export default {
     },
     methods: {
         async logout() {
-            await this.$auth.logout()
+            await this.$auth.logout().then(response=>{
+                    this.$router.push('/')
+                } 
+            )
         },
         async getProfilePicture(){
             await this.$axios.get('/user/profile-pic').then(response=>{
