@@ -6,7 +6,7 @@
             <th>Document Type</th>
             <th>Request Status</th>
             <th>Comments/Notes</th>
-            <th>Update Date</th>
+            <th>Appointment Date</th>
             <th>Action Required</th>
         </thead>
    
@@ -15,15 +15,15 @@
         <td>{{request.type}}</td>
         <td><span :class="request.status">{{request.status}}</span></td>
         <td>{{request.comments}}</td>
-        <td>{{numericDate(request.update_date)}}</td>
+        <td>{{numericDate(request.schedule)}}</td>
         <td>
-            <div v-if="request.status != 'rejected'" class="text-center text-blue-500">
-                <button class="hover:text-blue-900 p-2" @click="cancel(request.id)">Cancel</button>
+            <div v-if="request.status != 'rejected'" class="text-blue-500">
+                <button class="hover:text-blue-900 p-2 w-full text-left" @click="cancel(request.id)">Cancel</button>
                 <hr>
-                <button class="hover:text-blue-900 p-2" @click="resched(request.id)">Resched</button>
+                <button class="hover:text-blue-900 p-2 w-full text-left" @click="resched(request.id)">Resched</button>
             </div>
             <div v-else>
-                <button class="hover:text-blue-900 p-2">Submit Missing Documents</button>
+                <button class="hover:text-blue-900 p-2 w-full">Submit Missing Documents</button>
             </div>
         </td>
     </tr>
@@ -33,7 +33,8 @@
         <span></span>
     </div>
     <ConfirmationModal :message="message" @close="confirmModal = false" @delete="deleteRequest" v-if="confirmModal" />
-    <ReschedModal />
+    <ReschedModal v-if="reschedModal" @close="reschedModal = false" @updateSched="updatedSched"/>
+    <Spin v-if="spinning" />
   </div>
 </template>
 
@@ -45,7 +46,9 @@ export default {
         return{
             message:'',
             confirmModal:false,
+            reschedModal:false,
             selectedId:'',
+            spinning:false,
         }
     },
     methods:{
@@ -58,10 +61,28 @@ export default {
             this.confirmModal=true
             
         },
+        resched(id){
+            this.selectedId = id
+            this.reschedModal = true
+        },
         async deleteRequest(){
+            this.spinning = true
             await this.$axios.delete('/user/request/delete-request/'+this.selectedId).then(response=>{
                 this.$emit('refresh')
                 this.confirmModal = false
+                this.spinning = false
+            })
+        },
+        async updateSched(){
+            this.spinning = true
+            var params ={
+                id: this.selectedId,
+                selectedDate: this.$store.state.request.selectedDate,
+                meridiem:   this.$store.state.request.meridiem
+            }
+            this.$axios.put('/user/request/update-sched',params).then(response=>{
+                this.reschedModal = false
+                this.spinning = false
             })
         }
     }

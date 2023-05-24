@@ -28,10 +28,11 @@ class RequestDocument{
             'documents.name as type',
             'request_documents.status',
             'request_documents.comments',
-            'request_documents.updated_at as updated_date'
+            'appointments.schedule as schedule'
         )
         ->join('requests','requests.id','=','request_documents.request_id')
         ->join('documents','documents.id','=','request_documents.document_id')
+        ->join('appointments','appointments.request_id','=','requests.id')
         ->when($status!="all", function ($query) use($status){
             return $query->where('requests.status',$status);
         })

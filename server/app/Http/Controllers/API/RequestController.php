@@ -26,4 +26,7 @@ class RequestController extends Controller
     public function deleteRequest(RequestDocument $requestDocument, $id){
         return $requestDocument->deleteRequest($id);
     }
+    public function updateSched(Request $request, RequestDocument $requestDocument){
+        return $requestDocument->updateSched($request);
+    }
 }
