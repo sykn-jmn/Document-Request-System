@@ -74,7 +74,7 @@
             {{details.purpose}}
         </div><br>
         <h2>Comments/Remarks</h2>
-        <textarea rows="4" v-model="comments"></textarea>
+        <textarea rows="4" v-model="comment"></textarea>
         <div class="w-fit m-auto flex text-white space-x-4 mt-10">
             <button class="bg-red-500 status-button" @click="submit('rejected', details.request_number)">
                 <div class="status-wrapper">
@@ -105,7 +105,7 @@ export default {
             data:[],
             viewImage:false,
             currentPath:'',
-            comments:'',
+            comment:'',
             spinning:false,
         }
     },
@@ -118,7 +118,7 @@ export default {
             var params = {
                 id: this.details.id,
                 status: status,
-                comments:this.comments,
+                comment:this.comment,
 
             }
             await this.$axios.put('/admin/requests/update-status',params).then(response=>{

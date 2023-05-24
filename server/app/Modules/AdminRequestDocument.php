@@ -107,7 +107,7 @@ class AdminRequestDocument{
     public function updateRequestStatus($payload){
         $id = $payload->id;
         $status = $payload->status;
-        $comments = $payload->comemnts;
+        $comment = $payload->comemnt;
 
         Request::where('id', $id)->update([
             'status' => $status,
