@@ -40,8 +40,8 @@ export default {
     methods:{
         nextPage(){
             if(this.page==1){
-                let selectedDocuments = this.$store.state.request.selectedDocuments
-                if(!selectedDocuments || selectedDocuments.length<1){
+                let selectedDocument = this.$store.state.request.selectedDocument
+                if(!selectedDocument){
                     this.errorPageOne="Please select alteast one document to request"
                 }
                 else{

@@ -3,7 +3,7 @@ export const state = () => ({
   validIDName: "",
   supportingDocumentsName: [],
   form: "",
-  selectedDocuments: [],
+  selectedDocument: " ",
   selectedDate: "",
   meridem: "",
   purpose: "",
@@ -17,11 +17,15 @@ export const mutations = {
     state.form = payload.form;
   },
   updateSelectedDocuments(state, payload) {
+    // state.formData.append(
+    //   "selected_documents",
+    //   JSON.stringify(payload.selectedDocuments)
+    // );
     state.formData.append(
-      "selected_documents",
-      JSON.stringify(payload.selectedDocuments)
+      "selected_document",
+      JSON.stringify(payload.selectedDocument)
     );
-    state.selectedDocuments = payload.selectedDocuments;
+    state.selectedDocument = payload.selectedDocument;
   },
   updatePickUpDate(state, payload) {
     state.formData.append("pickup_date", payload.pickUpDate.selectedDate);

@@ -17,13 +17,12 @@
         <td>{{request.comments}}</td>
         <td>{{numericDate(request.schedule)}}</td>
         <td>
-            <div v-if="request.status != 'rejected'" class="text-blue-500">
-                <button class="hover:text-blue-900 p-2 w-full text-left" @click="cancel(request.id)">Cancel</button>
-                <hr>
-                <button class="hover:text-blue-900 p-2 w-full text-left" @click="resched(request.id)">Resched</button>
+            <div v-if="request.status != 'rejected'" class="flex text-2xl space-x-4">
+                <button class="hover:text-blue-900 text-left" @click="resched(request.id)"><font-awesome-icon :icon="['fas', 'pen-to-square']" class="text-slate-900"/></button>
+                <button class="hover:text-blue-900 text-left" @click="cancel(request.id)"><font-awesome-icon :icon="['fas', 'trash']" class="text-red-500"/></button>     
             </div>
             <div v-else>
-                <button class="hover:text-blue-900 p-2 w-full">Submit Missing Documents</button>
+                <button class="hover:text-blue-900 w-full">Submit Missing Documents</button>
             </div>
         </td>
     </tr>

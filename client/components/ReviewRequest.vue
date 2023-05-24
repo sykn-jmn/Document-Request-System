@@ -28,13 +28,13 @@
           <p class="font-bold">Particular(s)</p>
           <p class="font-bold">Amount</p>
         </div>
-        <div class="flex justify-between" v-for="document in $store.state.request.selectedDocuments" :key="document.id">
-          <p>{{document.name}}</p>
-          <p>{{document.fee}}</p>
+        <div class="flex justify-between">
+          <p>{{$store.state.request.selectedDocument.name}}</p>
+          <p>{{$store.state.request.selectedDocument.fee}}</p>
         </div>
         <div class="flex justify-between py-4">
           <p class="font-bold">Total</p>
-          <p>{{getTotalFeeDocuments()}}</p>
+          <p>{{getFeeDocument()}}</p>
         </div>
         <div class="border-t border-slate-200 py-4">
           <p class="font-bold">Pick-up Schedule</p>
@@ -54,16 +54,16 @@ import moment from 'moment'
 export default {
 
   methods:{
-    getTotalFeeDocuments(){
-      let total = parseFloat(0.00)
-      this.$store.state.request.selectedDocuments.forEach(document=>{
-        total = total + parseFloat(document.fee)
-      })
-
+    getFeeDocument(){
+      // let total = parseFloat(0.00)
+      // this.$store.state.request.selectedDocuments.forEach(document=>{
+      //   total = total + parseFloat(document.fee)
+      // })
+      let fee = parseFloat(this.$store.state.request.selectedDocument.fee);
       this.$store.commit('request/updateFee', {
-          fee: total.toFixed(2)
+          fee: fee.toFixed(2)
       });
-      return total.toFixed(2)
+      return fee.toFixed(2)
     },
     getDate(date){
       return moment(date).format("dddd, MMMM DD, yyyy")

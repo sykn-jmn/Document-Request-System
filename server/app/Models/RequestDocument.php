@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Document;
 
 class RequestDocument extends Model
 {
@@ -16,4 +17,8 @@ class RequestDocument extends Model
     ];
 
     protected $table = 'request_documents';
+
+    public function get_documents(){
+        return $this->hasOne(Document::class, 'id', 'document_id')->select('name','description','fee');
+    }
 }

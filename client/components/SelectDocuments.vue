@@ -4,7 +4,7 @@
         <p>You can choose more than one document request at a time</p><br>
         <div class="rounded-2xl bg-white py-8 px-16">
             <div v-for="doc in documents" :key="doc.id" class="flex items-center space-x-2">
-                <input type="checkbox" :id="doc.id" :name="doc.name" v-model="selectedRequests" :value="doc" class="w-fit">
+                <input type="radio" :id="doc.id" :name="doc.name" v-model="selectedRequest" :value="doc" class="w-fit">
                 <label :for="doc.name" class="font-bold text-slate-600">{{doc.name}}</label><br><br>
             </div><br>
             <p class="error">{{error}}</p>
@@ -18,7 +18,7 @@ export default {
     props:["error"],
     data(){
         return{
-            selectedRequests:[],
+            selectedRequest:"",
             documents:[],
             spinning:false,
         }
@@ -27,9 +27,9 @@ export default {
         this.getDocuments()
     },
     watch:{
-        selectedRequests(){
+        selectedRequest(){
             this.$store.commit('request/updateSelectedDocuments', {
-                selectedDocuments: this.selectedRequests,
+                selectedDocument: this.selectedRequest,
             });
         }
     },
@@ -49,15 +49,18 @@ export default {
 </script>
 
 <style scoped>
-input[type=checkbox]{
+/* input[type=checkbox]{
     accent-color: yellow;
     @apply w-8 h-8 
 }
 input[type=checkbox]:after{
     border: solid white;
-}
+} */
 h1{
   @apply text-3xl font-bold
 }
+input[type='radio'] { 
+     transform: scale(1.5); 
+ }
 
 </style>

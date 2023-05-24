@@ -22,16 +22,15 @@ class RequestDocument{
     public function getRequests($payload, $status){
         $search = $payload->search;
         $id = Auth::user()->id;
-        $requests = RequestDocumentModel::select(
-            'request_documents.id',
+        $requests = Request::select(
+            'requests.id',
             'requests.created_at as request_date',
             'documents.name as type',
-            'request_documents.status',
-            'request_documents.comments',
+            'requests.status',
+            'requests.comment',
             'appointments.schedule as schedule'
         )
-        ->join('requests','requests.id','=','request_documents.request_id')
-        ->join('documents','documents.id','=','request_documents.document_id')
+        ->join('documents','documents.id','=','requests.document_id')
         ->join('appointments','appointments.request_id','=','requests.id')
         ->when($status!="all", function ($query) use($status){
             return $query->where('requests.status',$status);
@@ -71,13 +70,13 @@ class RequestDocument{
     }
     public function submitRequest($payload){
 
-        $selectedDocuments = json_decode($payload->selected_documents);
-        $numberOfSupportingDocuments = $payload->supporting_documents_length;
+        $document = json_decode($payload->selected_document);
         $selectedDate = $payload->pickup_date;
         $meridiem = $payload->meridiem;
         $validID = $payload->valid_id;
         $purpose = $payload->purpose;
         $fee = $payload->fee;
+        $numberOfSupportingDocuments = $payload->supporting_documents_length;
 
         DB::beginTransaction();
 
@@ -85,6 +84,7 @@ class RequestDocument{
 
         $requestTransaction = Request::create([
             'user_id' => Auth::user()->id,
+            'document_id' => $document->id,
             'valid_id' =>$validIDTransaction->id,
             'date_requested' => now(),
             'purpose' => $purpose,
@@ -106,13 +106,13 @@ class RequestDocument{
             }
         }
 
-        foreach($selectedDocuments as $document){
-            $requestDocumentTransaction = $this->storeRequestDocument($requestTransaction->id, $document->id);
-            if(!$requestDocumentTransaction){
-                DB::rollback();
-                return response()->json(['message'=>'fail']);
-            }
-        }
+ 
+            // $requestDocumentTransaction = $this->storeRequestDocument($requestTransaction->id, $document->id);
+            // if(!$requestDocumentTransaction){
+            //     DB::rollback();
+            //     return response()->json(['message'=>'fail']);
+            // }
+
 
         if(!$validIDTransaction || !$requestTransaction || !$appointmentTransaction){
             DB::rollback();
@@ -174,15 +174,15 @@ class RequestDocument{
             'supporting_document_id' => $supportDocumentID
         ]);
     }
-    public function storeRequestDocument($requestID, $documentID){
+    // public function storeRequestDocument($requestID, $documentID){
 
 
-        return RequestDocumentModel::create([
-            'request_id'=>$requestID,
-            'document_id' => $documentID,
-            'status'=>'pending'
-        ]);
-    }
+    //     return RequestDocumentModel::create([
+    //         'request_id'=>$requestID,
+    //         'document_id' => $documentID,
+    //         'status'=>'pending'
+    //     ]);
+    // }
     public function storeAppointment($requestID, $selectedDate, $meridiem){
         return Appointment::create([
             'request_id' => $requestID,
@@ -193,25 +193,21 @@ class RequestDocument{
 
     public function countRequest(){
         $id = Auth::user()->id;
-        $countPending = RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
-                                        ->where('request_documents.status','pending')
-                                        ->where('requests.user_id',$id)
-                                        ->count();
+        $countPending = Request::where('status','pending')
+                                ->where('user_id',$id)
+                                ->count();
 
-        $countApproved = RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
-                                        ->where('request_documents.status','approved')
-                                        ->where('requests.user_id',$id)
-                                        ->count();
+        $countApproved = Request::where('status','approved')
+                                ->where('user_id',$id)
+                                ->count();
                             
-        $countRejected= RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
-                                        ->where('request_documents.status','rejected')
-                                        ->where('requests.user_id',$id)
-                                        ->count();
+        $countRejected= Request::where('status','rejected')
+                                ->where('user_id',$id)
+                                ->count();
 
-        $countCompleted = RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
-                                        ->where('request_documents.status','completed')
-                                        ->where('requests.user_id',$id)
-                                        ->count();
+        $countCompleted = Request::where('status','completed')
+                                ->where('user_id',$id)
+                                ->count();
 
         return response()->json([
             'pending' => $countPending,
@@ -221,7 +217,7 @@ class RequestDocument{
         ]);
     }
     public function deleteRequest($id){
-        RequestDocumentModel::where('id',$id)->delete();
+        Request::where('id',$id)->delete();
         return response()->json(['message'=>'deleted request successfully']);
     }
 }
