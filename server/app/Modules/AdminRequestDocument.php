@@ -24,20 +24,19 @@ class AdminRequestDocument{
     public function getRequests($payload, $status){
         $search = $payload->search;
         
-        $requests = RequestDocumentModel::select(
-            'request_documents.id',
+        $requests = Request::select(
+            'requests.id',
             'appointments.schedule',
             'documents.name as document',
             'users.first_name',
             'users.last_name',
-            'request_documents.status'
+            'requests.status'
         )
-        ->join('requests','requests.id','=','request_documents.request_id')
         ->join('appointments','appointments.request_id','=','requests.id')
         ->join('users','users.id','=','requests.user_id')
-        ->join('documents','documents.id','=','request_documents.document_id')
+        ->join('documents','documents.id','=','requests.document_id')
         ->when($status!="all", function ($query) use($status){
-            return $query->where('request_documents.status',$status);
+            return $query->where('requests.status',$status);
         })
         ->when(!empty($search), function ($query) use($search){
             return $query->where('documents.name','LIKE', $search.'%');
@@ -50,7 +49,7 @@ class AdminRequestDocument{
 
     public function getRequestDetails($id){
         $requestDetails = Request::select(
-            'request_documents.id',
+            'requests.id',
             'first_name',
             'middle_name',
             'last_name',
@@ -71,13 +70,12 @@ class AdminRequestDocument{
             'valid_ids.type as id_type',
             'documents.name as document_name'
         )
-        ->join('request_documents','request_documents.request_id','=','requests.id')
-        ->join('documents','documents.id','=','request_documents.document_id')
+        ->join('documents','documents.id','=','requests.document_id')
         ->join('valid_ids','valid_ids.id','=','requests.valid_id')
         ->join('users','users.id', '=', 'requests.user_id')
         ->join('appointments','appointments.request_id','=','requests.id')
         ->with('request_supporting_dcouments')
-        ->where('request_documents.id',$id)->first();
+        ->where('requests.id',$id)->first();
         return response()->json($requestDetails);
     }
 
@@ -86,21 +84,17 @@ class AdminRequestDocument{
     }
 
     public function countRequest(){
-        $countPending = RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
-                                        ->where('request_documents.status','pending')
-                                        ->count();
+        $countPending = Request::where('requests.status','pending')
+                                ->count();
 
-        $countApproved = RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
-                                        ->where('request_documents.status','approved')
-                                        ->count();
+        $countApproved = Request::where('requests.status','approved')
+                                ->count();
                             
-        $countRejected= RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
-                                        ->where('request_documents.status','rejected')
-                                        ->count();
+        $countRejected= Request::where('requests.status','rejected')
+                                ->count();
 
-        $countCompleted = RequestDocumentModel::join('requests','requests.id', '=', 'request_documents.request_id')
-                                        ->where('request_documents.status','completed')
-                                        ->count();
+        $countCompleted = Request::where('requests.status','completed')
+                                ->count();
 
         return response()->json([
             'pending' => $countPending,
@@ -115,9 +109,9 @@ class AdminRequestDocument{
         $status = $payload->status;
         $comments = $payload->comemnts;
 
-        RequestDocumentModel::where('id', $id)->update([
+        Request::where('id', $id)->update([
             'status' => $status,
-            'comments' => $comments
+            'comment' => $comment
         ]);
 
         $charID = (string) $id;
