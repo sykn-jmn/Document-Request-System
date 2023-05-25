@@ -23,9 +23,12 @@
                     <p class="font-semibold">{{details.mobile_number}}</p>
                 </div><br>
                 <h2>Requested Document</h2>
-                <div class="py-4 px-8 border border-slate-500 mt-2 w-fit rounded-md">
+                <select v-model="document_id" class="py-2 px-4 border-black border mt-2">
+                    <option v-for="doc in documents" :value="doc.id" :key="doc.id">{{doc.name}}</option>
+                </select>
+                <!-- <div class="py-4 px-8 border border-slate-500 mt-2 w-fit rounded-md">
                     <p>{{details.document_name}}</p>
-                </div>
+                </div> -->
                 
             </div>
             <div>
@@ -34,7 +37,7 @@
                     <font-awesome-icon :icon="['fas', 'calendar']" class="calendar-icon"/>
                     <div>
                         <p class="text-slate-500">Date</p>
-                        <p class="font-semibold">{{getStringDate(details.schedule)}} {{details.meridiem}}</p>
+                        <p class="font-semibold">{{getStringDate(date)}} {{meridiem}}</p>
                     </div>
                 </button><br>
                 <h2>Valid ID</h2>
@@ -77,7 +80,7 @@
                     <p>Cancel</p>
                 </div>
             </button>
-            <button class="bg-blue-500 status-button text-white" @click="$emit('updateRequest')">
+            <button class="bg-blue-500 status-button text-white" @click="updateRequest">
                 <div class="status-wrapper">
                     <p>Save</p>
                 </div>
@@ -85,7 +88,7 @@
         </div>
     </div>
     <ViewImage v-if="viewImage" :path="currentPath" @closeImage="viewImage=false"/>
-    <ReschedModal v-if="reschedModal" @close="reschedModal = false"/>
+    <ReschedModal v-if="reschedModal" @close="reschedModal = false" @selectedDate="selectedDate"/>
     <Spin v-if="spinning"/>
   </div>
 </template>
@@ -102,45 +105,71 @@ export default {
             currentPath:'',
             spinning:false,
             purpose:'',
-            reschedModal:false
+            reschedModal:false,
+            date:'',
+            meridiem:'',
+            document_id:'',
+            documents:'',
 
         }
     },
     mounted(){
         this.purpose = this.details.purpose
+        this.date = this.details.schedule
+        this.meridiem = this.details.meridiem 
+        this.document_id = this.details.document_id
+
+        this.getDocuments()
+
+        this.$store.commit('request/updateFormData', {
+            formData: new FormData(),
+        });
 
     },
     methods:{
-        // async submit(status,request_number){
-        //     this.spinning =true
-        //     var params = {
-        //         id: this.details.id,
-        //         status: status,
-        //         comment:this.comment,
-
-        //     }
-        //     await this.$axios.put('/admin/requests/update-status',params).then(response=>{
-        //         this.$emit('closeModal')
-        //         this.spinning =false
-        //     }).catch(err=>{
-        //         this.$emit('closeModal')
-        //         this.spinning =false
-        //     })
-        // },
+        async getDocuments(){
+            this.spinning = true
+            await this.$axios.get('/user/request/documents').then(response=>{
+                this.documents = response.data
+                this.spinning = false
+            }).catch(err=>{
+                this.spinning = false
+            })
+        },
+        async updateRequest(){
+            this.spinning = true
+            var params ={
+                id: this.details.id,
+                document_id: this.document_id,
+                schedule: this.date,
+                meridiem: this.meridiem,
+                purpose: this.purpose
+            }
+            await this.$axios.put('/user/request/update-request', params).then(response=>{
+                this.spinning = false
+                this.$emit('updated')
+            }).catch(err=>{
+                this.spinning = false
+            })
+        },
         async viewFile(filename){
             await this.$axios.get('/user/requests/get-pdf/'+filename,{responseType: 'blob'}).then(response=>{
                 const blob = new Blob([response.data],{type: "application/pdf"})
                 const objectUrl = window.URL.createObjectURL(blob)
                 window.open(objectUrl);
             })
-        },
+        },  
         showImage(path){
             this.currentPath = path
             this.viewImage = true
 
         },
+        selectedDate(){
+            this.reschedModal=false
+            this.date = this.$store.state.request.selectedDate
+            this.meridiem = this.$store.state.request.meridiem
+        },
         renderID(id){
-            console.log(id)
             const charID = id.toString()
             if(charID.length<6){
                 const zerosToAdd = 6 - charID.length

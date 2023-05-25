@@ -35,4 +35,7 @@ class RequestController extends Controller
     public function getPDF(RequestDocument $requestDocument, $path){
         return $requestDocument->getPDF($path);
     }
+    public function updateRequest(RequestDocument $requestDocument, Request $request){
+        return $requestDocument->updateRequest($request);
+    }
 }

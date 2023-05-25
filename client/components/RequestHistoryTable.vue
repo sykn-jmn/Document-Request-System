@@ -32,7 +32,7 @@
         <span></span>
     </div>
     <ConfirmationModal :message="message" @close="confirmModal = false" @delete="deleteRequest" v-if="confirmModal" />
-    <ViewRequestModal v-if="viewModal" @close="viewModal = false" @updateRequest="updateRequest" :details="details"/>
+    <ViewRequestModal v-if="viewModal" @close="viewModal = false" @updated="updated" :details="details"/>
     <Spin v-if="spinning" />
   </div>
 </template>
@@ -73,17 +73,9 @@ export default {
                 this.spinning = false
             })
         },
-        async updateRequest(){
-            this.spinning = true
-            // var params ={
-            //     id: this.selectedId,
-            //     selectedDate: this.$store.state.request.selectedDate,
-            //     meridiem:   this.$store.state.request.meridiem
-            // }
-            this.$axios.put('/user/request/update-request',params).then(response=>{
-                this.viewModal = false
-                this.spinning = false
-            })
+        updated(){
+            this.viewModal = false
+            this.$emit('refresh')
         },
         async getRequest(id){
             this.spinning = true

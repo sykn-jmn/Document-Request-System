@@ -241,6 +241,7 @@ class RequestDocument{
             'valid_ids.original_name as id_name',
             'valid_ids.path as id_path',
             'valid_ids.type as id_type',
+            'documents.id as document_id',
             'documents.name as document_name'
         )
         ->join('documents','documents.id','=','requests.document_id')
@@ -254,6 +255,32 @@ class RequestDocument{
     }
     public function getPDF($filename){
         return Storage::get('public/supporting_documents/'.$filename);
+    }
+    public function updateRequest($payload){
+        $id = $payload->id;
+        $document_id = $payload->document_id;
+        $schedule = $payload->schedule;
+        $meridiem = $payload->meridiem;
+        $purpose = $payload->purpose;
+
+        DB::beginTransaction();
+
+        $requestTransaction = Request::where('requests.id', $id)->update([
+            'document_id'=> $document_id,
+            'purpose'=>$purpose
+        ]);
+
+        $appointmentTransaction = Appointment::where('request_id', $id)->update([
+            'schedule' => $schedule,
+            'meridiem' => $meridiem
+        ]);
+
+        if(!$requestTransaction || !$appointmentTransaction){
+            DB::rollback();
+            return response()->json(['message'=>'failed to update'],500);
+        }
+        DB::commit();
+        return response()->json(['message'=>'update request succesfully']);
     }
 }
 

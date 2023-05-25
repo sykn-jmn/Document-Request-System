@@ -50,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/submit-request', [RequestController::class, 'submitRequest']);
             Route::get('/get-requests/{status}', [RequestController::class, 'index']);
             Route::delete('/delete-request/{id}', [RequestController::class, 'deleteRequest']);
-            Route::delete('/updated-sched', [RequestController::class, 'updateSched']);
+            Route::put('/update-request', [RequestController::class, 'updateRequest']);
             Route::get('/get-pdf/{path}', [AdminRequestController::class, 'getPDF']);
         });
         Route::prefix('dashboard')->group(function(){
