@@ -23,7 +23,7 @@
                     <p class="font-semibold">{{details.mobile_number}}</p>
                 </div><br>
                 <h2>Requested Document</h2>
-                <select v-model="document_id" class="py-2 px-4 border-black border mt-2">
+                <select v-model="document_id" class="py-2 px-4 border-black border mt-2" :disabled="details.status != 'pending'">
                     <option v-for="doc in documents" :value="doc.id" :key="doc.id">{{doc.name}}</option>
                 </select>
                 <!-- <div class="py-4 px-8 border border-slate-500 mt-2 w-fit rounded-md">
@@ -33,7 +33,7 @@
             </div>
             <div>
                 <h2>Pick-up Schedule</h2>
-                <button class="border border-blue-500 rounded-md p-2 flex text-left items-center space-x-4 mt-2 w-full" @click="reschedModal = true">
+                <button class="border border-blue-500 rounded-md p-2 flex text-left items-center space-x-4 mt-2 w-full" @click="reschedModal = true" :disabled="details.status != 'pending'">
                     <font-awesome-icon :icon="['fas', 'calendar']" class="calendar-icon"/>
                     <div>
                         <p class="text-slate-500">Date</p>
@@ -74,13 +74,13 @@
         </div>
         <h2>Purpose of Transaction</h2>
         <input v-model="purpose"/>
-        <div class="w-fit m-auto flex space-x-4 mt-10">
+        <div class="w-fit m-auto flex space-x-4 mt-10" v-if="details.status == 'pending'">
             <button class="bg-slate-300 status-button text-black" @click="$emit('close')">
                 <div class="status-wrapper">
                     <p>Cancel</p>
                 </div>
             </button>
-            <button class="bg-blue-500 status-button text-white" @click="updateRequest">
+            <button class="bg-blue-500 status-button text-white" @click="updateRequest" :disabled="details.status != 'pending'">
                 <div class="status-wrapper">
                     <p>Save</p>
                 </div>

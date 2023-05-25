@@ -21,7 +21,7 @@
         <span></span>
     </div>
     <RequestModal :details="details" v-if="showModal" @closeModal="showModal = false"/>
-    <ApprovedModal :details="details" v-if="showModal" @closeModal="showModal = false"/>
+    <!-- <ApprovedModal :details="details" v-if="showModal" @closeModal="showModal = false"/> -->
     <Spin v-if="spinning"/>
   </div>
 </template>

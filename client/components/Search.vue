@@ -21,8 +21,13 @@ export default {
         }
     },
     watch:{
+        
         select(value){
-            this.$router.push('/user/request-history/'+value)
+            if(this.$auth.$state.strategy == 'userAuth'){
+                this.$router.push('/user/request-history/'+value)
+            }
+            this.$router.push('/admin/request-management/'+value)
+            
         }
     }
 }

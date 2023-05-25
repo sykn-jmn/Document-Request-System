@@ -121,7 +121,7 @@ export default {
                 comment:this.comment,
 
             }
-            await this.$axios.put('/admin/requests/update-status',params).then(response=>{
+            await this.$axios.put('/admin/request/update-status',params).then(response=>{
                 this.$emit('closeModal')
                 this.spinning =false
             }).catch(err=>{
@@ -130,7 +130,7 @@ export default {
             })
         },
         async viewFile(filename){
-            await this.$axios.get('/admin/requests/get-pdf/'+filename,{responseType: 'blob'}).then(response=>{
+            await this.$axios.get('/admin/request/get-pdf/'+filename,{responseType: 'blob'}).then(response=>{
                 const blob = new Blob([response.data],{type: "application/pdf"})
                 const objectUrl = window.URL.createObjectURL(blob)
                 window.open(objectUrl);

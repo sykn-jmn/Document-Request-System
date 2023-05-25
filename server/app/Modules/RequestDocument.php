@@ -242,7 +242,8 @@ class RequestDocument{
             'valid_ids.path as id_path',
             'valid_ids.type as id_type',
             'documents.id as document_id',
-            'documents.name as document_name'
+            'documents.name as document_name',
+            'requests.status'
         )
         ->join('documents','documents.id','=','requests.document_id')
         ->join('valid_ids','valid_ids.id','=','requests.valid_id')
