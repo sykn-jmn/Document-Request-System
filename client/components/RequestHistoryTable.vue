@@ -6,7 +6,7 @@
             <th>Document Type</th>
             <th>Request Status</th>
             <th>Comments/Notes</th>
-            <th>Appointment Date</th>
+            <th>Updated Date</th>
             <th>Action Required</th>
         </thead>
    
@@ -15,10 +15,10 @@
         <td>{{request.type}}</td>
         <td><span :class="request.status">{{request.status}}</span></td>
         <td>{{request.comments}}</td>
-        <td>{{numericDate(request.schedule)}}</td>
+        <td>{{numericDate(request.updated_date)}}</td>
         <td>
-            <div v-if="request.status != 'rejected'" class="flex text-2xl space-x-4">
-                <button class="hover:text-blue-900 text-left" @click="resched(request.id)"><font-awesome-icon :icon="['fas', 'pen-to-square']" class="text-slate-900"/></button>
+            <div v-if="request.status != 'rejected'" class="flex text-2xl space-x-4 w-fit">
+                <button class="hover:text-blue-900 text-left" @click="view(request.id)"><font-awesome-icon :icon="['fas', 'pen-to-square']" class="text-slate-900"/></button>
                 <button class="hover:text-blue-900 text-left" @click="cancel(request.id)"><font-awesome-icon :icon="['fas', 'trash']" class="text-red-500"/></button>     
             </div>
             <div v-else>
@@ -32,7 +32,7 @@
         <span></span>
     </div>
     <ConfirmationModal :message="message" @close="confirmModal = false" @delete="deleteRequest" v-if="confirmModal" />
-    <ReschedModal v-if="reschedModal" @close="reschedModal = false" @updateSched="updatedSched"/>
+    <ViewRequestModal v-if="viewModal" @close="viewModal = false" @updateRequest="updateRequest" :details="details"/>
     <Spin v-if="spinning" />
   </div>
 </template>
@@ -45,9 +45,10 @@ export default {
         return{
             message:'',
             confirmModal:false,
-            reschedModal:false,
+            viewModal:false,
             selectedId:'',
             spinning:false,
+            details:'',
         }
     },
     methods:{
@@ -60,9 +61,9 @@ export default {
             this.confirmModal=true
             
         },
-        resched(id){
+        view(id){
             this.selectedId = id
-            this.reschedModal = true
+            this.getRequest(id)
         },
         async deleteRequest(){
             this.spinning = true
@@ -72,18 +73,30 @@ export default {
                 this.spinning = false
             })
         },
-        async updateSched(){
+        async updateRequest(){
             this.spinning = true
-            var params ={
-                id: this.selectedId,
-                selectedDate: this.$store.state.request.selectedDate,
-                meridiem:   this.$store.state.request.meridiem
-            }
-            this.$axios.put('/user/request/update-sched',params).then(response=>{
-                this.reschedModal = false
+            // var params ={
+            //     id: this.selectedId,
+            //     selectedDate: this.$store.state.request.selectedDate,
+            //     meridiem:   this.$store.state.request.meridiem
+            // }
+            this.$axios.put('/user/request/update-request',params).then(response=>{
+                this.viewModal = false
                 this.spinning = false
             })
-        }
+        },
+        async getRequest(id){
+            this.spinning = true
+            await this.$axios.get('/user/request/get-request/'+id).then(response=>{
+                this.details = response.data
+                this.viewModal = true
+                this.spinning = false
+            }).catch(err=>{
+                console.log(err)
+                this.spinning = false
+            })
+            
+        },
     }
 
 }

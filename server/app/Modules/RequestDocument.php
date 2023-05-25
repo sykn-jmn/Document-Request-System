@@ -28,7 +28,7 @@ class RequestDocument{
             'documents.name as type',
             'requests.status',
             'requests.comment',
-            'appointments.schedule as schedule'
+            'requests.updated_at as updated_date'
         )
         ->join('documents','documents.id','=','requests.document_id')
         ->join('appointments','appointments.request_id','=','requests.id')
@@ -219,6 +219,41 @@ class RequestDocument{
     public function deleteRequest($id){
         Request::where('id',$id)->delete();
         return response()->json(['message'=>'deleted request successfully']);
+    }
+    public function getRequest($id){
+        $requestDetails = Request::select(
+            'requests.id',
+            'first_name',
+            'middle_name',
+            'last_name',
+            'birthdate',
+            'sex',
+            'civil_status',
+            'purok',
+            'baranggay',
+            'municipality',
+            'province',
+            'email',
+            'mobile_number',
+            'purpose',
+            'schedule',
+            'meridiem',
+            'valid_ids.original_name as id_name',
+            'valid_ids.path as id_path',
+            'valid_ids.type as id_type',
+            'documents.name as document_name'
+        )
+        ->join('documents','documents.id','=','requests.document_id')
+        ->join('valid_ids','valid_ids.id','=','requests.valid_id')
+        ->join('users','users.id', '=', 'requests.user_id')
+        ->join('appointments','appointments.request_id','=','requests.id')
+        ->with('request_supporting_dcouments')
+        ->where('requests.id',$id)->first();
+        return response()->json($requestDetails);
+
+    }
+    public function getPDF($filename){
+        return Storage::get('public/supporting_documents/'.$filename);
     }
 }
 

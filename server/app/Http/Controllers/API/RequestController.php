@@ -29,4 +29,10 @@ class RequestController extends Controller
     public function updateSched(Request $request, RequestDocument $requestDocument){
         return $requestDocument->updateSched($request);
     }
+    public function getRequest(RequestDocument $requestDocument, $id){
+        return $requestDocument->getRequest($id);
+    }
+    public function getPDF(RequestDocument $requestDocument, $path){
+        return $requestDocument->getPDF($path);
+    }
 }

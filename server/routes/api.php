@@ -44,12 +44,14 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/upload-photo', [UserController::class, 'uploadPhoto']);
         });
         Route::prefix('request')->group(function(){
+            Route::get('/get-request/{id}', [RequestController::class, 'getRequest']);
             Route::get('/get-slots',[RequestController::class, 'getSlots']);
             Route::get('/documents', [RequestController::class, 'getDocuments']);
             Route::post('/submit-request', [RequestController::class, 'submitRequest']);
             Route::get('/get-requests/{status}', [RequestController::class, 'index']);
             Route::delete('/delete-request/{id}', [RequestController::class, 'deleteRequest']);
             Route::delete('/updated-sched', [RequestController::class, 'updateSched']);
+            Route::get('/get-pdf/{path}', [AdminRequestController::class, 'getPDF']);
         });
         Route::prefix('dashboard')->group(function(){
             Route::get('/count-request', [RequestController::class, 'countRequest']);

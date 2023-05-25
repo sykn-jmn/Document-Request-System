@@ -76,7 +76,7 @@ export default {
         },
         async view(id,status){
             this.spinning = true
-            await this.$axios.get('/admin/get-request/'+id).then(response=>{
+            await this.$axios.get('/admin/request/get-request/'+id).then(response=>{
                 this.details = response.data
                 this.showModal = true
                 this.status = status
