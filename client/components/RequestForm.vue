@@ -2,7 +2,7 @@
     <div class="md:pt-20 md:px-20 md:pb-4">
         <h1>Complete the Request Form</h1>
         <p class="font-medium">Make sure to not leave any field blank</p><br>
-        <form>
+        <form class="w-full">
             <div class="detail-container col-span-2">
                 <p class="label">Full Name<span class="guide"> (First Name M.I. Last Name)</span></p>
                 <div class="box">
@@ -49,12 +49,13 @@
             </div>
             <label class="col-span-2">
                 Valid ID <span class="guide">(Valid types are <b>jpg</b> and <b>png</b>)</span>
-                <input type="file" v-on:change="onChangeID" accept="image/jpeg, image/png, image/jpj">
+                <!-- <input type="file" v-on:change="onChangeID" accept="image/jpeg, image/png, image/jpg"> -->
             </label>
+            <UploadFiles :limit="1" :isRequired="true" @passFiles="passID" id="forID" class="col-span-2"/>
             <label class="col-span-2">
                 Other Supporting Documents <span class="guide">(Valid types are <b>jpg</b>, <b>png</b>, and <b>pdf</b>)</span>
-                <input type="file" v-on:change="onChangeDocuments" accept="image/jpeg, image/png, image/png, application/pdf" ref="file" multiple required>
             </label>
+            <UploadFiles @passFiles="passDocuments" id="forDocuments" class="col-span-2"/>
             <p class="error">{{error}}</p>
         </form>
         <Spin v-if="spinning"/>
@@ -119,17 +120,25 @@ export default {
                 return age;
 
         },
-        onChangeID(e){
-            this.validID = e.target.files[0]
+        passID(files){
+            this.validID = files[0]
             
             this.$store.commit('request/updateValidID', {
                 validID: this.validID,
                 validIDName:this.validID.name
             });
-            
         },
-        onChangeDocuments(e){
-            this.supportingDocuments = e.target.files
+        // onChangeID(e){
+        //     this.validID = e.target.files[0]
+            
+        //     this.$store.commit('request/updateValidID', {
+        //         validID: this.validID,
+        //         validIDName:this.validID.name
+        //     });
+            
+        // },
+        passDocuments(files){
+            this.supportingDocuments = files
 
             // let supportingDocumentsList = []
             // for(let i =0; i<this.$refs.file.files.length; i++ ){
@@ -149,7 +158,30 @@ export default {
                 supportingDocumentsName: supportingDocumentsName,
                 numberOfSupportingDocuments: this.supportingDocuments.length
             });
-        }
+
+        },
+        // onChangeDocuments(e){
+        //     this.supportingDocuments = e.target.files
+
+        //     // let supportingDocumentsList = []
+        //     // for(let i =0; i<this.$refs.file.files.length; i++ ){
+        //     //     let file = this.$refs.file.files[i];
+        //     //     supportingDocumentsList.push()
+        //     // }
+            
+
+        //     let supportingDocumentsName = []
+        //     Object.keys(this.supportingDocuments).forEach((key, index) =>
+        //         {
+        //             let name = this.supportingDocuments[key].name;
+        //             supportingDocumentsName.push(name)
+        //         });
+        //     this.$store.commit('request/updateSupportingDocuments', {
+        //         supportingDocuments: this.supportingDocuments,
+        //         supportingDocumentsName: supportingDocumentsName,
+        //         numberOfSupportingDocuments: this.supportingDocuments.length
+        //     });
+        // }
     }
 
 }
@@ -157,7 +189,7 @@ export default {
 
 <style scoped>
 .label, label{
-    @apply font-semibold text-xl mb-4
+    @apply font-semibold text-xl
 }
 .guide{
     @apply text-slate-400 font-normal text-xl
