@@ -22,7 +22,7 @@
                 <button class="hover:text-blue-900 text-left" @click="cancel(request.id)"><font-awesome-icon :icon="['fas', 'trash']" class="text-red-500"/></button>     
             </div>
             <div v-else>
-                <button class="hover:text-blue-900 w-full">Submit Missing Documents</button>
+                <button class="hover:text-blue-900 w-full" @click="openResubmitModal(request.id,request.comments)">Submit Missing Documents</button>
             </div>
         </td>
     </tr>
@@ -33,6 +33,7 @@
     </div>
     <ConfirmationModal :message="message" @close="confirmModal = false" @delete="deleteRequest" v-if="confirmModal" />
     <ViewRequestModal v-if="viewModal" @close="viewModal = false" @updated="updated" :details="details"/>
+    <SubmitMissingDocumentModal :comments="comments" v-if="resubmitModal" @close="resubmitModal = false"/>
     <Spin v-if="spinning" />
   </div>
 </template>
@@ -49,6 +50,8 @@ export default {
             selectedId:'',
             spinning:false,
             details:'',
+            comments:'',
+            resubmitModal:false,
         }
     },
     methods:{
@@ -89,6 +92,11 @@ export default {
             })
             
         },
+        openResubmitModal(id,comments){
+            this.selectedId = id
+            this.comments = comments
+            this.resubmitModal = true
+        }
     }
 
 }

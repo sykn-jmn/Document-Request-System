@@ -10,7 +10,7 @@
       </div>
     </div>  
     
-    <AccountInformation />
+    <UserAccountInformation />
     <ChangeUserPasswordModal v-if="changePasswordModal" @close="changePasswordModal = !changePasswordModal"/>
   </div>
 </template>

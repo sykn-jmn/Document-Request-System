@@ -55,7 +55,7 @@
             <label class="col-span-2">
                 Other Supporting Documents <span class="guide">(Valid types are <b>jpg</b>, <b>png</b>, and <b>pdf</b>)</span>
             </label>
-            <UploadFiles @passFiles="passDocuments" id="forDocuments" class="col-span-2"/>
+            <UploadFiles :isRequired="false" @passFiles="passDocuments" id="forDocuments" class="col-span-2"/>
             <p class="error">{{error}}</p>
         </form>
         <Spin v-if="spinning"/>
