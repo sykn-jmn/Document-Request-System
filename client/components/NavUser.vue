@@ -9,10 +9,10 @@
                 <span>{{name}}</span>
             </div><br>
             <ul>
-                <li><NuxtLink to="/user/dashboard" class="nav_link"><span><font-awesome-icon :icon="['fas', 'table-list']" /></span>Dashboard</NuxtLink></li>
-                <li><NuxtLink to="/user/request" class="nav_link"><span><font-awesome-icon :icon="['fas', 'file-invoice']" /></span>Request Document</NuxtLink></li>
-                <li><NuxtLink to="/user/request-history/all" class="nav_link"><span><font-awesome-icon :icon="['fas', 'clock-rotate-left']" /></span>Request Hsitory</NuxtLink></li>
-                <li><NuxtLink to="/user/account" class="nav_link"><span><font-awesome-icon :icon="['fas', 'user']" /></span>Account</NuxtLink></li>
+                <li><button @click="$router.push('/user/dashboard')" class="nav_link"><span><font-awesome-icon :icon="['fas', 'table-list']" /></span>Dashboard</button></li>
+                <li><button @click="$router.push('/user/request')" class="nav_link"><span><font-awesome-icon :icon="['fas', 'file-invoice']" /></span>Request Document</button></li>
+                <li><button @click="$router.push('/user/request-history/all')" class="nav_link"><span><font-awesome-icon :icon="['fas', 'clock-rotate-left']" /></span>Request History</button></li>
+                <li><button @click="$router.push('/user/account')" class="nav_link"><span><font-awesome-icon :icon="['fas', 'user']" /></span>Account</button></li>
                 <li class="pl-12 py-4 hover:bg-stone-900 cursor-pointer" @click="logout"><span class="mr-4"><font-awesome-icon :icon="['fas', 'power-off']" /></span>Logout</li>
             </ul>
         </nav>
@@ -59,7 +59,7 @@ export default {
 
 <style scoped>
 .nav_link{
-    @apply w-full h-full
+    @apply w-full h-full text-left focus:bg-stone-900
 }
 
 </style>

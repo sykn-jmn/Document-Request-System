@@ -2,7 +2,7 @@
     <div class="md:pt-20 md:px-20 md:pb-4">
         <h1>Complete the Request Form</h1>
         <p class="font-medium">Make sure to not leave any field blank</p><br>
-        <form class="w-full">
+        <form class="w-full" @submit.prevent=""> 
             <div class="detail-container col-span-2">
                 <p class="label">Full Name<span class="guide"> (First Name M.I. Last Name)</span></p>
                 <div class="box">

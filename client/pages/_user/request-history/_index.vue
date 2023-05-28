@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <h1>Request History</h1>
-    <p class="newRequest" @click="newRequest">+ MAKE NEW REQUEST</p><br>
+    <p class="newRequest" @click="$router.push('/user/request')">+ MAKE NEW REQUEST</p><br>
     <Search @search="search" :selected="$route.params.index" :options="options" placeholder="Search Request Document"/><br>
     <RequestHistoryTable :data="data" @refresh="fetchHistories(currentPage,null)"/>
     <Pagination 
@@ -76,7 +76,7 @@ h1{
   @apply text-2xl font-bold text-black
 }
 .newRequest{
-  @apply text-right text-lg text-sky-700 font-bold
+  @apply text-right text-lg text-sky-700 font-bold cursor-pointer hover:text-sky-500
 }
 
 </style>

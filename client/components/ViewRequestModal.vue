@@ -74,7 +74,7 @@
         </div>
         <h2>Purpose of Transaction</h2>
         <input v-model="purpose"/>
-        <div class="w-fit m-auto flex space-x-4 mt-10" v-if="details.status == 'pending'">
+        <div class="w-fit m-auto flex space-x-4 mt-10">
             <button class="bg-slate-300 status-button text-black" @click="$emit('close')">
                 <div class="status-wrapper">
                     <p>Cancel</p>

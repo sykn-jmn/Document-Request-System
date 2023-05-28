@@ -18,7 +18,10 @@
     </ul>
   </div>
 </div> -->
-<UploadFiles :isRequired="false" id="forDocuments" class="col-span-2"/>
+<form @submit.prevent="">
+  <UploadFiles :isRequired="false" id="forDocuments" class="col-span-2"/>
+</form>
+
 </div>
   
 </template>
