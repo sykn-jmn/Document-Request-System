@@ -1,73 +1,73 @@
 <template>
-<div class="bg-white w-screen h-screen text-black">
-    <!-- <div class="flex w-full h-screen items-center justify-center text-center" id="app">
-  <div class="p-12 bg-gray-100 border border-gray-300" @dragover="dragover" @dragleave="dragleave" @drop="drop">
-    <input type="file" multiple name="fields[assetsFieldHandle][]" id="assetsFieldHandle" 
-      class="w-px h-px opacity-0 overflow-hidden absolute" @change="onChange" ref="file" accept=".pdf,.jpg,.jpeg,.png" />
-  
-    <label for="assetsFieldHandle" class="block cursor-pointer">
-      <div>
-        Explain to our users they can drop files in here 
-        or <span class="underline">click here</span> to upload their files
-      </div>
-    </label>
-    <ul class="mt-4" v-if="this.filelist.length" v-cloak>
-      <li class="text-sm p-1" v-for="(file,i) in filelist" :key="i">
-        ${ file.name }<button class="ml-2" type="button" @click="remove(filelist.indexOf(file))" title="Remove file">remove</button>
-      </li>
-    </ul>
+  <div id="pdf-content">
+    <!-- Other content goes here -->
+    <button @click="generatePDF">Generate PDF</button>
   </div>
-</div> -->
-<form @submit.prevent="">
-  <UploadFiles :isRequired="false" id="forDocuments" class="col-span-2"/>
-</form>
-
-</div>
+  
   
 </template>
 
 <script>
+import jsPDF from 'jspdf';
+import imageBase64 from '~/assets/images/Maranding_Logo.png';
 export default {
-    data(){
-        return{
-            filelist: []
-        }
-    },
-    methods:{
-        onChange() {
-      this.filelist = [...this.$refs.file.files];
-    },
-    remove(i) {
-      this.filelist.splice(i, 1);
-    },
-    dragover(event) {
-      event.preventDefault();
-      // Add some visual fluff to show the user can drop its files
-      if (!event.currentTarget.classList.contains('bg-green-300')) {
-        event.currentTarget.classList.remove('bg-gray-100');
-        event.currentTarget.classList.add('bg-green-300');
-      }
-    },
-    dragleave(event) {
-      // Clean up
-      event.currentTarget.classList.add('bg-gray-100');
-      event.currentTarget.classList.remove('bg-green-300');
-    },
-    drop(event) {
-      event.preventDefault();
-      this.$refs.file.files = event.dataTransfer.files;
-      this.onChange(); // Trigger the onChange event manually
-      // Clean up
-      event.currentTarget.classList.add('bg-gray-100');
-      event.currentTarget.classList.remove('bg-green-300');
-    }
-    }
+    methods: {
+      generatePDF() {
+        const pdf = new jsPDF({
+        format: 'a4' // Set the document format to A4
+      });
+        const imageURL = '~/assets/images/Maranding_Logo.png';
 
-}
+        let nectColumn = 30
+        let x = 30;
+        let y = 20;
+
+        pdf.setFontSize(14)
+        pdf.setFont('Times New Roman')
+        
+        pdf.text( 'Republic of the Philippines', 75,y)
+        y+=7
+        pdf.text( 'Province of Lanao Del Norte', 74,y)
+        y+=7
+        pdf.text( 'Municipality of Lala', 84,y)
+        y+=7
+        pdf.text( 'Baranggay Maranding', 80,y)
+        y+=20
+
+
+        pdf.setFontSize(22)
+        pdf.setFont(undefined,'bold')
+        pdf.text( 'BARANGGAY CLEARANCE',50,y)
+        y += 8
+        pdf.text( '(BUSINESS)',80,y)
+
+        pdf.setFontSize(10)
+        pdf.setFont(undefined,'normal')
+        y += 30
+
+        pdf.setFont(undefined,'bold')
+        let text_a = 'Hon. Jeoffy M. Fung'
+        let lineWidth_a = pdf.getTextWidth(text_a)
+        pdf.text(text_a,x,y)
+        pdf.line(x, y+1, x+lineWidth_a, y+1)
+        y += 5
+        pdf.setFont(undefined,'normal')
+
+        pdf.text( 'Punong Baranggay',33,y)
+
+
+        pdf.setFont(undefined,'normal')
+        const pdfBlob = pdf.output('blob');
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        window.open(pdfUrl,'_blank');
+      
+        // Open the PDF in a new window/tab
+        // window.open(pdfDataUri, '_blank');
+      }
+    }
+  }
 </script>
 
 <style scoped>
-[v-cloak] {
-  display: none;
-}
+ 
 </style>
