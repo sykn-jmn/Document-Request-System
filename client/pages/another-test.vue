@@ -63,13 +63,15 @@
 
             <div class="col-span-2 text-justify pr-16">
                 <h2>TO WHOM IT MAY CONCERN:</h2><br>
-                <p>This is to certify that {{user.call_address}}. {{user.full_name}}, {{user.age}} years old {{user.civil_status}} is a bonafide resident of {{user.purok}}, Baranggay Maranding, Lala, Lanao Del Norte.</p><br>
+                <p class="par_content">This is to certify that {{user.call_address}}. {{user.full_name}}, {{user.age}} years old {{user.civil_status}} is a bonafide resident of {{user.purok}}, Baranggay Maranding, Lala, Lanao Del Norte.</p><br>
 
-                <p>This certifies further that as per records available in this office, {{user.pronouns}} have never been accused of any crime involving moral turpitude nor a member to any subversive anti-government social organu=ization.</p><br>
+                <p class="par_content">This certifies further that as per records available in this office, {{user.pronouns}} have never been accused of any crime involving moral turpitude nor a member to any subversive anti-government social organization.</p><br>
 
-                <p>This certification is being issued upon the request of the said interested party in connection with his/her desire to/for:</p><br>
+                <p class="par_content">This certification is being issued upon the request of the said interested party in connection with his/her desire to/for:</p><br>
 
-                <p class="font-semibold">"Requirement {{user.purpose}}"</p>
+                <p class="font-semibold">"Requirement {{user.purpose}}"</p><br>
+
+                <p class="par_content">Issued this <span class="font-semibold">{{currentDate()}} day of {{currentMonth()}}, {{currentYear()}}</span> at Barangay Maranding, Lala, Lanao del Norte, Philippines</p>
             </div>
         </div>
     </div>
@@ -79,6 +81,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import jsPDF from'jspdf'
 export default {
     data(){
@@ -97,6 +100,9 @@ export default {
             }
         }
     },
+mounted(){
+
+},
 
 methods:{
     async generatePDF(){
@@ -123,6 +129,32 @@ methods:{
     capitalize(word){
         return word.charAt(0).toUpperCase() + word.slice(1)
     },
+    currentMonth(){
+        let month = new Date().getMonth()
+        return moment(month+1,'M').format('MMMM')
+    },
+    currentDate(){
+        let date = new Date().getDate()
+        let suffix = this.nthNumber(date)
+        return date+suffix
+    },
+    currentYear(){
+        let year = new Date().getFullYear()
+        return year
+    },
+    nthNumber(number){
+        if (number > 3 && number < 21) return "th";
+        switch (number % 10) {
+            case 1:
+            return "st";
+            case 2:
+            return "nd";
+            case 3:
+            return "rd";
+            default:
+            return "th";
+        }
+    },
 }
 
 
@@ -134,6 +166,7 @@ methods:{
     width:210mm;
     height:297mm;
     font-family: "Times New Roman", Times, serif;
+    line-height: normal;
 }
 .officials_name{
     @apply font-semibold text-sky-700
@@ -145,6 +178,10 @@ h2{
     @apply font-semibold
 }
 .par{
-    @apply m-auto text-xs mb-4; 
+    
+    @apply m-auto text-xs mb-4 leading-tight; 
+}
+.par_content{
+    @apply indent-10    
 }
 </style>

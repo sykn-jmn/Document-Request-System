@@ -26,6 +26,8 @@
             <select v-model="data.civil_status" required>
                 <option value="single">Single</option>
                 <option value="married">Married</option>
+                <option value="widow">Widow</option>
+                <option value="separate">Separate</option>
             </select>
             <label class="end-row"><input type="text" v-model="data.religion"></label>
             <h2 class="col-span-2">Address</h2>

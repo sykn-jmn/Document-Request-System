@@ -17,6 +17,8 @@
                         <option value="" disabled selected hidden>Civil Status</option>
                         <option value="single">Single</option>
                         <option value="married">Married</option>
+                        <option value="widow">Widow</option>
+                        <option value="separate">Separate</option>
                     </select>
                 </div><br>
                 <label>Birthdate</label>
