@@ -1,7 +1,5 @@
 <template>
   <div>
-        <button @click="generatePDF">Generate PDF</button>
-    <div id="content">
         <img src="~/assets/images/DESIGN.jpg" class="block">
         <div class="absolute top-0 right-0 pt-4">
              <div class="flex items-center m-auto justify-around">
@@ -14,7 +12,9 @@
                 </div>
                 <br>
             </div>
-            <h1>BARANGAY CLEARANCE</h1>
+            <div class="mt-16">
+                <h1>BARANGAY PERMIT</h1>
+            </div>
             <div class="grid grid-cols-3 gap-x-8 bg-transparent mt-20">
                 <div class="pl-16">
                     <div class="par">
@@ -69,27 +69,24 @@
 
                 <div class="col-span-2 text-justify pr-16 leading-normal">
                     <h2>TO WHOM IT MAY CONCERN:</h2><br>
-                    <p class="par_content">This is to certify that {{user.call_address}}. {{user.full_name}}, {{user.age}} years old {{user.civil_status}} is a bonafide resident of {{user.purok}}, Barangay Maranding, Lala, Lanao Del Norte.</p><br>
+                    <p class="par_content"><span class="font-bold">BE IT KNOWN </span>that {{user.full_name}} of legal age, {{capitalize(user.sex)}}, {{capitalize(user.civil_status)}} and a resident of {{user.purok}}, {{user.baranggay}}, {{user.municipality}}, {{user.province}}, have been granted this permit by virtue of the power vested in this office, by the law, the herein captioned below:</p><br>
 
-                    <p class="par_content">This certifies further that as per records available in this office, {{user.pronouns}} have never been accused of any crime involving moral turpitude nor a member to any subversive anti-government social organization.</p><br>
+                    <div class="grid grid-cols-2">
+                        <p class="font-bold">PERMIT TO OPERATE: </p>
+                        <div class="border-b border-black w-56"></div>
+                        <p class="font-bold">EFFECITVITY</p>
+                        <p class="font-bold">:{{currentMonth()}} {{new Date().getDate()}} until December 31, {{currentYear()}}</p>
+                        <p class="font-bold">LOCATION</p>
+                        <p class="font-bold text-left">:{{user.purok.toUpperCase()}}, MARANDING, LALA, LDN</p>
+                    </div>
+                    
 
-                    <p class="par_content">This certification is being issued upon the request of the said interested party in connection with his/her desire to/for:</p><br>
+                    <p class="par_content">This permit is temporary/ provisional and is subject to a Barangay Permit for provision of an existing ordinance on permit and certification.</p><br>
 
                     <p class="font-bold">"Requirement {{user.purpose}}"</p><br>
 
-                    <p class="par_content">Issued this <span class="font-bold">{{currentDate()}} day of {{currentMonth()}}, {{currentYear()}}</span> at Barangay Maranding, Lala, Lanao del Norte, Philippines</p><br>
+                    <p class="par_content">Givin this <span class="font-bold">{{currentDate()}} day of {{currentMonth()}}, {{currentYear()}}</span> at Barangay Maranding, Lala, Lanao del Norte, Philippines</p><br>
 
-                    <div class="flex space-x-8">
-                        <div>
-                            <div class="thumb"></div>
-                            Left Thumb Mark
-                        </div>
-                        
-                        <div>
-                            <div class="thumb"></div>
-                            Right Thumb Mark
-                        </div>
-                    </div><br>
                     <div class="w-fit ml-72">
                         <p>Approved by:</p>
                         <br>
@@ -100,8 +97,6 @@
             </div>
         </div>
     </div>
-    <Spin v-if="spinning"/>
-  </div>
 </template>
 
 <script>
@@ -109,7 +104,7 @@ import moment from 'moment'
 import jsPDF from'jspdf'
 import backgroundImage from '~/assets/images/Maranding_Logo.png'
 export default {
-    data(){
+ data(){
         return{
             spinning:false,
             user:{
@@ -119,6 +114,9 @@ export default {
                 civil_status:'single',
                 call_address:'Mr.',
                 purok:'Purok-9',
+                baranggay:'Maranding',
+                municipality:'Lala',
+                province:'Lanao Del Norte',
                 pronouns:'he',
                 purpose:'scholarship'
 
@@ -130,29 +128,6 @@ mounted(){
 },
 
 methods:{
-    async generatePDF(){
-        this.spinning =  true
-        const doc = new jsPDF('pt', 'mm', 'a4');
-        // doc.addImage(backgroundImage, 'PNG', 0, 0, 210, 297);
-
-        var elementHTML = document.querySelector("#content");
-
-        await doc.html(elementHTML, {
-            callback: function(doc) {
-                // Save the PDF
-                const pdfBlob = doc.output('blob');
-                const pdfUrl = URL.createObjectURL(pdfBlob);
-                window.open(pdfUrl,'_blank');
-                
-            },
-            x: 0,
-            y: 0,
-            width: 170, //target width in the PDF document
-            windowWidth: 650 //window width in CSS pixels
-        });
-        this.spinning=false
-        
-    },
     capitalize(word){
         return word.charAt(0).toUpperCase() + word.slice(1)
     },
@@ -183,18 +158,11 @@ methods:{
         }
     },
 }
-
-
 }
 </script>
 
 <style scoped>
-#content{
-    width:210mm;
-    height:297mm;
-    font-family: "Times New Roman", Times, serif;
-    @apply text-center text-black m-auto relative
-}
+
 .officials_name{
     @apply font-semibold text-sky-700
 }
@@ -216,4 +184,5 @@ h2{
 .thumb{
     @apply border border-black w-24 h-24
 }
+
 </style>
