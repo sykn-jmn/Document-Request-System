@@ -61,6 +61,9 @@
                     <div class="par">
                         <p class="officials_name">Michelle Ann C. Masecampo</p>
                         <p>Barangay Secretary</p>
+                    </div><br>
+                    <div class="text-orange-500 italic font-bold text-sm">
+                        Not valid with erasures and w/o Barangay Official Seal
                     </div>
                 </div>
 
@@ -86,6 +89,12 @@
                             <div class="thumb"></div>
                             Right Thumb Mark
                         </div>
+                    </div><br>
+                    <div class="w-fit ml-72">
+                        <p>Approved by:</p>
+                        <br>
+                        <p class="underline font-bold">JEOFFY M. FUNG</p>
+                        <p class="text-center">Punong Barangay</p>
                     </div>
                 </div>
             </div>
@@ -205,6 +214,6 @@ h2{
     @apply indent-10    
 }
 .thumb{
-    @apply border border-black w-28 h-28
+    @apply border border-black w-24 h-24
 }
 </style>
