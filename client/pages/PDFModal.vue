@@ -4,7 +4,9 @@
     <div id="content" class="">
         <!-- <BaranggayClearance /> -->
         <!-- <BarangayPermit /> -->
-        <BarangayCertificateIndigency/>
+        <!-- <BarangayCertificateIndigency/> -->
+        <!-- <BaranggayClearanceBusiness /> -->
+        <BarangayCertificateResidency />
         <Spin v-if="spinning"/>
     </div>
 </div>
