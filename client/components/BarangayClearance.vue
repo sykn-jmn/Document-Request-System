@@ -70,7 +70,7 @@
 
                 <div class="col-span-2 text-justify pr-16 leading-normal">
                     <h2>TO WHOM IT MAY CONCERN:</h2><br>
-                    <p class="par_content">This is to certify that {{user.call_address}}. {{user.full_name}}, {{user.age}} years old {{user.civil_status}} is a bonafide resident of {{user.purok}}, Barangay {{user.baranggay}}, {{user.municipality}}, {{user.province}}.</p><br>
+                    <p class="par_content">This is to certify that {{user.call_address}}. {{user.full_name}}, {{user.age}} years old {{user.civil_status}} is a bonafide resident of {{user.purok}}, Barangay {{user.barangay}}, {{user.municipality}}, {{user.province}}.</p><br>
 
                     <p class="par_content">This certifies further that as per records available in this office, {{user.pronouns}} have never been accused of any crime involving moral turpitude nor a member to any subversive anti-government social organization.</p><br>
 
@@ -118,7 +118,7 @@ export default {
                 civil_status:'single',
                 call_address:'Mr.',
                 purok:'Purok-9',
-                baranggay:'Maranding',
+                barangay:'Maranding',
                 municipality:'Lala',
                 province:'Lanao Del Norte',
                 pronouns:'he',

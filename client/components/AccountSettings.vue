@@ -25,7 +25,7 @@
             <h2 class="col-span-2">Address</h2>
             <h2>ZIP Code</h2>
             <label><input type="text" v-model="purok">Purok</label>
-            <label><input type="text" v-model="baranggay">Baranggay</label>
+            <label><input type="text" v-model="barangay">barangay</label>
             <label><input class="end-row" type="text" v-model="zipCode"></label>
             <label><input type="text" v-model="municipality">Municipality</label>
             <label class="end-row"><input type="text" v-model="province">Province</label><br>
@@ -68,7 +68,7 @@ export default {
             civilStatus:this.$auth.$state.user.civil_status,
             religion:this.$auth.$state.user.religion,
             purok:this.$auth.$state.user.purok,
-            baranggay:this.$auth.$state.user.baranggay,
+            barangay:this.$auth.$state.user.barangay,
             zipCode:this.$auth.$state.user.zip_code,
             municipality:this.$auth.$state.user.municipality,
             province:this.$auth.$state.user.province,
@@ -109,7 +109,7 @@ export default {
                     this.civilStatus=response.data.civil_status
                     this.religion=response.data.religion
                     this.purok=response.data.purok
-                    this.baranggay=response.data.baranggay
+                    this.barangay=response.data.barangay
                     this.zipCode=response.data.zip_code
                     this.municipality=response.data.municipality
                     this.province=response.data.province
@@ -141,7 +141,7 @@ export default {
                     civil_status:this.civilStatus,
                     religion:this.religion,
                     purok:this.purok,
-                    baranggay:this.baranggay,
+                    barangay:this.barangay,
                     zip_code:this.zipCode,
                     municipality:this.municipality,
                     province:this.province,

@@ -230,7 +230,7 @@ class RequestDocument{
             'sex',
             'civil_status',
             'purok',
-            'baranggay',
+            'barangay',
             'municipality',
             'province',
             'email',

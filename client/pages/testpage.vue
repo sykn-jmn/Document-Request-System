@@ -31,13 +31,13 @@ export default {
         y+=7
         pdf.text( 'Municipality of Lala', 84,y)
         y+=7
-        pdf.text( 'Baranggay Maranding', 80,y)
+        pdf.text( 'barangay Maranding', 80,y)
         y+=20
 
 
         pdf.setFontSize(22)
         pdf.setFont(undefined,'bold')
-        pdf.text( 'BARANGGAY CLEARANCE',50,y)
+        pdf.text( 'barangay CLEARANCE',50,y)
         y += 8
         pdf.text( '(BUSINESS)',80,y)
 
@@ -53,7 +53,7 @@ export default {
         y += 5
         pdf.setFont(undefined,'normal')
 
-        pdf.text( 'Punong Baranggay',33,y)
+        pdf.text( 'Punong barangay',33,y)
 
 
         pdf.setFont(undefined,'normal')

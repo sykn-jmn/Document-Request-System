@@ -27,7 +27,7 @@
       <p>Citizenship:</p>
       <p class="font-semibold col-span-2">{{citizenship}}</p>
       <p>Address:</p>
-      <p class="font-semibold col-span-2">{{purok}}, {{baranggay}}, {{municipality}}, {{province}}</p><br>
+      <p class="font-semibold col-span-2">{{purok}}, {{barangay}}, {{municipality}}, {{province}}</p><br>
     </div>
     <div class="flex items-center justify-around">
       <hr>
@@ -69,7 +69,7 @@ export default {
       citizenship:'',
       religion:'',
       purok:'',
-      baranggay:'',
+      barangay:'',
       zipCode:'',
       municipality:'',
       province:'',
@@ -103,7 +103,7 @@ export default {
             this.purok=response.data.purok
             this.citizenship=response.data.citizenship
             this.suffix=response.data.suffix
-            this.baranggay=response.data.baranggay
+            this.barangay=response.data.barangay
             this.zipCode=response.data.zip_code
             this.municipality=response.data.municipality
             this.province=response.data.province

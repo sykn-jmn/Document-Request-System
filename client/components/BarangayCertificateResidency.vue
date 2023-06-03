@@ -64,13 +64,13 @@
                         <p>Barangay Secretary</p>
                     </div><br>
                     <div class="text-orange-500 italic font-bold text-sm">
-                        Valid ONLY with Baranggay Seal
+                        Valid ONLY with barangay Seal
                     </div>
                 </div>
 
                 <div class="col-span-2 text-justify pr-16 leading-normal">
                     <h2>TO WHOM IT MAY CONCERN:</h2><br>
-                    <p class="par_content">This is to certify that {{user.call_address}}. {{user.full_name}}, {{user.age}} years old {{user.civil_status}} Filipino citizen and a resident of {{user.purok}}, {{user.baranggay}}, {{user.municipality}}, {{user.province}} for the ___ years.</p><br>
+                    <p class="par_content">This is to certify that {{user.call_address}}. {{user.full_name}}, {{user.age}} years old {{user.civil_status}} Filipino citizen and a resident of {{user.purok}}, {{user.barangay}}, {{user.municipality}}, {{user.province}} for the ___ years.</p><br>
 
                     <p class="par_content">Furthermore, the above-mentioned resident has n derogatory record and the following are her data as per record:</p><br>
 
@@ -110,7 +110,7 @@ export default {
                 civil_status:'single',
                 call_address:'Mr.',
                 purok:'Purok-9',
-                baranggay:'Maranding',
+                barangay:'Maranding',
                 municipality:'Lala',
                 province:'Lanao Del Norte',
                 pronouns:'he',

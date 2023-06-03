@@ -33,7 +33,7 @@
             <h2 class="col-span-2">Address</h2>
             <h2>ZIP Code</h2>
             <label><input type="text" v-model="data.purok">Purok</label>
-            <label><input type="text" v-model="data.baranggay">Baranggay</label>
+            <label><input type="text" v-model="data.barangay">barangay</label>
             <label><input class="end-row" type="text" v-model="data.zip_code"></label>
             <label><input type="text" v-model="data.municipality">Municipality</label>
             <label class="end-row"><input type="text" v-model="data.province">Province</label><br>

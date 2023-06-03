@@ -20,7 +20,7 @@
         </div>
         <div class="contact-wrapper">
           <font-awesome-icon :icon="['fas', 'location-dot']" />
-          <p>{{user.purok}}, {{user.baranggay}}, {{user.municipality}}, {{user.province}}</p>         
+          <p>{{user.purok}}, {{user.barangay}}, {{user.municipality}}, {{user.province}}</p>         
         </div><br><br>
         <p>Registration Date: <span class="font-medium">{{registrationDate()}}</span></p>
       </div>

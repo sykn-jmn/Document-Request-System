@@ -4,7 +4,7 @@
         <h1 class="text-3xl font-bold">REQUEST NO.{{renderID(details.id)}}</h1>
         <div class="grid grid-cols-3 gap-x-8">
             <div class="col-span-2">
-                <div class="border-y border-slate-500 grid grid-cols-2">
+                <div class="border-t border-slate-300 grid grid-cols-2">
                     <p>Full Name:</p>
                     <p class="font-semibold">{{details.first_name}} {{details.middle_name}} {{details.last_name}}</p>
                     <p>Age:</p>
@@ -22,11 +22,6 @@
                     <p>Mobile Number:</p>
                     <p class="font-semibold">{{details.mobile_number}}</p>
                 </div><br>
-                <h2>Requested Document</h2>
-                <div class="p-4 border border-slate-500 mt-2 rounded-md">
-                    <p>{{details.document_name}}</p>
-                </div>
-                
             </div>
             <div>
                 <h2>Pick-up Schedule</h2>
@@ -37,60 +32,25 @@
                         <p class="font-semibold">{{getStringDate(details.schedule)}} {{details.meridiem}}</p>
                     </div>
                 </div><br>
-                <h2>Valid ID</h2>
-                <div class="doc-container">
-                    <div v-if="details.id_type=='image'" class="doc-wrapper">
-                        <div class="flex items-center space-x-4 w-fit">
-                            <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
-                            <p class="font-semibold">{{details.id_name}}</p>
-                        </div>
-                        <button class="view-file" @click="showImage(details.id_path)">View</button>
-                    </div>
-                    
-                    <div v-if="details.id_type=='pdf'"></div>
+                <h2>Purpose of Transaction</h2>
+                <div class="bg-stone-200 p-4 rounded-md border border-stone-500 mt-2">
+                    {{details.purpose}}
                 </div><br>
-                <h2>Supporting Documents</h2>
-                <div class="doc-container" v-for="document in details.request_supporting_dcouments" :key="document.id">
-                    <div v-if="document.type=='image'" class="doc-wrapper">
-                        <div class="flex items-center space-x-4 w-fit">
-                            <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
-                            <p class="font-semibold">{{document.original_name}}</p>
-                        </div>
-                        <button class="view-file" @click="showImage(document.path)">View</button>
-                    </div>
-                    
-                    <div v-if="document.type=='pdf'" class="doc-wrapper">
-                        <div class="flex items-center space-x-4 w-fit">
-                            <font-awesome-icon :icon="['fas', 'file-pdf']" style="color: #880bcb;" />
-                            <p class="font-semibold">{{document.original_name}}</p>
-                        </div>
-                        <button class="view-file" @click="viewFile(document.filename)">View</button>
-                    </div>
-                </div>
             </div>
         </div>
-        <h2>Purpose of Transaction</h2>
-        <div class="bg-stone-200 p-4 rounded-md border border-stone-500 mt-2">
-            {{details.purpose}}
+        <hr class="w-full"><br>
+        <div class="grid-cols-2">
+            <div class="p-4 border flex justify-between border-slate-500 mt-2 items-center">
+                <p>{{details.document_name}}</p>
+                <button class="text-white bg-blue-400 py-2 px-4 rounded-md flex space-x-2 items-center" @click="$emit('viewDocument')"><font-awesome-icon :icon="['fas', 'eye']" /><p>View</p></button>
+            </div>
+            <div></div>
         </div><br>
-        <h2>Comments/Remarks</h2>
-        <textarea rows="4" v-model="comment"></textarea>
-        <div class="w-fit m-auto flex text-white space-x-4 mt-10">
-            <button class="bg-red-500 status-button" @click="submit('rejected', details.request_number)">
-                <div class="status-wrapper">
-                    <font-awesome-icon :icon="['fas', 'thumbs-down']" flip="horizontal" class="thumbs-icon"/>
-                    <p>Reject</p>
-                </div>
-            </button>
-            <button class="bg-green-500 status-button" @click="submit('approved', details.request_number)">
-                <div class="status-wrapper">
-                    <font-awesome-icon :icon="['fas', 'thumbs-up']" class="thumbs-icon"/>
-                    <p>Approve</p>
-                </div>
-            </button>
+        <div class="w-fit m-auto space-x-4">
+            <button class="bg-slate-300 p-2 w-32" @click="$emit('closeModal')">Cancel</button>
+            <button class="bg-blue-500 p-2 w-32 text-white">Complete</button>
         </div>
     </div>
-    <ViewImage v-if="viewImage" :path="currentPath" @closeImage="viewImage=false"/>
     <Spin v-if="spinning"/>
   </div>
 </template>
@@ -122,11 +82,9 @@ export default {
 
             }
             await this.$axios.put('/admin/request/update-status',params).then(response=>{
-                this.$store.commit('trigger/updateRefreshRequestTable',this.$store.state.trigger.refreshRequestTable+1)
                 this.$emit('closeModal')
                 this.spinning =false
             }).catch(err=>{
-                this.$store.commit('trigger/updateRefreshRequestTable',this.$store.state.trigger.refreshRequestTable+1)
                 this.$emit('closeModal')
                 this.spinning =false
             })

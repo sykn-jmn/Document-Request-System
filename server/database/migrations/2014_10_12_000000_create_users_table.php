@@ -27,7 +27,7 @@ Schema::create('users', function (Blueprint $table) {
     $table->string('mobile_number');
     $table->string('religion')->nullable();
     $table->string('purok')->nullable();
-    $table->string('baranggay')->nullable();
+    $table->string('barangay')->nullable();
     $table->string('municipality')->nullable();
     $table->string('province')->nullable();
     $table->string('zip_code')->nullable();

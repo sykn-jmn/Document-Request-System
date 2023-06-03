@@ -26,7 +26,7 @@ class UserResource extends ResourceCollection
             'mobile_number' => $this->mobile_number,
             'religion' => $this->religion? $this->religion:'',
             'purok' => $this->purok? $this->purok:'',
-            'baranggay' => $this->baranggay? $this->baranggay: '',
+            'barangay' => $this->barangay? $this->barangay: '',
             'municipality' => $this->municipality? $this->municipality: '',
             'province' => $this->province? $this->province: '',
             'zip_code' => $this->zip_code? $this->zip_code: '',

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('position');
             $table->string('religion')->nullable();
             $table->string('purok')->nullable();
-            $table->string('baranggay')->nullable();
+            $table->string('barangay')->nullable();
             $table->string('municipality')->nullable();
             $table->string('province')->nullable();
             $table->string('zip_code')->nullable();

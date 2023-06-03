@@ -2,11 +2,11 @@
 <div class="modal">
     <button @click="generatePDF">Generate PDF</button>
     <div id="content" class="">
-        <!-- <BaranggayClearance /> -->
+        <!-- <barangayClearance /> -->
         <!-- <BarangayPermit /> -->
         <!-- <BarangayCertificateIndigency/> -->
-        <!-- <BaranggayClearanceBusiness /> -->
-        <BarangayCertificateResidency />
+        <!-- <barangayClearanceBusiness /> -->
+        <BarangayCertificateResidency v-show="true"/>
         <Spin v-if="spinning"/>
     </div>
 </div>

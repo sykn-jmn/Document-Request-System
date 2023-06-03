@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="col-span-2 text-justify pr-16 leading-normal">
-                    <p class="par_content"><b>BUSINESS CLEARANCE</b> is hereby granted to {{user.full_name}}, {{user.age}} years old, {{capitalize(user.sex)}}, {{capitalize(user.civil_status)}} and is a bona-fide resident of {{user.purok}}, {{user.baranggay}}, {{user.municipality}}, {{user.province}}, owner of the business named _____________________________________ located at Purok _________, Maranding, Lala, Lanao del Norte, upon payment of the required license fees, subject to provisions of existing laws, unless sooner revoked or canceled for</p><br>
+                    <p class="par_content"><b>BUSINESS CLEARANCE</b> is hereby granted to {{user.full_name}}, {{user.age}} years old, {{capitalize(user.sex)}}, {{capitalize(user.civil_status)}} and is a bona-fide resident of {{user.purok}}, {{user.barangay}}, {{user.municipality}}, {{user.province}}, owner of the business named _____________________________________ located at Purok _________, Maranding, Lala, Lanao del Norte, upon payment of the required license fees, subject to provisions of existing laws, unless sooner revoked or canceled for</p><br>
 
                     <p class="par_content"><b>THIS CLEARANCE,</b>together with the official receipts issued by the office of the Barangay Treaurer shall be displayed in conspicuous place where the business is being conducted.</p><br>
 
@@ -105,7 +105,7 @@ export default {
                 civil_status:'single',
                 call_address:'Mr.',
                 purok:'Purok-9',
-                baranggay:'Maranding',
+                barangay:'Maranding',
                 municipality:'Lala',
                 province:'Lanao Del Norte',
                 pronouns:'he',

@@ -22,9 +22,9 @@
                 </div>
             </div>
             <div class="detail-container col-span-2">
-                <p class="label">Complete Address<span class="guide"> (Street/Purok, Baranggay, City/Municipality, Province)</span></p>
+                <p class="label">Complete Address<span class="guide"> (Street/Purok, Barangay, City/Municipality, Province)</span></p>
                 <div class="box">
-                    {{data.purok + ", " + data.baranggay + ", " + data.municipality + ", " + data.province}}
+                    {{data.purok + ", " + data.barangay + ", " + data.municipality + ", " + data.province}}
                 </div>
             </div>
             <div class="detail-container">
@@ -96,7 +96,7 @@ export default {
                         name: this.data.first_name + " " + this.data.middle_initial + ". " + this.data.last_name,
                         age: this.getAge(this.data.birthdate),
                         birthdate: this.data.birthdate,
-                        address: this.data.purok + ", " + this.data.baranggay + ", " + this.data.municipality + ", " + this.data.province,
+                        address: this.data.purok + ", " + this.data.barangay + ", " + this.data.municipality + ", " + this.data.province,
                         email:this.data.email,
                         mobile_number:this.data.mobile_number,
                         sex:this.data.sex,
@@ -122,31 +122,14 @@ export default {
         },
         passID(files){
             this.validID = files[0]
-            
             this.$store.commit('request/updateValidID', {
-                validID: this.validID,
-                validIDName:this.validID.name
+                validID: this.validID?this.validID:'',
+                validIDName:this.validID? this.validID.name: ''
             });
         },
-        // onChangeID(e){
-        //     this.validID = e.target.files[0]
-            
-        //     this.$store.commit('request/updateValidID', {
-        //         validID: this.validID,
-        //         validIDName:this.validID.name
-        //     });
-            
-        // },
+
         passDocuments(files){
             this.supportingDocuments = files
-
-            // let supportingDocumentsList = []
-            // for(let i =0; i<this.$refs.file.files.length; i++ ){
-            //     let file = this.$refs.file.files[i];
-            //     supportingDocumentsList.push()
-            // }
-            
-
             let supportingDocumentsName = []
             Object.keys(this.supportingDocuments).forEach((key, index) =>
                 {
@@ -160,28 +143,6 @@ export default {
             });
 
         },
-        // onChangeDocuments(e){
-        //     this.supportingDocuments = e.target.files
-
-        //     // let supportingDocumentsList = []
-        //     // for(let i =0; i<this.$refs.file.files.length; i++ ){
-        //     //     let file = this.$refs.file.files[i];
-        //     //     supportingDocumentsList.push()
-        //     // }
-            
-
-        //     let supportingDocumentsName = []
-        //     Object.keys(this.supportingDocuments).forEach((key, index) =>
-        //         {
-        //             let name = this.supportingDocuments[key].name;
-        //             supportingDocumentsName.push(name)
-        //         });
-        //     this.$store.commit('request/updateSupportingDocuments', {
-        //         supportingDocuments: this.supportingDocuments,
-        //         supportingDocumentsName: supportingDocumentsName,
-        //         numberOfSupportingDocuments: this.supportingDocuments.length
-        //     });
-        // }
     }
 
 }

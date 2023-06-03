@@ -69,7 +69,7 @@
 
                 <div class="col-span-2 text-justify pr-16 leading-normal">
                     <h2>TO WHOM IT MAY CONCERN:</h2><br>
-                    <p class="par_content"><span class="font-bold">BE IT KNOWN </span>that {{user.full_name}} of legal age, {{capitalize(user.sex)}}, {{capitalize(user.civil_status)}} and a resident of {{user.purok}}, {{user.baranggay}}, {{user.municipality}}, {{user.province}}, have been granted this permit by virtue of the power vested in this office, by the law, the herein captioned below:</p><br>
+                    <p class="par_content"><span class="font-bold">BE IT KNOWN </span>that {{user.full_name}} of legal age, {{capitalize(user.sex)}}, {{capitalize(user.civil_status)}} and a resident of {{user.purok}}, {{user.barangay}}, {{user.municipality}}, {{user.province}}, have been granted this permit by virtue of the power vested in this office, by the law, the herein captioned below:</p><br>
 
                     <div class="grid grid-cols-2">
                         <p class="font-bold">PERMIT TO OPERATE: </p>
@@ -114,7 +114,7 @@ export default {
                 civil_status:'single',
                 call_address:'Mr.',
                 purok:'Purok-9',
-                baranggay:'Maranding',
+                barangay:'Maranding',
                 municipality:'Lala',
                 province:'Lanao Del Norte',
                 pronouns:'he',

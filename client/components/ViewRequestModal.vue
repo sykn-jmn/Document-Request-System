@@ -16,7 +16,7 @@
                     <p>Civil Status:</p>
                     <p class="font-semibold">{{capitalize(details.civil_status)}}</p>
                     <p>Complete Address:</p>
-                    <p class="font-semibold">{{details.purok + ", " + details.baranggay + ", " + details.municipality + ", " + details.province}}</p>
+                    <p class="font-semibold">{{details.purok + ", " + details.barangay + ", " + details.municipality + ", " + details.province}}</p>
                     <p>Email:</p>
                     <p class="font-semibold">{{details.email}}</p>
                     <p>Mobile Number:</p>

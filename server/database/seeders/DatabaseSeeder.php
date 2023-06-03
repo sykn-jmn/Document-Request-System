@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             'citizenship' => 'Filipino',
             'mobile_number' => '09751304307',
             'purok' => 'Purok-9',
-            'baranggay' => 'Linangkayan',
+            'barangay' => 'Linangkayan',
             'municipality' => 'Naawan',
             'province' => 'Misamis Oriental',
             'zip_code' => '9023',
@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
             'citizenship' => 'Filipino',
             'mobile_number' => '09751304307',
             'purok' => 'Purok-9',
-            'baranggay' => 'Linangkayan',
+            'barangay' => 'Linangkayan',
             'municipality' => 'Naawan',
             'province' => 'Misamis Oriental',
             'zip_code' => '9023',
@@ -71,13 +71,19 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Document::create([
-            'name'=>'Baranggay Health Certificate',
+            'name'=>'Barangay Permit',
             'description' => 'Lorem ipsum',
             'fee' => 10.00
         ]);
 
         Document::create([
-            'name'=>'Baranggay Clearance',
+            'name'=>'Barangay Clearance',
+            'description' => 'Lorem ipsum',
+            'fee' => 10.00
+        ]);
+
+        Document::create([
+            'name'=>'Barangay Business Clearance',
             'description' => 'Lorem ipsum',
             'fee' => 10.00
         ]);

@@ -20,13 +20,13 @@ class DocumentSeeder extends Seeder
         ]);
 
         Document::create([
-            'name'=>'Baranggay Health Certificate',
+            'name'=>'barangay Health Certificate',
             'description' => 'Lorem ipsum',
             'fee' => 10.00
         ]);
 
         Document::create([
-            'name'=>'Baranggay Clearance',
+            'name'=>'barangay Clearance',
             'description' => 'Lorem ipsum',
             'fee' => 10.00
         ]);

@@ -26,7 +26,7 @@ export default {
     right: 0;
     bottom: 0;
     text-align: center;
-    z-index: 2;
+    z-index: 100;
     background: rgba(200,200,200,0.7);
 }
 .spin-wrapper{  

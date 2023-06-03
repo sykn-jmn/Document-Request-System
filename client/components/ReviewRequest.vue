@@ -41,7 +41,7 @@
           <p>{{getDate($store.state.request.selectedDate)+" "+$store.state.request.meridiem.toUpperCase()}}</p>
         </div>
         <div class="border-t border-slate-200">
-          <p><span class="text-red-500 font-bold">Note: </span>Payment can be made upon claiming your requested document at the baranggay office.</p>
+          <p><span class="text-red-500 font-bold">Note: </span>Payment can be made upon claiming your requested document at the barangay office.</p>
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@
             <button class="text-right absolute top-0 right-1" @click="remove(i)"><font-awesome-icon :icon="['fas', 'xmark']"/></button>
             <div class="text-center w-fit">
                 <!-- <font-awesome-icon :icon="['fas', 'file']" class="selected-file"/> -->
-                <p>{{file.name?file.name:''}}</p>
+                <p>{{file?file.name:''}}</p>
             </div>
         </div>
 

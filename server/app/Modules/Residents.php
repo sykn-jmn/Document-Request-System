@@ -15,7 +15,7 @@ class Residents
             'mobile_number',
             'email',
             'purok',
-            'baranggay',
+            'barangay',
             'municipality',
             'province'
         )->get();

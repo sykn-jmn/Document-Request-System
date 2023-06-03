@@ -27,7 +27,8 @@ class AdminRequestDocument{
         $requests = Request::select(
             'requests.id',
             'appointments.schedule',
-            'documents.name as document',
+            'documents.id as document_id',
+            'documents.name as document_name',
             'users.first_name',
             'users.last_name',
             'requests.status'
@@ -57,7 +58,7 @@ class AdminRequestDocument{
             'sex',
             'civil_status',
             'purok',
-            'baranggay',
+            'barangay',
             'municipality',
             'province',
             'email',
@@ -128,7 +129,7 @@ class AdminRequestDocument{
         $admin = Auth::user();
         
         Reports::create([
-            'message' =>'Request '.$strId.' (Baranggay Clearance) was approved by',
+            'message' =>'Request '.$strId.' (barangay Clearance) was '.$status. ' by',
             'name' => $admin->first_name.' '.$admin->last_name,
             'status' => $status     
         ]);

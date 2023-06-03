@@ -1,7 +1,6 @@
 <template>
   <div class="main-container">
     <h1>Request Management</h1>
-    <p class="newRequest" @click="newRequest">+ MAKE NEW REQUEST</p><br>
     <Search 
       @search="search" 
       :selected="$route.params.index" 
@@ -33,6 +32,11 @@ export default {
     },
     mounted(){
       this.fetchHistories(this.currentPage)
+    },
+    watch:{
+      '$store.state.trigger.refreshRequestTable'(){
+        this.fetchHistories()
+      }
     },
     methods:{
       newRequest(){

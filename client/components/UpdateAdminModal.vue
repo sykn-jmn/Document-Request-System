@@ -29,7 +29,7 @@
                 <p>Citizenship:</p>
                 <p class="font-semibold col-span-2">{{data.citizenship}}</p>
                 <p>Address:</p>
-                <p class="font-semibold col-span-2">{{data.purok}}, {{data.baranggay}}, {{data.municipality}}, {{data.province}}</p>
+                <p class="font-semibold col-span-2">{{data.purok}}, {{data.barangay}}, {{data.municipality}}, {{data.province}}</p>
                 <p>Zip Code:</p>
                 <p class="font-semibold col-span-2">{{data.zip_code}}</p>
             </div>

@@ -16,7 +16,7 @@
         <td>{{capitalize(resident.sex)}}</td>
         <td>{{resident.mobile_number}}</td>
         <td>{{resident.email}}</td>
-        <td>{{resident.purok+", "+resident.baranggay+", "+resident.municipality+", "+resident.province}}</td>
+        <td>{{resident.purok+", "+resident.barangay+", "+resident.municipality+", "+resident.province}}</td>
     </tr>
 
     </table>
