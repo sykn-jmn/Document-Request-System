@@ -70,7 +70,7 @@
 
                 <div class="col-span-2 text-justify pr-16 leading-normal">
                     <h2>TO WHOM IT MAY CONCERN:</h2><br>
-                    <p class="par_content">This is to certify that {{user.call_address}}. {{user.full_name}}, {{user.age}} years old {{user.civil_status}} Filipino citizen and a resident of {{user.purok}}, {{user.barangay}}, {{user.municipality}}, {{user.province}} for the ___ years.</p><br>
+                    <p class="par_content">This is to certify that {{user.call_address}}. {{user.full_name}}, {{getAge(user.birthdate)}} years old {{user.civil_status}} Filipino citizen and a resident of {{user.purok}}, {{user.barangay}}, {{user.municipality}}, {{user.province}} for the ___ years.</p><br>
 
                     <p class="par_content">Furthermore, the above-mentioned resident has n derogatory record and the following are her data as per record:</p><br>
 
@@ -100,32 +100,33 @@ import moment from 'moment'
 import jsPDF from'jspdf'
 import backgroundImage from '~/assets/images/Maranding_Logo.png'
 export default {
+    props:['user'],
  data(){
         return{
             spinning:false,
-            user:{
-                full_name: 'Jhumer Ojales Apus',
-                age:'23',
-                sex: 'male',
-                civil_status:'single',
-                call_address:'Mr.',
-                purok:'Purok-9',
-                barangay:'Maranding',
-                municipality:'Lala',
-                province:'Lanao Del Norte',
-                pronouns:'he',
-                pronouns_second:'his',
-                purpose:'scholarship',
-                birthdate:'2000-02-22',
-                birthplace:'Cubao, Quezon City',
-                mothers_firstname:'Jeniza',
-                mothers_middlename:'Ihan',
-                mothers_lastname:'Ojales',
-                fathers_firstname:'Rumer',
-                fathers_middlename:'Dadole',
-                fathers_lastname:'Apus'
+            // user:{
+            //     full_name: 'Jhumer Ojales Apus',
+            //     age:'23',
+            //     sex: 'male',
+            //     civil_status:'single',
+            //     call_address:'Mr.',
+            //     purok:'Purok-9',
+            //     barangay:'Maranding',
+            //     municipality:'Lala',
+            //     province:'Lanao Del Norte',
+            //     pronouns:'he',
+            //     pronouns_second:'his',
+            //     purpose:'scholarship',
+            //     birthdate:'2000-02-22',
+            //     birthplace:'Cubao, Quezon City',
+            //     mothers_firstname:'Jeniza',
+            //     mothers_middlename:'Ihan',
+            //     mothers_lastname:'Ojales',
+            //     fathers_firstname:'Rumer',
+            //     fathers_middlename:'Dadole',
+            //     fathers_lastname:'Apus'
 
-            }
+            // }
         }
     },
 mounted(){
@@ -133,6 +134,18 @@ mounted(){
 },
 
 methods:{
+    getAge(birthdate){
+
+        var today = new Date();
+        var birthDate = new Date(birthdate);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+
+    },
     capitalize(word){
         return word.charAt(0).toUpperCase() + word.slice(1)
     },

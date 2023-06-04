@@ -52,6 +52,8 @@
             <div class="info-box">
                 <p>Mother's Maiden Name:</p>
                 <p class="font-semibold col-span-2">{{data.mothers_firstname}} {{data.mothers_middlename}} {{data.mothers_lastname}}</p>
+                <p>Father's Name:</p>
+                <p class="font-semibold col-span-2">{{data.fathers_firstname}} {{data.fathers_middlename}} {{data.fathers_lastname}}</p>
             </div>
             <div class="md:flex m-auto w-fit space-x-2">
                 <button class="w-fit bg-slate-300 px-16 py-1 rounded-md" @click="$emit('close')">Back</button>

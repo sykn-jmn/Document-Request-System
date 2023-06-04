@@ -45,6 +45,9 @@
             <label><input type="text" v-model="data.mothers_lastname" required>Last Name</label>
             <label><input type="text" v-model="data.mothers_firstname" required>First Name</label>
             <label class="end-row" ><input type="text" v-model="data.mothers_middlename" required>Middle Name</label>
+            <label><input type="text" v-model="data.fathers_lastname" required>Last Name</label>
+            <label><input type="text" v-model="data.fathers_firstname" required>First Name</label>
+            <label class="end-row" ><input type="text" v-model="data.fathers_middlename" required>Middle Name</label>
             <!-- <h2 class="col-span-3">Password</h2>
             <label><input type="password" v-model="newPassword" min="8">New Password</label>
             <div class="flex">

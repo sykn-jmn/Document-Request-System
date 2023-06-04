@@ -67,6 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::prefix('residents')->group(function(){
             Route::get('get-all-residents/{filter}',[ResidentController::class, 'index']);
+            Route::get('get-resident-details',[ResidentController::class, 'getResidentDetails']);
         });
         
         Route::prefix('account')->group(function(){

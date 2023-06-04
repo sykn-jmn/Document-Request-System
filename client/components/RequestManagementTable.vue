@@ -9,7 +9,7 @@
             <th>Requested Status</th>
         </thead>
    
-    <tr v-for="request in data" :key="request.id" @click="view(request.id,request.status,request.document_id)" class="cursor-pointer">
+    <tr v-for="request in data" :key="request.id" @click="view(request.id,request.status,request.document_id, request.user_id)" class="cursor-pointer">
         <td>#{{renderID(request.id)}}</td>
         <td>{{numericDate(request.schedule)}}</td>
         <td>{{request.document_name}}</td>
@@ -23,11 +23,11 @@
     <RequestModal :details="details" v-if="showRequestModal" @closeModal="showRequestModal = false"/>
     <ApprovedModal :details="details" v-if="showApprovedModal" @closeModal="closeApproveModal" @viewDocument="generatePDF"/>
     <div id="content">
-        <BarangayPermit v-if="doc_id == 2"/>
-        <BarangayClearance v-if="doc_id == 3"/>
-        <BarangayClearanceBusiness v-if="doc_id == 4"/>
-        <BarangayCeritificateResidency v-if="doc_id == 5"/>
-        <BarangayCeritificateIndigency v-if="doc_id == 6"/>
+        <BarangayPermit v-if="doc_id == 2" :user="user"/>
+        <BarangayClearance v-if="doc_id == 3" :user="user"/>
+        <BarangayClearanceBusiness v-if="doc_id == 4" :user="user"/>
+        <BarangayCeritificateResidency v-if="doc_id == 5" :user="user"/>
+        <BarangayCeritificateIndigency v-if="doc_id == 6" :user="user"/>
     </div>
     
     
@@ -49,6 +49,7 @@ export default {
             spinning:false,
             status:'pending',
             doc_id:'',
+            user:'',
         }
     },
     methods:{
@@ -111,7 +112,7 @@ export default {
             }
             return id
         },
-        async view(id,status,doc_id){
+        async view(id,status,doc_id, user_id){
             this.spinning = true
              await this.$axios.get('/admin/request/get-request/'+id).then(response=>{
                     this.details = response.data
@@ -119,7 +120,7 @@ export default {
                     if(status =='pending'){
                         this.showRequestModal = true
                     }else if(status == 'approved'){
-                        this.doc_id = doc_id
+                        this.getResidentDetails(user_id,doc_id)
                         this.showApprovedModal = true
                     }
                     this.spinning = false
@@ -127,8 +128,15 @@ export default {
                     console.log(err)
                     this.spinning = false
                 })
-
-            
+        },
+        async getResidentDetails(user_id,doc_id){
+            var params = {
+                user_id:user_id
+            }
+            await this.$axios.get('/admin/residents/get-resident-details',{params}).then(response=>{
+                this.user = response.data
+                this.doc_id = doc_id
+            })
         },
     }
 

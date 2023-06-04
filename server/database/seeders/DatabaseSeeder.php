@@ -37,6 +37,9 @@ class DatabaseSeeder extends Seeder
             'mothers_firstname' => 'Jeniza',
             'mothers_middlename' => 'Ihan',
             'mothers_lastname' => 'Ojales',
+            'fathers_firstname' => 'Rumir',
+            'fathers_middlename' => 'Dadole',
+            'fathers_lastname' => 'Apus',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789'),
         ]);

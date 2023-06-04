@@ -11,4 +11,7 @@ class ResidentController extends Controller
     public function index(Residents $residents, $filter){
         return $residents->getAllResidents($filter);
     }
+    public function getResidentDetails(Residents $resident, Request $request){
+        return $resident->getResidentDetails($request);
+    }
 }

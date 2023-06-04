@@ -36,6 +36,12 @@
                     <input type="text" id="middlename" name="middlename" v-model="data.mothers_middlename" placeholder="Middle Name" required>
                     <input type="text" id="lastname" name="lasttname" v-model="data.mothers_lastname" placeholder="Last Name" required>
                 </div><br>
+                <label>Father's Name</label>
+                <div class="input-container">
+                    <input type="text" id="firstname" name="firstname" v-model="data.fathers_firstname" placeholder="First Name" required>
+                    <input type="text" id="middlename" name="middlename" v-model="data.fathers_middlename" placeholder="Middle Name" required>
+                    <input type="text" id="lastname" name="lasttname" v-model="data.fathers_lastname" placeholder="Last Name" required>
+                </div><br>
                 <input type="tel" id="phone_number" name="phone_number" v-model="data.mobile_number" placeholder="Mobile Number (09XXXXXXXXX)" min="11" pattern="[0-9]{11}" required><br><br>
                 <input type="email" id="email" name="email" v-model="data.email" placeholder="Email Address" required>
                 <p class="error">{{errorEmail}}</p><br>
@@ -98,6 +104,9 @@ export default {
                 mothers_firstname:'',
                 mothers_middlename:'',
                 mothers_lastname:'',
+                fathers_firstname:'',
+                fathers_middlename:'',
+                fathers_lastname:'',
                 password:'',
             }
 

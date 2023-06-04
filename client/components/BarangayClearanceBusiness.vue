@@ -16,7 +16,7 @@
                 <h1>BARANGAY CLEARANCE</h1>
                 <h1 class="variation">(BUSINESS)</h1>
             </div>
-            <div class="grid grid-cols-3 gap-x-8 bg-transparent mt-20">
+            <div class="grid grid-cols-3 gap-x-8 bg-transparent mt-16">
                 <div class="pl-16">
                     <div class="par">
                         <p class="officials_name">Hon. Jeoffy M.Fung</p>
@@ -69,9 +69,9 @@
                 </div>
 
                 <div class="col-span-2 text-justify pr-16 leading-normal">
-                    <p class="par_content"><b>BUSINESS CLEARANCE</b> is hereby granted to {{user.full_name}}, {{user.age}} years old, {{capitalize(user.sex)}}, {{capitalize(user.civil_status)}} and is a bona-fide resident of {{user.purok}}, {{user.barangay}}, {{user.municipality}}, {{user.province}}, owner of the business named _____________________________________ located at Purok _________, Maranding, Lala, Lanao del Norte, upon payment of the required license fees, subject to provisions of existing laws, unless sooner revoked or canceled for</p><br>
+                    <p class="par_content"><b>BUSINESS CLEARANCE</b> is hereby granted to {{user.full_name}}, {{getAge(user.birthdate)}} years old, {{capitalize(user.sex)}}, {{capitalize(user.civil_status)}} and is a bona-fide resident of {{user.purok}}, {{user.barangay}}, {{user.municipality}}, {{user.province}}, owner of the business named _____________________________________ located at Purok _________, Maranding, Lala, Lanao del Norte, upon payment of the required license fees, subject to provisions of existing laws, unless sooner revoked or canceled for</p><br>
 
-                    <p class="par_content"><b>THIS CLEARANCE,</b>together with the official receipts issued by the office of the Barangay Treaurer shall be displayed in conspicuous place where the business is being conducted.</p><br>
+                    <p class="par_content"><b>THIS CLEARANCE, </b>together with the official receipts issued by the office of the Barangay Treaurer shall be displayed in conspicuous place where the business is being conducted.</p><br>
 
                     <p class="par_content">Givin this <span class="font-bold">{{currentDate()}} day of {{currentMonth()}}, {{currentYear()}}</span> at Barangay Maranding, Lala, Lanao del Norte, Philippines</p><br>
 
@@ -95,30 +95,52 @@ import moment from 'moment'
 import jsPDF from'jspdf'
 import backgroundImage from '~/assets/images/Maranding_Logo.png'
 export default {
+    props:['user'],
  data(){
         return{
             spinning:false,
-            user:{
-                full_name: 'Jhumer Ojales Apus',
-                age:'23',
-                sex: 'male',
-                civil_status:'single',
-                call_address:'Mr.',
-                purok:'Purok-9',
-                barangay:'Maranding',
-                municipality:'Lala',
-                province:'Lanao Del Norte',
-                pronouns:'he',
-                purpose:'scholarship'
+            // user:{
+            //     full_name: 'Jhumer Ojales Apus',
+            //     age:'23',
+            //     sex: 'male',
+            //     civil_status:'single',
+            //     call_address:'Mr.',
+            //     purok:'Purok-9',
+            //     barangay:'Maranding',
+            //     municipality:'Lala',
+            //     province:'Lanao Del Norte',
+            //     pronouns:'he',
+            //     pronouns_second:'his',
+            //     purpose:'scholarship',
+            //     birthdate:'2000-02-22',
+            //     birthplace:'Cubao, Quezon City',
+            //     mothers_firstname:'Jeniza',
+            //     mothers_middlename:'Ihan',
+            //     mothers_lastname:'Ojales',
+            //     fathers_firstname:'Rumer',
+            //     fathers_middlename:'Dadole',
+            //     fathers_lastname:'Apus'
 
-            }
+            // }
         }
     },
 mounted(){
-
+    
 },
 
 methods:{
+    getAge(birthdate){
+
+        var today = new Date();
+        var birthDate = new Date(birthdate);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+
+    },
     capitalize(word){
         return word.charAt(0).toUpperCase() + word.slice(1)
     },

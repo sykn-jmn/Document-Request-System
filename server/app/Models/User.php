@@ -33,6 +33,9 @@ class User extends Authenticatable
         'mothers_firstname',
         'mothers_middlename',
         'mothers_lastname',
+        'fathers_firstname',
+        'fathers_middlename',
+        'fathers_lastname',
         'email_code',
         'password',
     ];

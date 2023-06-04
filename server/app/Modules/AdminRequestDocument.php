@@ -26,6 +26,7 @@ class AdminRequestDocument{
         
         $requests = Request::select(
             'requests.id',
+            'requests.user_id',
             'appointments.schedule',
             'documents.id as document_id',
             'documents.name as document_name',

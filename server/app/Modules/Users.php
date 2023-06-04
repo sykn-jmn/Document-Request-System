@@ -61,6 +61,9 @@ class Users
             'mothers_firstname' => 'required|string',
             'mothers_middlename' => 'required|string',
             'mothers_lastname' => 'required|string',
+            'fathers_firstname' => 'required|string',
+            'fathers_middlename' => 'required|string',
+            'fathers_lastname' => 'required|string',
             'password' => 'required|string|min:8',
         );
 
@@ -85,6 +88,9 @@ class Users
             'mothers_firstname' => $payload->mothers_firstname,
             'mothers_middlename' => $payload->mothers_middlename,
             'mothers_lastname' => $payload->mothers_lastname,
+            'fathers_firstname' => $payload->fathers_firstname,
+            'fathers_middlename' => $payload->fathers_middlename,
+            'fathers_lastname' => $payload->fathers_lastname,
             'password' => bcrypt($payload->password),
         );
 
@@ -209,6 +215,9 @@ class Users
             'mothers_firstname' => 'required|string',
             'mothers_middlename' => 'required|string',
             'mothers_lastname' => 'required|string',
+            'fathers_firstname' => 'required|string',
+            'fathers_middlename' => 'required|string',
+            'fathers_lastname' => 'required|string',
             'password' => 'nullable|string|min:8',
         );
 
@@ -239,6 +248,9 @@ class Users
             'mothers_firstname' => $payload->mothers_firstname,
             'mothers_middlename' => $payload->mothers_middlename,
             'mothers_lastname' => $payload->mothers_lastname,
+            'fathers_firstname' => $payload->fathers_firstname,
+            'fathers_middlename' => $payload->fathers_middlename,
+            'fathers_lastname' => $payload->fathers_lastname,
         );
 
         if($payload->password){

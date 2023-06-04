@@ -104,30 +104,51 @@ import moment from 'moment'
 import jsPDF from'jspdf'
 import backgroundImage from '~/assets/images/Maranding_Logo.png'
 export default {
+ props:['user'],
  data(){
         return{
             spinning:false,
-            user:{
-                full_name: 'Jhumer Ojales Apus',
-                age:'23',
-                sex: 'male',
-                civil_status:'single',
-                call_address:'Mr.',
-                purok:'Purok-9',
-                barangay:'Maranding',
-                municipality:'Lala',
-                province:'Lanao Del Norte',
-                pronouns:'he',
-                purpose:'scholarship'
+            // user:{
+            //     full_name: 'Jhumer Ojales Apus',
+            //     age:'23',
+            //     sex: 'male',
+            //     civil_status:'single',
+            //     call_address:'Mr.',
+            //     purok:'Purok-9',
+            //     barangay:'Maranding',
+            //     municipality:'Lala',
+            //     province:'Lanao Del Norte',
+            //     pronouns:'he',
+            //     pronouns_second:'his',
+            //     purpose:'scholarship',
+            //     birthdate:'2000-02-22',
+            //     birthplace:'Cubao, Quezon City',
+            //     mothers_firstname:'Jeniza',
+            //     mothers_middlename:'Ihan',
+            //     mothers_lastname:'Ojales',
+            //     fathers_firstname:'Rumer',
+            //     fathers_middlename:'Dadole',
+            //     fathers_lastname:'Apus'
 
-            }
+            // }
         }
     },
 mounted(){
-
 },
 
 methods:{
+    getAge(birthdate){
+
+        var today = new Date();
+        var birthDate = new Date(birthdate);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+
+    },
     capitalize(word){
         return word.charAt(0).toUpperCase() + word.slice(1)
     },

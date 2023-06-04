@@ -48,6 +48,8 @@
     <div class="info-box">
       <p>Mother's Maiden Name:</p>
       <p class="font-semibold col-span-2">{{mothersFirstname}} {{mothersMiddlename}} {{mothersLastname}}</p>
+      <p>Father's Maiden Name:</p>
+      <p class="font-semibold col-span-2">{{fathersFirstname}} {{fathersMiddlename}} {{fathersLastname}}</p>
     </div>
     <Spin v-if="spinning"/>
   </div>  
@@ -78,6 +80,9 @@ export default {
       mothersLastname:'',
       mothersFirstname:'',
       mothersMiddlename:'',
+      fathersLastname:'',
+      fathersFirstname:'',
+      fathersMiddlename:'',
       spinning:false
     }
   },
@@ -112,6 +117,9 @@ export default {
             this.mothersLastname=response.data.mothers_lastname
             this.mothersFirstname=response.data.mothers_firstname
             this.mothersMiddlename=response.data.mothers_middlename
+            this.fathersLastname=response.data.fathers_lastname
+            this.fathersFirstname=response.data.fathers_firstname
+            this.fathersMiddlename=response.data.fathers_middlename
           }
         ).then(response=>{
             this.spinning = false
