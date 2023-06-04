@@ -153,7 +153,7 @@ export default {
             })
         },
         async viewFile(filename){
-            await this.$axios.get('/user/requests/get-pdf/'+filename,{responseType: 'blob'}).then(response=>{
+            await this.$axios.get('/user/request/get-pdf/'+filename,{responseType: 'blob'}).then(response=>{
                 const blob = new Blob([response.data],{type: "application/pdf"})
                 const objectUrl = window.URL.createObjectURL(blob)
                 window.open(objectUrl);

@@ -39,16 +39,31 @@
             </div>
         </div>
         <hr class="w-full"><br>
-        <div class="grid-cols-2">
-            <div class="p-4 border flex justify-between border-slate-500 mt-2 items-center">
-                <p>{{details.document_name}}</p>
-                <button class="text-white bg-blue-400 py-2 px-4 rounded-md flex space-x-2 items-center" @click="$emit('viewDocument')"><font-awesome-icon :icon="['fas', 'eye']" /><p>View</p></button>
+        <div class="grid grid-cols-3 gap-x-8">
+            <div class="col-span-2">
+                <h1><b>Requested Document</b></h1>
+                <div class="p-4 border flex justify-between border-slate-500 mt-2 items-center h-fit">
+                    <p>{{details.document_name}}</p>
+                    <button class="text-white bg-blue-400 py-2 px-4 rounded-md flex space-x-2 items-center" @click="$emit('viewDocument')" v-if="details.document_name!='Cedula'"><font-awesome-icon :icon="['fas', 'eye']" /><p>View</p></button>
+                </div>
             </div>
-            <div></div>
+            <div class="grid grid-cols-2 gap-x-4 border border-slate-500 p-4">
+                <h2>Particular</h2>
+                <h2>Amount</h2>
+                <p>{{details.document_name}}</p>
+                <p>{{details.document_fee}}</p>
+                <p><b>Total</b></p>
+                <p>{{details.document_fee}}</p>
+
+            </div>
+        </div><br>
+        <div class="m-auto flex w-fit space-x-4 items-center">
+            <input type="checkbox" v-on:change="changeCheck" class="w-fit">
+            <p>Document successfully printed</p>
         </div><br>
         <div class="w-fit m-auto space-x-4">
             <button class="bg-slate-300 p-2 w-32" @click="$emit('closeModal')">Cancel</button>
-            <button class="bg-blue-500 p-2 w-32 text-white">Complete</button>
+            <button class="bg-blue-500 p-2 w-32 text-white" @click="complete">Complete</button>
         </div>
     </div>
     <Spin v-if="spinning"/>
@@ -67,27 +82,20 @@ export default {
             currentPath:'',
             comment:'',
             spinning:false,
+            comment:''
+
         }
     },
     mounted(){
 
     },
     methods:{
-        async submit(status,request_number){
-            this.spinning =true
-            var params = {
-                id: this.details.id,
-                status: status,
-                comment:this.comment,
-
+        changeCheck(e){
+            if(e.target.checked){
+                this.comment = "Document succesfully printed"
+            }else{
+                this.comment = ''
             }
-            await this.$axios.put('/admin/request/update-status',params).then(response=>{
-                this.$emit('closeModal')
-                this.spinning =false
-            }).catch(err=>{
-                this.$emit('closeModal')
-                this.spinning =false
-            })
         },
         async viewFile(filename){
             await this.$axios.get('/admin/request/get-pdf/'+filename,{responseType: 'blob'}).then(response=>{
@@ -102,7 +110,6 @@ export default {
 
         },
         renderID(id){
-            console.log(id)
             const charID = id.toString()
             if(charID.length<6){
                 const zerosToAdd = 6 - charID.length
@@ -133,6 +140,20 @@ export default {
         },
         getStringDate(date){
             return moment(date).format('MMMM DD, yyyy')
+        },
+        async complete(){
+            var params ={
+                id: this.details.id,
+                status: 'completed',
+                comment: this.comment,
+            }
+            await this.$axios.put('/admin/request/update-status', params).then(response=>{
+                this.$store.commit('trigger/updateRefreshRequestTable',this.$store.state.trigger.refreshRequestTable+1)
+                this.$emit('closeModal')
+            }).catch(err=>{
+                this.$store.commit('trigger/updateRefreshRequestTable',this.$store.state.trigger.refreshRequestTable+1)
+                this.$emit('closeModal')
+            })
         }
     }
 }

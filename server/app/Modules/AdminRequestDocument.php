@@ -70,7 +70,9 @@ class AdminRequestDocument{
             'valid_ids.original_name as id_name',
             'valid_ids.path as id_path',
             'valid_ids.type as id_type',
-            'documents.name as document_name'
+            'documents.name as document_name',
+            'documents.id as document_id',
+            'documents.fee as document_fee'
         )
         ->join('documents','documents.id','=','requests.document_id')
         ->join('valid_ids','valid_ids.id','=','requests.valid_id')
@@ -109,7 +111,7 @@ class AdminRequestDocument{
     public function updateRequestStatus($payload){
         $id = $payload->id;
         $status = $payload->status;
-        $comment = $payload->comemnt;
+        $comment = $payload->comment;
 
         Request::where('id', $id)->update([
             'status' => $status,
