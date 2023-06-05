@@ -3,7 +3,7 @@
         <div class="w-full">
             <div class="w-full h-80 border border-dashed border-black relative">
                 <label :for="id" class="w-full h-full p-0 cursor-pointer mb-8">
-                    <input type="file" :id="id" v-on:change="onChange" ref="file"/>
+                    <input type="file" :id="id" v-on:change="onChange" ref="file" accept="application/pdf, image/jpg, image/png"/>
                     <div class="icon-wrapper">
                         <font-awesome-icon :icon="['fas', 'file-import']" class="text-blue-500 file-icon"/><br><br>
                         <p>Drop your file here or <span class="text-blue-500 font-semibold">Browse</span></p>

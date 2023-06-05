@@ -238,6 +238,8 @@ class RequestDocument{
             'purpose',
             'schedule',
             'meridiem',
+            'valid_ids.id as id_id',
+            'valid_ids.filename as id_filename',
             'valid_ids.original_name as id_name',
             'valid_ids.path as id_path',
             'valid_ids.type as id_type',

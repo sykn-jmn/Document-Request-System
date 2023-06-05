@@ -45,9 +45,15 @@
                     <div v-if="details.id_type=='image'" class="doc-wrapper">
                         <div class="flex items-center space-x-4 w-fit">
                             <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
-                            <p class="font-semibold">{{details.id_name}}</p>
+                            <p class="font-semibold">{{reupload_id.name?reupload_id.name:details.id_name}}</p>
                         </div>
-                        <button class="view-file" @click="showImage(details.id_path)">View</button>
+                        <div>
+                            <button class="view-file" @click="showImage(details.id_path)">View</button>
+                            <label for="reupload" class="reupload">
+                                Reupload
+                                <input type="file" id="reupload" accept="application/pdf, image/jpg, image/png" v-on:change="reupload" hidden> 
+                            </label>
+                        </div>
                     </div>
                     
                     <div v-if="details.id_type=='pdf'"></div>
@@ -59,7 +65,10 @@
                             <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
                             <p class="font-semibold">{{document.original_name}}</p>
                         </div>
-                        <button class="view-file" @click="showImage(document.path)">View</button>
+                        <div class="">
+                            <button class="view-file" @click="showImage(document.path)">View</button>
+                            <button class="delete">Delete</button>
+                        </div>
                     </div>
                     
                     <div v-if="document.type=='pdf'" class="doc-wrapper">
@@ -67,7 +76,10 @@
                             <font-awesome-icon :icon="['fas', 'file-pdf']" style="color: #880bcb;" />
                             <p class="font-semibold">{{document.original_name}}</p>
                         </div>
-                        <button class="view-file" @click="viewFile(document.filename)">View</button>
+                        <div class="">
+                            <button class="view-file" @click="viewFile(document.filename)">View</button>
+                            <button class="delete">Delete</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,7 +99,7 @@
             </button>
         </div>
     </div>
-    <ViewImage v-if="viewImage" :path="currentPath" @closeImage="viewImage=false"/>
+    <ViewImage v-if="viewImage" :path="currentPath" @closeImage="viewImage=false" :reupload="isReupload"/>
     <ReschedModal v-if="reschedModal" @close="reschedModal = false" @selectedDate="selectedDate"/>
     <Spin v-if="spinning"/>
   </div>
@@ -110,6 +122,12 @@ export default {
             meridiem:'',
             document_id:'',
             documents:'',
+            reupload_id:'',
+            reupload_id_path:'',
+            isReupload:false,
+            remove_id:'',
+
+            
 
         }
     },
@@ -127,6 +145,19 @@ export default {
 
     },
     methods:{
+        reupload(e){
+            this.reupload_id = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                this.isReupload = true
+                this.reupload_id_path = e.target.result
+
+                this.remove_id.filename = this.details.id_filename
+                this.remove_id.id = this.details.id_id
+            };
+            reader.readAsDataURL(this.reupload_id);
+        },
+        
         async getDocuments(){
             this.spinning = true
             await this.$axios.get('/user/request/documents').then(response=>{
@@ -138,12 +169,16 @@ export default {
         },
         async updateRequest(){
             this.spinning = true
+            let formData = new FormData()
+            formData.append("valid_id", this.reupload_id);
             var params ={
                 id: this.details.id,
                 document_id: this.document_id,
                 schedule: this.date,
                 meridiem: this.meridiem,
-                purpose: this.purpose
+                purpose: this.purpose,
+                remove_id: this.remove_id,
+                // formData:formData
             }
             await this.$axios.put('/user/request/update-request', params).then(response=>{
                 this.spinning = false
@@ -160,7 +195,7 @@ export default {
             })
         },  
         showImage(path){
-            this.currentPath = path
+            this.currentPath = this.reupload_id_path?this.reupload_id_path:path
             this.viewImage = true
 
         },
@@ -222,6 +257,9 @@ h2{
 .view-file{
     @apply py-2 px-4 rounded-md bg-blue-500 text-white
 }
+.delete{
+    @apply py-2 px-4 rounded-md bg-red-500 text-white
+}
 .status-button{
     @apply py-2 w-36 rounded-md
 }
@@ -230,6 +268,9 @@ h2{
 }
 .status-wrapper{
     @apply flex items-center space-x-4 w-fit m-auto
+}
+.reupload{
+    @apply py-2 px-4 rounded-md bg-slate-300 text-black cursor-pointer h-full
 }
 
 </style>

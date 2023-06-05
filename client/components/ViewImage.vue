@@ -16,11 +16,14 @@
 <script>
 export default {
     emits:['closeImage'],
-    props:['path'],
+    props:['path','reupload'],
     methods:{
         getImgUrl(){
-          let imgUrl = require("../../server/storage/app/public/"+this.path)
-        return imgUrl
+          if(this.reupload){
+            return this.path
+          }else{
+            return require("../../server/storage/app/public/"+this.path)
+          }
       }
     }
 }
