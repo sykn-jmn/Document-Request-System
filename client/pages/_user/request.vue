@@ -35,7 +35,6 @@ export default {
             this.$store.commit('request/updateFormData', {
                 formData: new FormData(),
             });
-            console.log(this.$store.state.request.formData)
     },
     methods:{
         nextPage(){

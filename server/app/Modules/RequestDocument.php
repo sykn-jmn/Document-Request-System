@@ -253,6 +253,8 @@ class RequestDocument{
         ->join('appointments','appointments.request_id','=','requests.id')
         ->with('request_supporting_dcouments')
         ->where('requests.id',$id)->first();
+
+        Log::info($requestDetails);
         return response()->json($requestDetails);
 
     }
@@ -260,27 +262,69 @@ class RequestDocument{
         return Storage::get('public/supporting_documents/'.$filename);
     }
     public function updateRequest($payload){
-        $id = $payload->id;
+        $request_id = $payload->request_id;
         $document_id = $payload->document_id;
         $schedule = $payload->schedule;
         $meridiem = $payload->meridiem;
         $purpose = $payload->purpose;
+        $remove_id = json_decode($payload->remove_id);
+        $remove_files = json_decode($payload->remove_files);
+        $supporting_document = $payload->supporting_document;
 
         DB::beginTransaction();
 
-        $requestTransaction = Request::where('requests.id', $id)->update([
+        //update valid id
+        if($remove_id){
+            $isOldIdExist = Storage::exists('public/valid_ids/'.$remove_id->filename);
+        }
+        if($payload->valid_id && $remove_id && $isOldIdExist){
+            $storeIdTransaction = $this->storeValidID($payload);
+            $deletePreviousIdTransaction = ValidID::where('id', $remove_id->id)->delete();
+            $updateIdTransaction = Request::where('requests.id', $request_id)->update(['valid_id'=> $storeIdTransaction->id]);
+        }
+
+        //update supporting documents
+        for($i = 0; $i<count($supporting_document); $i++){
+            if(gettype($supporting_document[$i]) != 'string'){
+                $supportingDocumentTransaction = $this->storeSupportingDocument($i,$payload);
+                $requestSupportingDocumentTransaction = $this->storeRequestSupportingDocument($request_id, $supportingDocumentTransaction->id);
+            }
+        }
+
+        //remove from supporting documents
+        for($i = 0; $i<count($remove_files); $i++){
+            if(Storage::exists($remove_files[$i]->filename)){
+                Storage::delete('public/supporting_documents/'.$remove_files[$i]->filename);
+            }
+            RequestSupportingDocument::where('supporting_document_id',$remove_files[$i]->id)->delete();
+            SupportingDocument::where('id',$remove_files[$i]->id)->delete();
+        }
+
+
+
+        $requestTransaction = Request::where('id', $request_id)->update([
             'document_id'=> $document_id,
-            'purpose'=>$purpose
+            'purpose'=>$purpose,
+            'updated_at'=>now()
         ]);
 
-        $appointmentTransaction = Appointment::where('request_id', $id)->update([
+        $appointmentTransaction = Appointment::where('request_id', $request_id)->update([
             'schedule' => $schedule,
             'meridiem' => $meridiem
         ]);
 
-        if(!$requestTransaction || !$appointmentTransaction){
-            DB::rollback();
-            return response()->json(['message'=>'failed to update'],500);
+        // if(!$requestTransaction || !$appointmentTransaction || !$storeIdTransaction || !$deletePreviousIdTransaction || !$updateIdTransaction){
+        //     DB::rollback();
+        //     return response()->json([
+        //         'request'=>$requestTransaction,
+        //         'appointment' => $appointmentTransaction,
+        //         'store_id' => $storeIdTransaction ,
+        //         'delete_id' => $deletePreviousIdTransaction,
+        //         'update_id' => $updateIdTransaction
+        //     ],500);
+        // }
+        if($remove_id && $isOldIdExist){
+            Storage::delete('public/valid_ids/'.$remove_id->filename);
         }
         DB::commit();
         return response()->json(['message'=>'update request succesfully']);

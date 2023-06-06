@@ -51,34 +51,38 @@
                             <button class="view-file" @click="showImage(details.id_path)">View</button>
                             <label for="reupload" class="reupload">
                                 Reupload
-                                <input type="file" id="reupload" accept="application/pdf, image/jpg, image/png" v-on:change="reupload" hidden> 
+                                <input type="file" id="reupload" accept="application/pdf, image/jpg, image/png, image/jpeg" v-on:change="reupload" hidden> 
                             </label>
                         </div>
                     </div>
                     
                     <div v-if="details.id_type=='pdf'"></div>
                 </div><br>
-                <h2>Supporting Documents</h2>
-                <div class="doc-container" v-for="document in details.request_supporting_dcouments" :key="document.id">
-                    <div v-if="document.type=='image'" class="doc-wrapper">
+                <h2>Supporting Documents</h2><br>
+                <label for="supporting_documents" class="reupload">
+                    Add Files
+                    <input type="file" id="supporting_documents" accept="application/pdf, image/jpg, image/png, image/jpeg" v-on:change="addFiles" multiple hidden> 
+                </label>
+                <div class="doc-container" v-for="(document,i) in supporting_documents" :key="i">
+                    <div v-if="document.type=='image' || document.type.split('/')[0] =='image'" class="doc-wrapper">
                         <div class="flex items-center space-x-4 w-fit">
                             <font-awesome-icon :icon="['fas', 'image']" style="color: #dd5a03;" />
-                            <p class="font-semibold">{{document.original_name}}</p>
+                            <p class="font-semibold">{{document.original_name?document.original_name:document.name}}</p>
                         </div>
                         <div class="">
-                            <button class="view-file" @click="showImage(document.path)">View</button>
-                            <button class="delete">Delete</button>
+                            <button class="view-file" @click="showImage(document.path)" v-if="document.path">View</button>
+                            <button class="delete" @click="deleteFile(i)">Delete</button>
                         </div>
                     </div>
                     
-                    <div v-if="document.type=='pdf'" class="doc-wrapper">
+                    <div v-if="document.type=='pdf' || document.type.split('/')[1] =='pdf'" class="doc-wrapper">
                         <div class="flex items-center space-x-4 w-fit">
                             <font-awesome-icon :icon="['fas', 'file-pdf']" style="color: #880bcb;" />
-                            <p class="font-semibold">{{document.original_name}}</p>
+                            <p class="font-semibold">{{document.original_name?document.original_name:document.name}}</p>
                         </div>
                         <div class="">
-                            <button class="view-file" @click="viewFile(document.filename)">View</button>
-                            <button class="delete">Delete</button>
+                            <button class="view-file" @click="viewFile(document.filename)" v-if="document.filename">View</button>
+                            <button class="delete" @click="deleteFile(i)">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -126,8 +130,8 @@ export default {
             reupload_id_path:'',
             isReupload:false,
             remove_id:'',
-
-            
+            supporting_documents:[],
+            remove_files:[],
 
         }
     },
@@ -136,6 +140,7 @@ export default {
         this.date = this.details.schedule
         this.meridiem = this.details.meridiem 
         this.document_id = this.details.document_id
+        this.supporting_documents = this.details.request_supporting_dcouments
 
         this.getDocuments()
 
@@ -147,15 +152,38 @@ export default {
     methods:{
         reupload(e){
             this.reupload_id = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                this.isReupload = true
-                this.reupload_id_path = e.target.result
 
-                this.remove_id.filename = this.details.id_filename
-                this.remove_id.id = this.details.id_id
-            };
-            reader.readAsDataURL(this.reupload_id);
+            if(this.reupload_id){
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.isReupload = true
+                    this.reupload_id_path = e.target.result
+
+                    this.remove_id = {
+                        id:this.details.id_id,
+                        filename:this.details.id_filename
+
+                    }
+                };
+                reader.readAsDataURL(this.reupload_id);
+            }
+        },
+        addFiles(e){
+            const files = e.target.files
+            
+            if(files && files.length>0){
+                for(let i = 0; i<files.length; i++){
+                    // let type = files[i].type.split('/')[0] == 'image'? 'image': 'pdf'
+                    this.supporting_documents.push(files[i])
+                }
+            }
+        },
+        deleteFile(i){
+            let removedFile = this.supporting_documents.splice(i,1)
+            this.remove_files.push({
+                id:removedFile[0].id,
+                filename: removedFile[0].filename
+            })
         },
         
         async getDocuments(){
@@ -169,18 +197,28 @@ export default {
         },
         async updateRequest(){
             this.spinning = true
-            let formData = new FormData()
-            formData.append("valid_id", this.reupload_id);
-            var params ={
-                id: this.details.id,
-                document_id: this.document_id,
-                schedule: this.date,
-                meridiem: this.meridiem,
-                purpose: this.purpose,
-                remove_id: this.remove_id,
-                // formData:formData
+                    const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
             }
-            await this.$axios.put('/user/request/update-request', params).then(response=>{
+          }
+            let formData = new FormData()
+            formData.append('request_id', JSON.stringify(this.details.id))
+            formData.append('document_id', this.document_id)
+            formData.append('schedule', this.date)
+            formData.append('meridiem', this.meridiem)
+            formData.append('purpose', this.purpose)
+            formData.append("valid_id", this.reupload_id);
+            formData.append('remove_id', JSON.stringify(this.remove_id))
+            for (let i = 0; i < this.supporting_documents.length; i++) {
+                formData.append(
+                    "supporting_document[" + i + "]",
+                    this.supporting_documents[i]
+                );
+            }
+            formData.append('remove_files', JSON.stringify(this.remove_files))
+
+            await this.$axios.post('/user/request/update-request', formData,config).then(response=>{
                 this.spinning = false
                 this.$emit('updated')
             }).catch(err=>{
@@ -270,7 +308,8 @@ h2{
     @apply flex items-center space-x-4 w-fit m-auto
 }
 .reupload{
-    @apply py-2 px-4 rounded-md bg-slate-300 text-black cursor-pointer h-full
+    @apply py-2 px-4 rounded-md bg-slate-200 text-black cursor-pointer
 }
+
 
 </style>
