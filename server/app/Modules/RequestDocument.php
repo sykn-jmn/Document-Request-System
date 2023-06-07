@@ -254,7 +254,6 @@ class RequestDocument{
         ->with('request_supporting_dcouments')
         ->where('requests.id',$id)->first();
 
-        Log::info($requestDetails);
         return response()->json($requestDetails);
 
     }
@@ -270,6 +269,7 @@ class RequestDocument{
         $remove_id = json_decode($payload->remove_id);
         $remove_files = json_decode($payload->remove_files);
         $supporting_document = $payload->supporting_document;
+        $status = $payload->status;
 
         DB::beginTransaction();
 

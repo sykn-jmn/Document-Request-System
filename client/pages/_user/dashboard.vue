@@ -107,7 +107,7 @@ export default {
     layout: 'user',
     data(){
         return{
-            countRequest:''
+            countRequest:'',
         }
     },
     mounted(){
@@ -124,7 +124,7 @@ export default {
             ).catch(err =>{
                 console.log(err)
             })
-        }
+        },
     }
 }
 </script>

@@ -96,13 +96,14 @@
                     <p>Cancel</p>
                 </div>
             </button>
-            <button class="bg-blue-500 status-button text-white" @click="updateRequest" :disabled="details.status != 'pending'">
+            <button class="bg-blue-500 status-button text-white" @click="confirmModal = true" :disabled="details.status != 'pending'">
                 <div class="status-wrapper">
                     <p>Save</p>
                 </div>
             </button>
         </div>
     </div>
+    <ConfirmationModal message="Are you sure you want to update your request?" @close="confirmModal = false" @yes="updateRequest" v-if="confirmModal" />
     <ViewImage v-if="viewImage" :path="currentPath" @closeImage="viewImage=false" :reupload="isReupload"/>
     <ReschedModal v-if="reschedModal" @close="reschedModal = false" @selectedDate="selectedDate"/>
     <Spin v-if="spinning"/>
@@ -132,6 +133,7 @@ export default {
             remove_id:'',
             supporting_documents:[],
             remove_files:[],
+            confirmModal:false,
 
         }
     },
@@ -210,15 +212,17 @@ export default {
             formData.append('purpose', this.purpose)
             formData.append("valid_id", this.reupload_id);
             formData.append('remove_id', JSON.stringify(this.remove_id))
+            formData.append('remove_files', JSON.stringify(this.remove_files))
+            formData.append('status', this.details.status)
             for (let i = 0; i < this.supporting_documents.length; i++) {
                 formData.append(
                     "supporting_document[" + i + "]",
                     this.supporting_documents[i]
                 );
             }
-            formData.append('remove_files', JSON.stringify(this.remove_files))
 
             await this.$axios.post('/user/request/update-request', formData,config).then(response=>{
+                this.confirmModal = false
                 this.spinning = false
                 this.$emit('updated')
             }).catch(err=>{

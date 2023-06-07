@@ -18,7 +18,7 @@
         <td>{{request.comments}}</td>
         <td>{{numericDate(request.updated_date)}}</td>
         <td>
-            <button class="hover:text-blue-900 w-full" @click="resubmit" v-if="request.status == 'rejected'">Submit Missing Documents</button>
+            <p v-if="request.status == 'rejected'">Submit Missing Documents</p>
             <p v-if="request.status=='completed'">Pick up document</p>
         </td>
         <td>
@@ -33,7 +33,7 @@
     <div>
         <span></span>
     </div>
-    <ConfirmationModal :message="message" @close="confirmModal = false" @delete="deleteRequest" v-if="confirmModal" />
+    <ConfirmationModal :message="message" @close="confirmModal = false" @yes="deleteRequest" v-if="confirmModal" />
     <ViewRequestModal v-if="viewModal" @close="viewModal = false" @updated="updated" :details="details"/>
     <Spin v-if="spinning" />
   </div>

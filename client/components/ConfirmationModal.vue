@@ -6,7 +6,7 @@
         <p>{{message}}</p><br>
         <div class="m-auto space-x-4">
             <button class="bg-slate-200 w-32 py-2" @click="$emit('close')">No</button>
-            <button class="bg-red-500 text-white w-32 py-2" @click="$emit('delete')">Yes</button>
+            <button class="bg-red-500 text-white w-32 py-2" @click="$emit('yes')">Yes</button>
         </div>
     </div>
   </div>
