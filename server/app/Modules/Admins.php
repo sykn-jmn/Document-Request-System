@@ -39,7 +39,7 @@ class Admins
         $emailCode = $this->generateCode(). $user->id;
         $storeCodeTransaction = Admin::where('id', $user->id)->update(['email_code'=> $emailCode]);
 
-        $url = 'http://localhost:3000/verify-account/'.$emailCode;
+        $url = env('APP_URL').'/verify-account/'.$emailCode;
         $details = (object) array(
             'email' => $payload->email,
             'class' => new SignUp($url)
@@ -106,7 +106,7 @@ class Admins
         DB::commit();
         
         //send verification email
-        $url = 'http://localhost:3000/verify-account/'.$emailCode;
+        $url = env('APP_URL').'/verify-account/'.$emailCode;
 
         $details = (object) array(
             'email' => $payload->email,

@@ -35,7 +35,7 @@ export default {
 
   axios: {
     credentials: true,
-    baseURL: "http://localhost:8000/api",
+    baseURL: process.env.API_BASE_URL,
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -51,7 +51,7 @@ export default {
           required: true,
           global: true,
         },
-        url: "http://localhost:8000/api",
+        url: process.env.API_BASE_URL,
         endpoints: {
           login: { url: "/auth/login", method: "post" },
           logout: { url: "/auth/logout", method: "post" },
@@ -68,7 +68,7 @@ export default {
           required: true,
           global: true,
         },
-        url: "http://localhost:8000/api",
+        url: process.env.API_BASE_URL,
         endpoints: {
           login: { url: "/auth/admin/login", method: "post" },
           logout: { url: "/auth/logout", method: "post" },
