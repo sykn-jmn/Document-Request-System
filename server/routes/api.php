@@ -90,6 +90,9 @@ Route::middleware('auth:sanctum')->group(function () {
         
     });
 });
+Route::post('/stored', function(){
+    return response()->json([['message'=>'hii']]);
+});
 
 Route::prefix('user')->group(function(){
     Route::post('/store', [UserController::class, 'store']);
@@ -105,14 +108,6 @@ Route::prefix('user')->group(function(){
 Route::get('send-code', [AdminController::class, 'sendCode']);
 Route::put('verify-account', [AdminController::class, 'verify']);
 Route::get('/verify-code-password', [AdminController::class, 'verifyCodePassword']);
-
-
-Route::get('/test/get-pdf',function(){
-    $file = Storage::get('public/supporting_documents/1683819565_RESUME - APUS.pdf');
-    return $file;
-    
-    // return response()->json(['path'=>$link]);
-});
 
 
 
