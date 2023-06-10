@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    zlib1g-dev
+    zlib1g-dev \
+    libpng-dev
 
 # Install PHP extensions required by Laravel
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
