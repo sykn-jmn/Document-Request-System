@@ -39,7 +39,7 @@ class Users
         $emailCode = $this->generateCode(). $user->id;
         $storeCodeTransaction = User::where('id', $user->id)->update(['email_code'=> $emailCode]);
 
-        $url = env('APP_URL').'/verify-account/'.$emailCode;
+        $url = env('FRONTEND_URL').'/verify-account/'.$emailCode;
         $details = (object) array(
             'email' => $payload->email,
             'class' => new SignUp($url)
@@ -112,7 +112,7 @@ class Users
         DB::commit();
         
         //send verification email
-        $url = env('APP_URL').'/verify-account/'.$emailCode;
+        $url = env('FRONTEND_URL').'/verify-account/'.$emailCode;
 
         $details = (object) array(
             'email' => $payload->email,

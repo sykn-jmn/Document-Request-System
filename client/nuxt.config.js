@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   server: {
-    host: "192.168.254.200", // default: localhost
+    host: process.env.APP_URL, // default: localhost
   },
   head: {
     title: "client",
@@ -60,7 +60,7 @@ export default {
           logout: { url: "/auth/logout", method: "post" },
           user: { url: "/auth/user", method: "get" },
         },
-        redirect: { home: "/user/request" },
+        // redirect: { home: "/user/request" },
       },
       adminAuth: {
         provider: "laravel/sanctum",
