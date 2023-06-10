@@ -182,7 +182,7 @@ export default {
             else{
                 this.error = ""
                 let params = this.data
-                this.$axios.post('/user/store', params).then(response =>{
+                this.$axios.post('/api/user/store', params).then(response =>{
                     this.secondForm = false
                     this.isAccountCreated = true
                     this.spinning=false
