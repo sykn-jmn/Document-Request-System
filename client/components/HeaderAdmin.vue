@@ -30,7 +30,7 @@ export default {
             )
         },
         getImgUrl(){
-            const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/Maranding_Logo.png")
+            const imgUrl = this.profilePicPath? require("../storage/app/public/"+this.profilePicPath): require("~/assets/images/Maranding_Logo.png")
         return imgUrl
       }
     }

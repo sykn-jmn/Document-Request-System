@@ -22,7 +22,7 @@ export default {
           if(this.reupload){
             return this.path
           }else{
-            return require("../../server/storage/app/public/"+this.path)
+            return require("../storage/app/public/"+this.path)
           }
       }
     }

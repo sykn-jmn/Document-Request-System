@@ -36,7 +36,7 @@ export default {
             }else{
                 this.defaultPath = "Female_Icon.png"
             }
-            const imgUrl = this.profilePicPath? require("../../server/storage/app/public/"+this.profilePicPath): require("~/assets/images/"+this.defaultPath)
+            const imgUrl = this.profilePicPath? require("../storage/app/public/"+this.profilePicPath): require("~/assets/images/"+this.defaultPath)
         return imgUrl
       }
     }
