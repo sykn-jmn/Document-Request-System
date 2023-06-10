@@ -12,10 +12,17 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     zlib1g-dev \
-    libpng-dev
+    libpng-dev \
+    libzip-dev
 
 # Install PHP extensions required by Laravel
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+
+# Install the correct version of libzip
+RUN pecl install -o -f zip
+
+# Enable the installed PHP extension
+RUN docker-php-ext-enable zip
 
 # Install Node.js and NPM
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
